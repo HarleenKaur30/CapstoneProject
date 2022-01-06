@@ -24,7 +24,7 @@ return (
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.textInput}
           placeholder="Email"
           placeholderTextColor= "#003f5c"
           onChangeText={(email) => setEmail(email)}
