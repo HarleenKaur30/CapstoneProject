@@ -1,3 +1,7 @@
+
+/* This screen opens if the customer is not logged in and wishes to login in (has already registered)*/
+
+
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
@@ -19,9 +23,10 @@ const [password, setPassword] = useState("");
 
 return (
 <View style={styles.container}>
-      <Image style={styles.image} source={require("../assets/logo.jpg")} />
+      <Image style={styles.image} source={require("../assets/AIShadingLogo.jpg")} />
 
       <StatusBar style="auto" />
+      
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
@@ -46,7 +51,7 @@ return (
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text>LOGIN</Text>
       </TouchableOpacity>
     </View>
     );
@@ -60,6 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  //Style for the AI Shading logo
   image: {
     width: 124,
     height: 100,
@@ -67,6 +73,7 @@ const styles = StyleSheet.create({
     top: 100,
   },
 
+  //Style for the container that contains the Email and Password
   inputView: {
     backgroundColor: "#e6e6fa",
     borderRadius: 30,
@@ -77,6 +84,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  //Style for the text for Email and Password
   textInput: {
     height: 50,
     flex: 1,
@@ -84,11 +92,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
+  //Style for the forgot password button
   forgotButton: {
     height: 30,
     marginBottom: 30,
   },
 
+  //Style for the login button
   loginButton: {
     width: "80%",
     borderRadius: 25,
