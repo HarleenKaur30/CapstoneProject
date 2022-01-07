@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import LoginScreen from "./app/screens/LoginScreen";
+import HomeScreen from "./app/screens/HomeScreen";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -11,8 +12,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+
 export default function App() {
-  return <LoginScreen />;
+  return < HomeScreen />; //This renders the LoginScreen.js code
+
 }
 
  
