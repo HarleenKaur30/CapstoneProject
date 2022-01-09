@@ -11,9 +11,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import colors from "../config/colors";
 
 /* This tab navigator is responsible for the navigation of tabs */
-
 const Tab = createBottomTabNavigator();
 
+//Defines the tabs in the tab bar
 function Tabs() {
     return (
       <Tab.Navigator
