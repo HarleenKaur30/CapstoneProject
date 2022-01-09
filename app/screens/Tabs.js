@@ -15,6 +15,7 @@ function Tabs() {
     return (
       <Tab.Navigator
         initialRouteName="Home"
+        options={{ headerShown: false }}
         screenOptions={{
           tabBarActiveTintColor: colors.darkorange,
         }}
