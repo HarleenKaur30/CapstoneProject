@@ -15,7 +15,6 @@ import {
 } from "react-native";
 
 
-
 function LoginScreen(props) {
 
 const [email, setEmail] = useState("");
@@ -56,6 +55,7 @@ return (
     </View>
     );
 }
+
  
 const styles = StyleSheet.create({
   container: {
