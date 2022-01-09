@@ -1,3 +1,5 @@
+/* This screen creates differents tabs for the tab bar: Home, Add Device, Schedule, Automation */
+
 import * as React from 'react';
 import HomeScreen from './HomeScreen';
 import AddDeviceScreen from './AddDeviceScreen';
@@ -8,6 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import colors from "../config/colors";
 
+/* This tab navigator is responsible for the navigation of tabs */
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +18,7 @@ function Tabs() {
     return (
       <Tab.Navigator
         initialRouteName="Home"
-        options={{ headerShown: false }}
+
         screenOptions={{
           tabBarActiveTintColor: colors.darkorange,
         }}
