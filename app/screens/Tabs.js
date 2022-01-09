@@ -1,4 +1,4 @@
-/* This screen creates differents tabs for the tab bar: Home, Add Device, Schedule, Automation */
+/* This file creates differents tabs for the tab bar: Home, Add Device, Schedule, Automation */
 
 import * as React from 'react';
 import HomeScreen from './HomeScreen';
