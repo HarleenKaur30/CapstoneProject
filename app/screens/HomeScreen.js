@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, SafeAreaView, Button, Platform } from 'react-native';
 import Tabs from '../screens/Tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 
 
 function HomeScreen({navigation}) {
