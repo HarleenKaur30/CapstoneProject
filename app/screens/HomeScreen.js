@@ -1,39 +1,37 @@
 import React from 'react';
-import { Text, View, SafeAreaView, Button, Platform } from 'react-native';
+import { Text, View, SafeAreaView, Platform, StyleSheet, TouchableOpacity,Image } from 'react-native';
+import colors from "../../app/config/colors";
+import Button from "../components/Button"; 
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 function HomeScreen({navigation}) {
-
     return (
-        <SafeAreaView>
-            <Text>Home Screen</Text>
+        <SafeAreaView  style = {styles.container}>
+        <MaterialIcons style = {styles.icon} name="library-add" size={60} color="lightgray" />
 
-            < Button
-             title="Go to Test"
-            onPress={() => navigation.navigate("Test")}
+            <Button 
+            title="Add Device"
+            onPress={() => navigation.navigate("Add Device")}
              />
-
         </SafeAreaView>
-
 
     );
 }
 
-/* const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    input: {
-        height: 48,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        marginTop: 10,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 30,
-        paddingLeft: 16
+    
+    icon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom:15,
     },
-}); */
+
+}); 
 
 export default HomeScreen;
