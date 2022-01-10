@@ -4,6 +4,10 @@ import TestScreen from "./app/screens/TestScreen";
 import Tabs from "./app/screens/Tabs";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
+import AddDeviceScreen from "./app/screens/AddDeviceScreen";
+import colors from './app/config/colors';
+
+
 
 
 //This navigator is responsible for moving across different stack screens
@@ -17,9 +21,11 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Tabs} options={{ headerShown: false }}  />
+      <Stack.Navigator  initialRouteName= "Tabs" >
+        <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }}   />
+        <Stack.Screen name="Add Device" component={AddDeviceScreen} />
         <Stack.Screen name="Test" component={TestScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
