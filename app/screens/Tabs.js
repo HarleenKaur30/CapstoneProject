@@ -29,7 +29,8 @@ function Tabs() {
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="home" color={color} size={size} />
+              <MaterialIcons name="home" color={color} size={size} 
+              />
             ),
           }}
         />
