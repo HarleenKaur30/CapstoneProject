@@ -2,9 +2,12 @@ export default {
   maxNumberOfHouses: 5,
   maxNumberOfBlinds: 10,
   houses: {
-    number: 3,
+    number: 2,
     house1: {
       blinds: 7,
+      blind1: {
+        name: "Bedroom",
+      },
     },
     house2: {
       blinds: 9,
