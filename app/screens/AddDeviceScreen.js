@@ -26,7 +26,7 @@ function AddDeviceScreen({ navigation, houseName }) {
       <TouchableOpacity
         style={styles.addHouse}
         onPress={() => {
-          values.maxNumberOfHouses === values.houses
+          values.maxNumberOfHouses === values.houses.number
             ? Alert.alert(
                 "House Could Not Be Added",
                 "The maximum number of houses have already been added using this device.",
@@ -48,7 +48,7 @@ function AddDeviceScreen({ navigation, houseName }) {
       <TouchableOpacity
         style={styles.addBlinds}
         onPress={() => {
-          values.maxNumberOfBlinds === values["house1"]["blinds"]
+          values.maxNumberOfBlinds === values.houses.house1.blinds
             ? Alert.alert(
                 "Blinds Could Not Be Added",
                 "The maximum number of blinds have already been added to this house.",
