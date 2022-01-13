@@ -1,20 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  NativeModules,
-  SafeAreaView,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
-  rel="stylesheet"
-/>;
+import { StyleSheet, NativeModules, SafeAreaView, Text } from "react-native";
 
 import colors from "../config/colors";
 import values from "../config/values";
@@ -28,12 +13,12 @@ function AddBlindsScreen(props) {
       <Picker
         selectedValue={country}
         onValueChange={(value, index) => setCountry(value)}
-        mode="dialogue" // Android only
+        mode="dialogue"
         style={styles.picker}
       >
         <Picker.Item label="Please select your country" value="Unknown" />
         <Picker.Item label={values.houses.house1.name} value="Australia" />
-        <Picker.Item label="Belgium" value="Belgium" />
+        <Picker.Item label={values.houses.house2.name} value="Belgium" />
         <Picker.Item label="Canada" value="Canada" />
         <Picker.Item label="India" value="India" />
         <Picker.Item label="Japan" value="Japan" />
