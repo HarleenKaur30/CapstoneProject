@@ -15,12 +15,11 @@ import { MaterialIcons } from "@expo/vector-icons";
   href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
   rel="stylesheet"
 />;
-//import RNPickerSelect from "react-native-picker-select";
 
 import colors from "../config/colors";
 import values from "../config/values";
 
-function AddDeviceScreen({ navigation, houseName }) {
+function AddDeviceScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
@@ -48,7 +47,7 @@ function AddDeviceScreen({ navigation, houseName }) {
       <TouchableOpacity
         style={styles.addBlinds}
         onPress={() => {
-          values.maxNumberOfBlinds === values.houses.house1.blinds
+          values.maxNumberOfBlinds === values["houses"]["house1"]["blinds"]
             ? Alert.alert(
                 "Blinds Could Not Be Added",
                 "The maximum number of blinds have already been added to this house.",
