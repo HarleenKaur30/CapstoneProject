@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     padding: "5%",
   },
   text: {
-    color: colors.dark,
+    color: colors.black,
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
