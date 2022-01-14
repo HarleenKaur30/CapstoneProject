@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     alignItems: "center",
+    padding: "5%",
     //paddingTop: Platform.OS === "android" ? StatusBarManager.HEIGHT : 0,
   },
   locationWrapper: {
@@ -79,8 +80,8 @@ const styles = StyleSheet.create({
   },
   mapmarkerContainer: {
     position: "absolute",
-    right: "62%",
-    top: "2%"
+    right: "70%",
+    top: "4.5%"
   },
   usualtempWrapper: {
     paddingTop: 50,
