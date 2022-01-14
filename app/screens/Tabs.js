@@ -36,7 +36,7 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="Houses"
+        name="Your Houses"
         component={ChooseHouseScreen}
         options={{
           tabBarLabel: "Houses",
