@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 <link
   href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
   rel="stylesheet"
@@ -42,7 +42,7 @@ function AddDeviceScreen({ navigation }) {
           size={50}
           style={styles.plusContainer}
         />
-        <MaterialIcons name="home" size={150} color={colors.orange} />
+        <FontAwesome5 name="home" size={150} color={colors.orange} />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.addBlinds}
