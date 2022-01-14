@@ -47,13 +47,7 @@ function AddDeviceScreen({ navigation }) {
       <TouchableOpacity
         style={styles.addBlinds}
         onPress={() => {
-          values.maxNumberOfBlinds === values["houses"]["house1"]["blinds"]
-            ? Alert.alert(
-                "Blinds Could Not Be Added",
-                "The maximum number of blinds have already been added to this house.",
-                [{ text: "Ok" }]
-              )
-            : navigation.navigate("Add Blinds");
+          navigation.navigate("Choose House");
         }}
       >
         <View style={styles.textContainer}>
@@ -103,7 +97,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    //paddingTop: Platform.OS === "android" ? StatusBarManager.HEIGHT : 0,
     padding: "5%",
   },
   text: {
