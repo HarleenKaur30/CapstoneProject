@@ -6,7 +6,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddDeviceScreen from "./app/screens/AddDeviceScreen";
 import AddHouseScreen from "./app/screens/AddHouseScreen";
-import AddBlindsScreen from "./app/screens/AddBlindsScreen";
+import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
+import FindBlindsScreen from "./app/screens/FindBlindsScreen";
 import colors from "./app/config/colors";
 
 //This navigator is responsible for moving across different stack screens
@@ -28,7 +29,8 @@ export default function App() {
         <Stack.Screen name="Add Device" component={AddDeviceScreen} />
         <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen name="Add House" component={AddHouseScreen} />
-        <Stack.Screen name="Add Blinds" component={AddBlindsScreen} />
+        <Stack.Screen name="Choose House" component={ChooseHouseScreen} />
+        <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
