@@ -8,17 +8,11 @@ import AddDeviceScreen from "./app/screens/AddDeviceScreen";
 import AddHouseScreen from "./app/screens/AddHouseScreen";
 import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
 import FindBlindsScreen from "./app/screens/FindBlindsScreen";
-import MyHousesScreen from "./app/screens/MyHousesScreen";
+import HousesScreen from "./app/screens/HousesScreen";
+import BlindsScreen from "./app/screens/BlindsScreen";
 import colors from "./app/config/colors";
 
-import {
-  Text,
-  View,
-  SafeAreaView,
-  Button,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
+import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 //This navigator is responsible for moving across different stack screens
@@ -52,15 +46,11 @@ export default function App() {
         <Stack.Screen
           name="Choose House"
           component={ChooseHouseScreen}
-          options={{
-            title: "Add Blinds",
-            headerStyle: { backgroundColor: colors.orangered },
-            headerTintColor: colors.white,
-          }}
+          options={{ title: "Add Blinds" }}
         />
         <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
-        <Stack.Screen name="My Houses" component={MyHousesScreen} />
-
+        <Stack.Screen name="Houses" component={HousesScreen} />
+        <Stack.Screen name="Blinds" component={BlindsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

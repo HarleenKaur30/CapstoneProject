@@ -11,4 +11,5 @@ export default {
   darkorange: "#ff8c00",
   orange: `#ffa500`,
   orangered: `#ff4500`,
+  orangeyellow: "#d39f09",
 };
