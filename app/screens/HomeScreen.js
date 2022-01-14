@@ -18,7 +18,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import HousesScreen from "./HousesScreen";
 
 const HomeScreen = ({ navigation }) => {
-  const [houseCount, setHouseCount] = useState(!values.houses.number); //! adding for testing purposes
+  const [houseCount, setHouseCount] = useState(values.houses.number);
 
   if (houseCount) {
     return (
@@ -35,9 +35,7 @@ const HomeScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("Add Device")}
         />
 
-        <Button
-          title="My Houses"
-          onPress={() => navigation.navigate("My Houses")} />
+        <Button title="Houses" onPress={() => navigation.navigate("Houses")} />
       </SafeAreaView>
     );
   } else {
