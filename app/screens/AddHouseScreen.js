@@ -1,57 +1,66 @@
 import React, { useState } from "react";
-import { Text, View, NativeModules, StyleSheet, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  NativeModules,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
-import DropDownPicker from 'react-native-dropdown-picker'
+import DropDownPicker from "react-native-dropdown-picker";
 import AppTextInput from "../components/AppTextInput";
 
 function AddHouseScreen(props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Edmonton', value: 'Edmonton'},
-    {label: 'Calgary', value: 'Calgary'},
-    {label: 'Toronto', value: 'Toronto'},
-    {label: 'Vancouver', value: 'Vancouver'},
+    { label: "Edmonton", value: "Edmonton" },
+    { label: "Calgary", value: "Calgary" },
+    { label: "Toronto", value: "Toronto" },
+    { label: "Vancouver", value: "Vancouver" },
   ]);
 
   return (
     <View style={styles.container}>
-      
       <View style={styles.locationWrapper}>
-      <Text style={styles.sectionTitle}>Location</Text>
+        <Text style={styles.sectionTitle}>Location</Text>
       </View>
 
       <MaterialCommunityIcons
-          name="map-marker"
-          size={40}
-          style={styles.mapmarkerContainer}
-          color={colors.orange}
-        />
+        name="map-marker"
+        size={40}
+        style={styles.mapmarkerContainer}
+        color={colors.orange}
+      />
 
       <DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems} />
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+      />
 
       <View style={styles.usualtempWrapper}>
-      <Text style={styles.sectionTitle}>Usual Temperature</Text>
+        <Text style={styles.sectionTitle}>Usual Temperature</Text>
       </View>
-      
-      <AppTextInput placeholder="Input Temperature (degrees Celsius)" icon="thermometer"/>
+
+      <AppTextInput
+        placeholder="Input Temperature (degrees Celsius)"
+        icon="thermometer"
+      />
 
       <View style={styles.desiredtempWrapper}>
-      <Text style={styles.sectionTitle}>Desired Temperature</Text>
+        <Text style={styles.sectionTitle}>Desired Temperature</Text>
       </View>
 
-      
-      <AppTextInput placeholder="Input Temperature (degrees Celsius)" icon="thermometer"/>
-
-
+      <AppTextInput
+        placeholder="Input Temperature (degrees Celsius)"
+        icon="thermometer"
+      />
     </View>
   );
 }
@@ -71,7 +80,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   picker: {
     height: 10,
@@ -81,7 +90,7 @@ const styles = StyleSheet.create({
   mapmarkerContainer: {
     position: "absolute",
     right: "70%",
-    top: "4.5%"
+    top: "4.5%",
   },
   usualtempWrapper: {
     paddingTop: 50,
@@ -90,8 +99,7 @@ const styles = StyleSheet.create({
   desiredtempWrapper: {
     paddingTop: 50,
     paddingBottom: 20,
-  }
-
+  },
 });
 
 export default AddHouseScreen;
