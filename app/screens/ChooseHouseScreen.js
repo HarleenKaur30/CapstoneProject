@@ -24,7 +24,7 @@ function ChooseHouseScreen({ navigation }) {
                     "The maximum number of blinds have already been added to this house.",
                     [{ text: "Ok" }]
                   )
-                : navigation.navigate("Find Blinds", { ...item.title })
+                : navigation.navigate("Find Blinds", { house: item.title })
             }
           />
         )}
