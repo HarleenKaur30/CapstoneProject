@@ -15,6 +15,7 @@ import values from "../../app/config/values";
 import Button from "../components/Button";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Card } from "react-native-elements";
+import ChooseHouseScreen from "./ChooseHouseScreen";
 
 const HomeScreen = ({ navigation }) => {
   const [houseCount, setHouseCount] = useState(values.houses.number);
@@ -36,21 +37,7 @@ const HomeScreen = ({ navigation }) => {
       </SafeAreaView>
     );
   } else {
-    return (
-      <SafeAreaView style={styles.container}>
-        <MaterialIcons
-          style={styles.icon}
-          name="library-add"
-          size={60}
-          color="lightgray"
-        />
-
-        <Button
-          title="Add Device"
-          onPress={() => navigation.navigate("Add Device")}
-        />
-      </SafeAreaView>
-    );
+    return <ChooseHouseScreen />;
   }
 };
 
