@@ -10,6 +10,8 @@ import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
 import FindBlindsScreen from "./app/screens/FindBlindsScreen";
 import HousesScreen from "./app/screens/HousesScreen";
 import BlindsScreen from "./app/screens/BlindsScreen";
+import BlindsInformationScreen from "./app/screens/BlindsInformationScreen";
+import QRCodeScreen from "./app/screens/QRCodeScreen";
 import colors from "./app/config/colors";
 
 import { TouchableOpacity } from "react-native";
@@ -51,6 +53,11 @@ export default function App() {
         <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
         <Stack.Screen name="Houses" component={HousesScreen} />
         <Stack.Screen name="Blinds" component={BlindsScreen} />
+        <Stack.Screen name="QR Scanner" component={QRCodeScreen} />
+        <Stack.Screen
+          name="Blinds Information"
+          component={BlindsInformationScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
