@@ -1,22 +1,42 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableHighlight } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import colors from "../config/colors";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-function ListHouse({ houseName, numberBlinds, onPress }) {
+function ListHouse({
+  houseName,
+  numberBlinds,
+  onPress,
+  onLongPress,
+  renderRightActions,
+  renderLeftActions,
+}) {
   return (
-    <TouchableHighlight onPress={onPress} underlayColor={colors.silvergray}>
-      <View style={styles.container}>
-        <FontAwesome5 name="home" size={40} color={colors.orange} />
-        <View style={styles.textContainer}>
-          <Text style={styles.houseNameText}>{houseName}</Text>
-          <Text style={styles.blindsText}>
-            Number of Blinds: {numberBlinds}/10
-          </Text>
-        </View>
-      </View>
-    </TouchableHighlight>
+    <GestureHandlerRootView>
+      <Swipeable
+        renderRightActions={renderRightActions}
+        renderLeftActions={renderLeftActions}
+      >
+        <TouchableHighlight
+          onPress={onPress}
+          onLongPress={onLongPress}
+          underlayColor={colors.silvergray}
+        >
+          <View style={styles.container}>
+            <FontAwesome5 name="home" size={40} color={colors.orange} />
+            <View style={styles.textContainer}>
+              <Text style={styles.houseNameText}>{houseName}</Text>
+              <Text style={styles.blindsText}>
+                Number of Blinds: {numberBlinds}/10
+              </Text>
+            </View>
+          </View>
+        </TouchableHighlight>
+      </Swipeable>
+    </GestureHandlerRootView>
   );
 }
 
