@@ -36,17 +36,6 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="Your Houses"
-        component={ChooseHouseScreen}
-        options={{
-          tabBarLabel: "Houses",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome5 name="house-user" size={size} color={color} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
         name="Add Device"
         component={AddDeviceScreen}
         options={{
