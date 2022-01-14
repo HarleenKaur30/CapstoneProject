@@ -8,6 +8,8 @@ import AddDeviceScreen from "./app/screens/AddDeviceScreen";
 import AddHouseScreen from "./app/screens/AddHouseScreen";
 import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
 import FindBlindsScreen from "./app/screens/FindBlindsScreen";
+import AddBlindsScreen from "./app/screens/AddBlindsScreen";
+import MyHousesScreen from "./app/screens/MyHousesScreen";
 import colors from "./app/config/colors";
 
 import {
@@ -58,6 +60,9 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
+        <Stack.Screen name="Add Blinds" component={AddBlindsScreen} />
+        <Stack.Screen name="My Houses" component={MyHousesScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
