@@ -42,14 +42,14 @@ function AddHouseScreen(props) {
       <Text style={styles.sectionTitle}>Usual Temperature</Text>
       </View>
       
-      <AppTextInput placeholder="Input Temperature" icon="thermometer"/>
+      <AppTextInput placeholder="Input Temperature (degrees Celsius)" icon="thermometer"/>
 
       <View style={styles.desiredtempWrapper}>
       <Text style={styles.sectionTitle}>Desired Temperature</Text>
       </View>
 
       
-      <AppTextInput placeholder="Input Temperature" icon="thermometer"/>
+      <AppTextInput placeholder="Input Temperature (degrees Celsius)" icon="thermometer"/>
 
 
     </View>
