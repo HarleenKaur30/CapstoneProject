@@ -4,7 +4,6 @@ import { Text, StyleSheet, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import colors from "../config/colors";
-import Button from "../components/Button";
 
 function QRCodeScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -23,10 +22,20 @@ function QRCodeScreen({ navigation }) {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return (
+      <View style={styles.permissionContainer}>
+        <Text style={styles.text}>Requesting permission to use camera.</Text>
+      </View>
+    );
   }
   if (hasPermission === false) {
-    return <Text>No access to camera.</Text>;
+    return (
+      <View style={styles.permissionContainer}>
+        <Text style={styles.text}>
+          No access to camera. Please choose another method to find your blinds.
+        </Text>
+      </View>
+    );
   }
 
   return (
@@ -45,6 +54,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: "5%",
     alignItems: "center",
+  },
+  permissionContainer: {
+    backgroundColor: colors.white,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "5%",
+  },
+  text: {
+    color: colors.black,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
   },
 });
 
