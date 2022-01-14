@@ -17,9 +17,7 @@ function HousesScreen({ navigation }) {
           <ListHouse
             houseName={item.name}
             numberBlinds={item.numberBlinds}
-            onPress={() =>
-              navigation.navigate("Find Blinds", { ...item.title })
-            }
+            onPress={() => navigation.navigate("Blinds", { house: item.title })}
           />
         )}
         ItemSeparatorComponent={ListItemSeperator}
