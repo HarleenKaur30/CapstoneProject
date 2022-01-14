@@ -1,35 +1,45 @@
 import React from "react";
 import {
-  Text,
-  View,
   SafeAreaView,
-  Platform,
   StyleSheet,
-  TouchableOpacity,
+  Text,
+  ScrollView,
+  FlatList,
+  View,
   Image,
+  TextInput,
 } from "react-native";
+import { useState, useEffect } from "react";
 import colors from "../../app/config/colors";
 import values from "../../app/config/values";
 import Button from "../components/Button";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Card } from "react-native-elements";
+import ChooseHouseScreen from "./ChooseHouseScreen";
 
-function HomeScreen({ navigation }) {
-  return (
-    <SafeAreaView style={styles.container}>
-      <MaterialIcons
-        style={styles.icon}
-        name="library-add"
-        size={60}
-        color="lightgray"
-      />
+const HomeScreen = ({ navigation }) => {
+  const [houseCount, setHouseCount] = useState(values.houses.number);
 
-      <Button
-        title="Add Device"
-        onPress={() => navigation.navigate("Add Device")}
-      />
-    </SafeAreaView>
-  );
-}
+  if (!houseCount) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <MaterialIcons
+          style={styles.icon}
+          name="library-add"
+          size={60}
+          color="lightgray"
+        />
+
+        <Button
+          title="Add Device"
+          onPress={() => navigation.navigate("Add Device")}
+        />
+      </SafeAreaView>
+    );
+  } else {
+    return <ChooseHouseScreen />;
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +53,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 15,
+  },
+
+  scrolling: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
 });
 
