@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableHighlight } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
@@ -8,7 +8,7 @@ function ListHouse({ houseName, numberBlinds, onPress }) {
   return (
     <TouchableHighlight onPress={onPress} underlayColor={colors.silvergray}>
       <View style={styles.container}>
-        <MaterialIcons name="home" size={40} color={colors.orange} />
+        <FontAwesome5 name="home" size={40} color={colors.orange} />
         <View style={styles.textContainer}>
           <Text style={styles.houseNameText}>{houseName}</Text>
           <Text style={styles.blindsText}>
