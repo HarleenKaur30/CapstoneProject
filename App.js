@@ -10,6 +10,16 @@ import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
 import FindBlindsScreen from "./app/screens/FindBlindsScreen";
 import colors from "./app/config/colors";
 
+import {
+  Text,
+  View,
+  SafeAreaView,
+  Button,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+
 //This navigator is responsible for moving across different stack screens
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +34,16 @@ export default function App() {
         <Stack.Screen
           name="Tabs"
           component={Tabs}
-          options={{ headerShown: false }}
+          options={({ navigation }) => ({
+            headerShown: false,
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Add Device")}
+              >
+                <MaterialIcons name="add" size={30} color="black" />
+              </TouchableOpacity>
+            ),
+          })}
         />
         <Stack.Screen name="Add Device" component={AddDeviceScreen} />
         <Stack.Screen name="Test" component={TestScreen} />
