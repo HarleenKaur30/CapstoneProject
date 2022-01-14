@@ -9,29 +9,9 @@ import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
 import colors from "../config/colors";
 import values from "../config/values";
+import houses from "../config/houses";
 
 function ChooseHouseScreen({ navigation }) {
-  const houses = [
-    {
-      title: "house1",
-      id: values.houses.house1.id,
-      name: values.houses.house1.name,
-      numberBlinds: values.houses.house1.blinds,
-    },
-    {
-      title: "house2",
-      id: values.houses.house2.id,
-      name: values.houses.house2.name,
-      numberBlinds: values.houses.house2.blinds,
-    },
-    {
-      title: "house3",
-      id: values.houses.house3.id,
-      name: values.houses.house3.name,
-      numberBlinds: values.houses.house3.blinds,
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <FlatList
