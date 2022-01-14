@@ -29,7 +29,15 @@ export default function App() {
         <Stack.Screen name="Add Device" component={AddDeviceScreen} />
         <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen name="Add House" component={AddHouseScreen} />
-        <Stack.Screen name="Choose House" component={ChooseHouseScreen} />
+        <Stack.Screen
+          name="Choose House"
+          component={ChooseHouseScreen}
+          options={{
+            title: "Add Blinds",
+            headerStyle: { backgroundColor: colors.orangered },
+            headerTintColor: colors.white,
+          }}
+        />
         <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
