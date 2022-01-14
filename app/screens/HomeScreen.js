@@ -14,13 +14,13 @@ import colors from "../../app/config/colors";
 import values from "../../app/config/values";
 import Button from "../components/Button";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Card } from "react-native-elements";
-import ChooseHouseScreen from "./ChooseHouseScreen";
+//import { Card } from "react-native-elements";
+import HousesScreen from "./HousesScreen";
 
 const HomeScreen = ({ navigation }) => {
-  const [houseCount, setHouseCount] = useState(values.houses.number);
+  const [houseCount, setHouseCount] = useState(!values.houses.number); //! adding for testing purposes
 
-  if (!houseCount) {
+  if (houseCount) {
     return (
       <SafeAreaView style={styles.container}>
         <MaterialIcons
@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
       </SafeAreaView>
     );
   } else {
-    return <ChooseHouseScreen />;
+    return <HousesScreen />;
   }
 };
 

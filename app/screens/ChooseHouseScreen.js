@@ -1,9 +1,5 @@
 import React from "react";
-import { StyleSheet, Platform, FlatList, View, Alert } from "react-native";
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
-  rel="stylesheet"
-/>;
+import { StyleSheet, FlatList, View, Alert } from "react-native";
 
 import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
@@ -28,7 +24,7 @@ function ChooseHouseScreen({ navigation }) {
                     "The maximum number of blinds have already been added to this house.",
                     [{ text: "Ok" }]
                   )
-                : navigation.navigate("Find Blinds", { ...item.title })
+                : navigation.navigate("Find Blinds", { house: item.title })
             }
           />
         )}
