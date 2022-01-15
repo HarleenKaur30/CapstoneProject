@@ -24,7 +24,7 @@ function BlindsInformationScreen({ navigation, route }) {
 
   return (
     <ScrollView style={styles.container}>
-      <KeyboardAvoidingView behavior="position">
+      <KeyboardAvoidingView behavior="height">
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionText}>Blinds Information</Text>
         </View>
@@ -102,7 +102,8 @@ function BlindsInformationScreen({ navigation, route }) {
             maximumValue={1}
             minimumTrackTintColor={colors.medium}
             maximumTrackTintColor={colors.darkorange}
-            step={0.05}
+            thumbTintColor={colors.medium}
+            step={0.1}
             onValueChange={(numberValue) => setObstruction(numberValue)}
           />
         </View>
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkorange,
     marginBottom: "2%",
     width: "100%",
-    height: "0.5%",
+    height: "0.25%",
   },
   sectionText: {
     color: colors.white,
