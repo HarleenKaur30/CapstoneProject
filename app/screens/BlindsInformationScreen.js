@@ -121,7 +121,7 @@ function BlindsInformationScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.darkorange,
+    backgroundColor: colors.medium,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     paddingTop: "2%",
   },
   obstructionFullObstruction: {
-    backgroundColor: colors.dark,
+    backgroundColor: colors.medium,
     height: 50,
     width: 50,
     borderColor: colors.black,
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     //paddingBottom: "5%",
   },
   sliderText: {
-    color: colors.dark,
+    color: colors.medium,
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     textAlign: "center",
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   windowText: {
-    color: colors.dark,
+    color: colors.medium,
     fontSize: 12,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     textAlign: "center",
