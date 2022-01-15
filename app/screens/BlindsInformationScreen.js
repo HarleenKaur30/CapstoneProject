@@ -6,8 +6,9 @@ import {
   Platform,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
-//import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Slider from "@react-native-community/slider";
 
 import colors from "../config/colors";
 import AppTextInput from "../components/AppTextInput";
@@ -19,6 +20,7 @@ function BlindsInformationScreen({ navigation, route }) {
   const [storey, setStorey] = useState();
   const [height, setHeight] = useState();
   const [orientation, setOrientation] = useState();
+  const [obstruction, setObstruction] = useState();
 
   return (
     <ScrollView style={styles.container}>
@@ -74,12 +76,65 @@ function BlindsInformationScreen({ navigation, route }) {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionText}>Window Obstruction Level</Text>
         </View>
+        <View style={styles.obstructionImageContainer}>
+          <View style={styles.windowContainer}>
+            <Text style={styles.windowText}>No{"\n"}Obstruction</Text>
+            <View style={styles.obstructionNoObstruction} />
+          </View>
+          <View style={styles.windowContainer}>
+            <Text style={styles.windowText}>Half{"\n"}Obstructed</Text>
+            <View style={styles.obstructionFullObstruction}>
+              <View style={styles.obstructionHalfObstruction} />
+            </View>
+          </View>
+          <View style={styles.windowContainer}>
+            <Text style={styles.windowText}>Fully{"\n"}Obstructed</Text>
+            <View style={styles.obstructionFullObstruction} />
+          </View>
+        </View>
+        <View style={styles.sliderContainer}>
+          <Text style={styles.sliderText}>
+            Obstructed: {Number(obstruction * 100).toFixed(0)}%
+          </Text>
+          <Slider
+            style={styles.slider}
+            minimumValue={0}
+            maximumValue={1}
+            minimumTrackTintColor={colors.medium}
+            maximumTrackTintColor={colors.darkorange}
+            step={0.05}
+            onValueChange={(numberValue) => setObstruction(numberValue)}
+          />
+        </View>
+        <View style={styles.sectionEndContainer} />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Blinds")}
+        >
+          <Text style={styles.buttonText}>Finish Adding Blinds</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: colors.darkorange,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: "3.5%",
+    width: "90%",
+    marginTop: "5%",
+    marginBottom: "10%",
+    marginHorizontal: "5%",
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   container: {
     backgroundColor: colors.white,
     flex: 1,
@@ -89,6 +144,38 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
     backgroundColor: colors.white,
   },
+  obstructionImageContainer: {
+    backgroundColor: colors.white,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: "5%",
+    paddingTop: "2%",
+  },
+  obstructionFullObstruction: {
+    backgroundColor: colors.dark,
+    height: 50,
+    width: 50,
+    borderColor: colors.black,
+    borderWidth: 3,
+  },
+  obstructionHalfObstruction: {
+    width: 0,
+    height: 0,
+    backgroundColor: "transparent",
+    borderStyle: "solid",
+    borderRightWidth: 44,
+    borderTopWidth: 44,
+    borderRightColor: "transparent",
+    borderTopColor: colors.orange,
+  },
+  obstructionNoObstruction: {
+    backgroundColor: colors.orange,
+    height: 50,
+    width: 50,
+    borderColor: colors.black,
+    borderWidth: 3,
+  },
   sectionContainer: {
     backgroundColor: colors.darkorange,
     paddingHorizontal: "5%",
@@ -96,11 +183,44 @@ const styles = StyleSheet.create({
     marginBottom: "2.5%",
     width: "100%",
   },
+  sectionEndContainer: {
+    backgroundColor: colors.darkorange,
+    marginBottom: "2%",
+    width: "100%",
+    height: "0.5%",
+  },
   sectionText: {
     color: colors.white,
     fontSize: 22,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
+  },
+  slider: {
+    width: "100%",
+    height: "3%",
+  },
+  sliderContainer: {
+    paddingHorizontal: "10%",
+    //paddingBottom: "5%",
+  },
+  sliderText: {
+    color: colors.dark,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    textAlign: "center",
+    fontWeight: "bold",
+    paddingBottom: "4%",
+    paddingTop: "3%",
+  },
+  windowContainer: {
+    paddingBottom: "4%",
+    alignItems: "center",
+  },
+  windowText: {
+    color: colors.dark,
+    fontSize: 12,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    textAlign: "center",
   },
 });
 
