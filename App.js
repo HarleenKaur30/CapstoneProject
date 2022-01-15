@@ -57,6 +57,7 @@ export default function App() {
         <Stack.Screen
           name="Blinds Information"
           component={BlindsInformationScreen}
+          options={{ title: "Add Blinds" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
