@@ -14,7 +14,6 @@ import colors from "../../app/config/colors";
 import values from "../../app/config/values";
 import Button from "../components/Button";
 import { MaterialIcons } from "@expo/vector-icons";
-//import { Card } from "react-native-elements";
 import HousesScreen from "./HousesScreen";
 
 const HomeScreen = ({ navigation }) => {
