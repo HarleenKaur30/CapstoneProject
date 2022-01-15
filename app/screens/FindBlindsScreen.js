@@ -29,7 +29,9 @@ function FindBlindsScreen({ navigation }) {
                     "This functionality has not yet been added to this app.",
                     [{ text: "Ok" }]
                   )
-                : navigation.navigate("Blinds Information")
+                : navigation.navigate("Blinds Information", {
+                    blindsID: "Blinds ID",
+                  })
             }
           />
         )}
