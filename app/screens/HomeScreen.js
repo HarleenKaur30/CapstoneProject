@@ -34,8 +34,6 @@ const HomeScreen = ({ navigation }) => {
           title="Add Device"
           onPress={() => navigation.navigate("Add Device")}
         />
-
-        <Button title="Houses" onPress={() => navigation.navigate("Houses")} />
       </SafeAreaView>
     );
   } else {
