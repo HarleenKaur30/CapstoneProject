@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: "5%",
     backgroundColor: colors.white,
+    alignItems: "center",
   },
   optionNameText: {
     color: colors.dark,
