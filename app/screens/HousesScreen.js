@@ -9,10 +9,11 @@ import ListItemEditAction from "../components/ListItemEditAction";
 import colors from "../config/colors";
 import houses from "../config/houses";
 import values from "../config/values";
+import { useNavigation } from "@react-navigation/native";
 
-function HousesScreen({ navigation }) {
+function HousesScreen({}) {
   const [newHouses, setNewHouses] = useState(houses);
-
+  const navigation = useNavigation();
   const handleDelete = (message) => {
     setNewHouses(newHouses.filter((m) => m.id !== message.id));
   };
