@@ -23,13 +23,11 @@ function HousesScreen({}) {
         <FlatList
           data={newHouses}
           keyExtractor={(message) => message.id.toString()}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <ListHouse
               houseName={item.name}
               numberBlinds={item.numberBlinds}
-              onPress={() =>
-                navigation.navigate("Blinds", { house: item.title })
-              }
+              onPress={() => navigation.navigate("Blinds", { houseId: index })}
               onLongPress={() =>
                 Alert.alert(
                   "House Menu",
