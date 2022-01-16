@@ -16,8 +16,8 @@ import Button from "../components/Button";
 import { MaterialIcons } from "@expo/vector-icons";
 import HousesScreen from "./HousesScreen";
 
-const HomeScreen = ({ navigation }) => {
-  const [houseCount, setHouseCount] = useState(values.houses.number);
+function HomeScreen({ navigation }) {
+  const [houseCount, setHouseCount] = useState(!values.houses.number);
 
   if (houseCount) {
     return (
@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
   } else {
     return <HousesScreen />;
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
