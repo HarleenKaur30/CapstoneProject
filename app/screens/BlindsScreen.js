@@ -10,10 +10,11 @@ import houses from "../config/houses";
 import values from "../config/values";
 import { useNavigation } from "@react-navigation/native";
 
-function BlindsScreen({}) {
+function BlindsScreen({ route }) {
   const [newBlinds, setNewBlinds] = useState(houses);
 
   const navigation = useNavigation();
+  const { houseId } = route.params;
 
   const handleDelete = (message) => {
     setNewBlinds(newBlinds.filter((m) => m.id !== message.id));
@@ -23,7 +24,7 @@ function BlindsScreen({}) {
     <View style={styles.largeContainer}>
       <View style={styles.container}>
         <FlatList
-          data={newBlinds[0].blinds} //This 0 has to be dynamic while
+          data={newBlinds[houseId].blinds} //This 0 has to be dynamic while
           //keyExtractor={(message) => message.id.toString()}
           renderItem={({ item, index }) => (
             <ListBlind
@@ -66,7 +67,7 @@ function BlindsScreen({}) {
                   onPress={() =>
                     Alert.alert(
                       "Delete",
-                      "Are you sure you would like to delete this house?",
+                      "Are you sure you would like to delete this blind?",
                       [
                         { text: "Cancel" },
                         { text: "Yes", onPress: () => handleDelete(item) },
