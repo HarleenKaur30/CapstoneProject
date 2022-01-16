@@ -2,7 +2,7 @@ export default {
   maxNumberOfHouses: 5,
   maxNumberOfBlinds: 10,
   houses: {
-    number: 2,
+    number: 3,
     house1: {
       id: 1,
       name: "House",
