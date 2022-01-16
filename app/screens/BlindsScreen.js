@@ -23,13 +23,13 @@ function BlindsScreen({}) {
     <View style={styles.largeContainer}>
       <View style={styles.container}>
         <FlatList
-          data={newBlinds}
+          data={newBlinds[0].blinds} //This 0 has to be dynamic while
           //keyExtractor={(message) => message.id.toString()}
           renderItem={({ item, index }) => (
             <ListBlind
-              blindName={item.blind1.name}
-              openPercetage={item.blind1.openPercentage}
-              blindGroup={item.blind1.group}
+              blindName={item.name}
+              openPercetage={item.openPercentage}
+              blindGroup={item.group}
               onPress={() =>
                 navigation.navigate("Find Blinds", { house: item.title })
               }
