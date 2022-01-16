@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, FlatList, View, Alert } from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
-
 import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
