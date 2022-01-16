@@ -47,7 +47,19 @@ function AddDeviceScreen({ navigation }) {
       <TouchableOpacity
         style={styles.addBlinds}
         onPress={() => {
-          navigation.navigate("Choose House");
+          values.houses.number === 0
+            ? Alert.alert(
+                "Blinds Could Not Be Added",
+                "Please add a house first.",
+                [
+                  { text: "Cancel" },
+                  {
+                    text: "Add House",
+                    onPress: () => navigation.navigate("Add House"),
+                  },
+                ]
+              )
+            : navigation.navigate("Choose House");
         }}
       >
         <View style={styles.textContainer}>
