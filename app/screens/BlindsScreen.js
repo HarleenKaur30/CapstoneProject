@@ -26,7 +26,7 @@ function BlindsScreen({ route }) {
         <FlatList
           data={newBlinds[houseId].blinds} //This 0 has to be dynamic while
           //keyExtractor={(message) => message.id.toString()}
-          renderItem={({ item, index }) => (
+          renderItem={({ item }) => (
             <ListBlind
               blindName={item.name}
               openPercetage={item.openPercentage}
