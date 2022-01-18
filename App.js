@@ -12,6 +12,8 @@ import HousesScreen from "./app/screens/HousesScreen";
 import BlindsScreen from "./app/screens/BlindsScreen";
 import BlindsInformationScreen from "./app/screens/BlindsInformationScreen";
 import QRCodeScreen from "./app/screens/QRCodeScreen";
+import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreen";
+import EnergySavingsScreen from "./app/screens/EnergySavingsScreen";
 import colors from "./app/config/colors";
 
 import { TouchableOpacity } from "react-native";
@@ -22,7 +24,7 @@ const Stack = createNativeStackNavigator();
 
 /* Note that in the code below, nested navaigation is being used.
  Tab Navigator defined on the Tabs.js is nested within the Stack Navigator.
- Add new screens to the Navigation Contaniner below and then use button press events on the corresponding screens to move to the stacked screen you would like to. */
+ Add new screens to the Navigation Container below and then use button press events on the corresponding screens to move to the stacked screen you would like to. */
 
 export default function App() {
   return (
@@ -59,6 +61,8 @@ export default function App() {
           component={BlindsInformationScreen}
           options={{ title: "Add Blinds" }}
         />
+        <Stack.Screen name="Optimized Schedule" component={OptimizedScheduleScreen} />
+        <Stack.Screen name="Energy Savings" component={EnergySavingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

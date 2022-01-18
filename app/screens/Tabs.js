@@ -65,7 +65,7 @@ function Tabs() {
         options={{
           tabBarLabel: "Automation",
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="star" color={color} size={size} />
+            <MaterialIcons name="auto-awesome" color={color} size={size} />
           ),
         }}
       />
