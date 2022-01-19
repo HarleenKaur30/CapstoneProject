@@ -16,6 +16,7 @@ import AppTextInput2 from "../components/AppTextInput2";
 
 function BlindsInformationScreen({ navigation, route }) {
   const [blindsID, setBlindsID] = useState();
+  const [blindsName, setBlindsName] = useState();
   const [group, setGroup] = useState();
   const [storey, setStorey] = useState();
   const [height, setHeight] = useState();
@@ -23,98 +24,105 @@ function BlindsInformationScreen({ navigation, route }) {
   const [obstruction, setObstruction] = useState();
 
   return (
-    <ScrollView style={styles.container}>
-      <KeyboardAvoidingView behavior="height">
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionText}>Blinds Information</Text>
+    <ScrollView style={styles.container} bounces={false}>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionText}>Blinds Information</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <AppTextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="blinds"
+          keyboardType="default"
+          onChangeText={(text) => setBlindsID(text)}
+          placeholder="Blinds ID"
+          defaultValue={route.params.blindsID}
+        />
+        <AppTextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="rename-box"
+          keyboardType="default"
+          onChangeText={(text) => setBlindsName(text)}
+          placeholder="Blinds Name"
+        />
+        <AppTextInput
+          autoCapitalize="sentences"
+          autoCorrect={false}
+          icon="group"
+          keyboardType="default"
+          onChangeText={(text) => setGroup(text)}
+          placeholder="Group"
+        />
+      </View>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionText}>Window Information</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <AppTextInput2
+          autoCorrect={false}
+          icon="level-up-alt"
+          keyboardType="number-pad"
+          onChangeText={(text) => setStorey(text)}
+          placeholder="Storey Number"
+        />
+        <AppTextInput2
+          autoCorrect={false}
+          icon="ruler-vertical"
+          keyboardType="numeric"
+          onChangeText={(text) => setHeight(text)}
+          placeholder="Window Height"
+        />
+        <AppTextInput
+          autoCorrect={false}
+          icon="compass-rose"
+          keyboardType="default"
+          onChangeText={(text) => setOrientation(text)}
+          placeholder="Orientation (North, NorthWest, ...)"
+        />
+      </View>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionText}>Window Obstruction Level</Text>
+      </View>
+      <View style={styles.obstructionImageContainer}>
+        <View style={styles.windowContainer}>
+          <Text style={styles.windowText}>No{"\n"}Obstruction</Text>
+          <View style={styles.obstructionNoObstruction} />
         </View>
-        <View style={styles.inputContainer}>
-          <AppTextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="blinds"
-            keyboardType="default"
-            onChangeText={(text) => setBlindsID(text)}
-            placeholder="Blinds ID"
-            defaultValue={route.params.blindsID}
-          />
-          <AppTextInput
-            autoCapitalize="sentences"
-            autoCorrect={false}
-            icon="group"
-            keyboardType="default"
-            onChangeText={(text) => setGroup(text)}
-            placeholder="Group"
-          />
-        </View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionText}>Window Information</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <AppTextInput2
-            autoCorrect={false}
-            icon="level-up-alt"
-            keyboardType="number-pad"
-            onChangeText={(text) => setStorey(text)}
-            placeholder="Storey Number"
-          />
-          <AppTextInput2
-            autoCorrect={false}
-            icon="ruler-vertical"
-            keyboardType="numeric"
-            onChangeText={(text) => setHeight(text)}
-            placeholder="Window Height"
-          />
-          <AppTextInput
-            autoCorrect={false}
-            icon="compass-rose"
-            keyboardType="default"
-            onChangeText={(text) => setOrientation(text)}
-            placeholder="Orientation (North, NorthWest, ...)"
-          />
-        </View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionText}>Window Obstruction Level</Text>
-        </View>
-        <View style={styles.obstructionImageContainer}>
-          <View style={styles.windowContainer}>
-            <Text style={styles.windowText}>No{"\n"}Obstruction</Text>
-            <View style={styles.obstructionNoObstruction} />
+        <View style={styles.windowContainer}>
+          <Text style={styles.windowText}>Half{"\n"}Obstructed</Text>
+          <View style={styles.obstructionFullObstruction}>
+            <View style={styles.obstructionHalfObstruction} />
           </View>
-          <View style={styles.windowContainer}>
-            <Text style={styles.windowText}>Half{"\n"}Obstructed</Text>
-            <View style={styles.obstructionFullObstruction}>
-              <View style={styles.obstructionHalfObstruction} />
-            </View>
-          </View>
-          <View style={styles.windowContainer}>
-            <Text style={styles.windowText}>Fully{"\n"}Obstructed</Text>
-            <View style={styles.obstructionFullObstruction} />
-          </View>
         </View>
-        <View style={styles.sliderContainer}>
-          <Text style={styles.sliderText}>
-            Obstructed: {Number(obstruction * 100).toFixed(0)}%
-          </Text>
-          <Slider
-            style={styles.slider}
-            minimumValue={0}
-            maximumValue={1}
-            minimumTrackTintColor={colors.medium}
-            maximumTrackTintColor={colors.darkorange}
-            thumbTintColor={colors.medium}
-            step={0.1}
-            onValueChange={(numberValue) => setObstruction(numberValue)}
-          />
+        <View style={styles.windowContainer}>
+          <Text style={styles.windowText}>Fully{"\n"}Obstructed</Text>
+          <View style={styles.obstructionFullObstruction} />
         </View>
-        <View style={styles.sectionEndContainer} />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Blinds")}
-        >
-          <Text style={styles.buttonText}>Finish Adding Blinds</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </View>
+      <View style={styles.sliderContainer}>
+        <Text style={styles.sliderText}>
+          Obstructed: {Number(obstruction * 100).toFixed(0)}%
+        </Text>
+        <Slider
+          style={styles.slider}
+          minimumValue={0}
+          maximumValue={1}
+          minimumTrackTintColor={colors.medium}
+          maximumTrackTintColor={colors.darkorange}
+          thumbTintColor={colors.medium}
+          step={0.05}
+          onValueChange={(numberValue) => setObstruction(numberValue)}
+          value={0.5}
+        />
+      </View>
+      <View style={styles.sectionEndContainer} />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Blinds")}
+      >
+        <Text style={styles.buttonText}>Finish Adding Blinds</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -138,7 +146,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.white,
-    flex: 1,
+    flexGrow: 1,
   },
   inputContainer: {
     paddingHorizontal: "5%",
