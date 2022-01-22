@@ -20,6 +20,9 @@ export default class ScheduleDisScreen extends Component {
       {time: '5:00pm', title: 'Move Blinds to 44%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
       {time: '7:00pm', title: 'Move Blinds to 24%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
       {time: '10:00pm', title: 'Move Blinds to 10%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
+      {time: '10:30pm', title: 'Move Blinds to 8%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
+      {time: '11:00pm', title: 'Move Blinds to 5%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
+      {time: '11:30pm', title: 'Move Blinds to 2%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
       
     ]
     this.state = {
