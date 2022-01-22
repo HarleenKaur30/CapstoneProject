@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Text, View, NativeModules, StyleSheet, SafeAreaView } from "react-native";
+import {Formik} from 'formik';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 import DropDownPicker from 'react-native-dropdown-picker'
 import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
+import { Button } from "react-native-elements";
 
-function AddHouseScreen(props) {
-  const [nickname, setNickname] = useState();
-  const [usualtemp, setUsualtemp] = useState();
-  const [desiredtemp, setDesiredtemp] = useState();
+function AddHouseScreentest(props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -22,6 +20,48 @@ function AddHouseScreen(props) {
 
   return (
     <View style={styles.container}>
+    
+        <Formik 
+        initialValues={{ nickname: '', usualtemp: '', desiredtemp: '',}}
+        onSubmit={values=> console.log(values)}
+        >
+            { ({handleChange, handleSubmit}) => (
+                <>
+                <AppTextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="house"
+                    onChangeText= {handleChange("nickname")}
+                    name="nickname"
+                    placeholder="House Nickname"
+                />
+        
+                <AppTextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="thermometer"
+                    onChangeText={handleChange("usualtemp")}
+                    name="usualtemp"
+                    placeholder="Usual Temperature"
+                />
+
+                <AppTextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="thermometer"
+                    onChangeText={handleChange("desiredtemp")}
+                    name="desiredtemp"
+                    placeholder="Desired Temperature"
+                />
+                
+                <Button
+                    title="Submit"
+                    onPress={handleSubmit}
+                />
+
+                </>
+            )}
+        </Formik>
       
       <View style={styles.locationWrapper}>
       <Text style={styles.sectionTitle}>Location</Text>
@@ -42,49 +82,19 @@ function AddHouseScreen(props) {
           setValue={setValue}
           setItems={setItems} />
 
-      <View style={styles.nicknameWrapper}>
-      <Text style={styles.sectionTitle}>House Nickname</Text>
-      </View>
-
-      <AppTextInput
-            autoCapitalize="words"
-            autoCorrect={false}
-            icon="home"
-            keyboardType="default"
-            onChangeText={(text) => setNickname(text)}
-            placeholder="Input House Nickname"
-          />
-
       <View style={styles.usualtempWrapper}>
       <Text style={styles.sectionTitle}>Usual Temperature</Text>
       </View>
       
-      <AppTextInput 
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="thermometer"
-            keyboardType="numeric"
-            onChangeText={(text) => setUsualtemp(text)}
-            placeholder="Input Temperature (degrees Celsius)"
-          />
+      <AppTextInput placeholder="Input Temperature (degrees Celsius)" icon="thermometer"/>
 
       <View style={styles.desiredtempWrapper}>
       <Text style={styles.sectionTitle}>Desired Temperature</Text>
       </View>
 
       
-      <AppTextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="thermometer"
-            keyboardType="numeric"
-            onChangeText={(text) => setDesiredtemp(text)}
-            placeholder="Input Temperature (degrees Celsius)"
-          />
+      <AppTextInput placeholder="Input Temperature (degrees Celsius)" icon="thermometer"/>
 
-      <View style={styles.button}>
-      <AppButton title="Submit" onPress={() => console.log()}/>
-      </View>
 
     </View>
   );
@@ -117,23 +127,15 @@ const styles = StyleSheet.create({
     right: "70%",
     top: "4.5%"
   },
-  nicknameWrapper: {
-    paddingTop: 25,
-    paddingBottom: 20,
-  },
   usualtempWrapper: {
     paddingTop: 25,
-    paddingBottom: 20,
+    paddingBottom: 100,
   },
   desiredtempWrapper: {
     paddingTop: 25,
     paddingBottom: 20,
-  },
-  button: {
-    paddingTop: 35,
-    alignItems: "center",
-    width: 600,
-  },
+  }
+
 });
 
-export default AddHouseScreen;
+export default AddHouseScreentest;

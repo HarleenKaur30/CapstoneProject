@@ -12,7 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import colors from "../../app/config/colors";
 import values from "../../app/config/values";
-import Button from "../components/Button";
+import AppButton from "../components/AppButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import HousesScreen from "./HousesScreen";
 
@@ -29,7 +29,7 @@ function HomeScreen({ navigation }) {
           color="lightgray"
         />
 
-        <Button
+        <AppButton
           title="Add Device"
           onPress={() => navigation.navigate("Add Device")}
         />

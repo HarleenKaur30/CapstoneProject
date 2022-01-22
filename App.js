@@ -18,6 +18,9 @@ import colors from "./app/config/colors";
 
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import AddHouseScreentest from "./app/screens/AddHouseScreentest";
+import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
+import AddScheduleScreen from "./app/screens/AddScheduleScreen";
 
 //This navigator is responsible for moving across different stack screens
 const Stack = createNativeStackNavigator();
@@ -28,6 +31,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Tabs">
         <Stack.Screen
@@ -63,6 +67,8 @@ export default function App() {
         />
         <Stack.Screen name="Optimized Schedule" component={OptimizedScheduleScreen} />
         <Stack.Screen name="Energy Savings" component={EnergySavingsScreen} />
+        <Stack.Screen name="Schedule Display" component={ScheduleDisplayScreen} />
+        <Stack.Screen name="Add Schedule Component" component={AddScheduleScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,6 +7,10 @@ function ScheduleScreen({navigation}) {
     return (
         <SafeAreaView>
             <Text> Schedule Screen</Text>
+            <Button
+                    title="View House 1 Blind 3 Schedule"
+                    onPress={() => navigation.navigate("Schedule Display")}
+                />
         </SafeAreaView>
     );
 }
