@@ -90,7 +90,7 @@ function BlindsOnScheduleScreen({ route }) {
           )}
           ItemSeparatorComponent={ListItemSeperator}
           ListFooterComponent={
-            <View style={{ flex: 1 }}>
+            <View>
               <View style={styles.pickerContainer}>
                 <DropDownPicker
                   open={open}
