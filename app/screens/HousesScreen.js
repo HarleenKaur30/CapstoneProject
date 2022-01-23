@@ -78,21 +78,23 @@ function HousesScreen({}) {
             />
           )}
           ItemSeparatorComponent={ListItemSeperator}
+          ListFooterComponent={
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Add House"
+                onPress={() => {
+                  values.maxNumberOfHouses === values.houses.number
+                    ? Alert.alert(
+                        "House Could Not Be Added",
+                        "The maximum number of houses have already been added using this device.",
+                        [{ text: "Ok" }]
+                      )
+                    : navigation.navigate("Add House");
+                }}
+              />
+            </View>
+          }
         />
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Add House"
-            onPress={() => {
-              values.maxNumberOfHouses === values.houses.number
-                ? Alert.alert(
-                    "House Could Not Be Added",
-                    "The maximum number of houses have already been added using this device.",
-                    [{ text: "Ok" }]
-                  )
-                : navigation.navigate("Add House");
-            }}
-          />
-        </View>
       </View>
     </View>
   );
