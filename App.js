@@ -1,6 +1,6 @@
 import LoginScreen from "./app/screens/LoginScreen";
 import HomeScreen from "./app/screens/HomeScreen";
-import TestScreen from "./app/screens/TestScreen";
+
 import Tabs from "./app/screens/Tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -21,6 +21,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AddHouseScreentest from "./app/screens/AddHouseScreentest";
 import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
 import AddScheduleScreen from "./app/screens/AddScheduleScreen";
+import BlindsOnScheduleScreen from "./app/screens/BlindsOnScheduleScreen";
+import ScheduleScreen from "./app/screens/ScheduleScreen";
 
 //This navigator is responsible for moving across different stack screens
 const Stack = createNativeStackNavigator();
@@ -31,7 +33,6 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Tabs">
         <Stack.Screen
@@ -49,7 +50,6 @@ export default function App() {
           })}
         />
         <Stack.Screen name="Add Device" component={AddDeviceScreen} />
-        <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen name="Add House" component={AddHouseScreen} />
         <Stack.Screen
           name="Choose House"
@@ -65,10 +65,23 @@ export default function App() {
           component={BlindsInformationScreen}
           options={{ title: "Add Blinds" }}
         />
-        <Stack.Screen name="Optimized Schedule" component={OptimizedScheduleScreen} />
+        <Stack.Screen
+          name="Optimized Schedule"
+          component={OptimizedScheduleScreen}
+        />
         <Stack.Screen name="Energy Savings" component={EnergySavingsScreen} />
-        <Stack.Screen name="Schedule Display" component={ScheduleDisplayScreen} />
-        <Stack.Screen name="Add Schedule Component" component={AddScheduleScreen} />
+        <Stack.Screen
+          name="Schedule Display"
+          component={ScheduleDisplayScreen}
+        />
+        <Stack.Screen
+          name="Add Schedule Component"
+          component={AddScheduleScreen}
+        />
+        <Stack.Screen
+          name="Blinds Active On Schedule"
+          component={BlindsOnScheduleScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
