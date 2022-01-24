@@ -7,6 +7,14 @@ export default [
     blinds: [
       { id: 1, name: "Bedroom 1", group: "Bedroom", openPercentage: 36 },
       { id: 2, name: "Bedroom 2", group: "Bedroom", openPercentage: 82 },
+      { id: 3, name: "Bedroom 1", group: "Bedroom", openPercentage: 36 },
+      { id: 4, name: "Bedroom 2", group: "Bedroom", openPercentage: 82 },
+      { id: 5, name: "Bedroom 1", group: "Bedroom", openPercentage: 36 },
+      { id: 6, name: "Bedroom 2", group: "Bedroom", openPercentage: 82 },
+      { id: 7, name: "Bedroom 1", group: "Bedroom", openPercentage: 36 },
+      { id: 8, name: "Bedroom 2", group: "Bedroom", openPercentage: 82 },
+      { id: 9, name: "Bedroom 1", group: "Bedroom", openPercentage: 36 },
+      /* { id: 10, name: "Bedroom 2", group: "Bedroom", openPercentage: 82 },  */
     ],
   },
 
