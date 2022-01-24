@@ -37,9 +37,6 @@ function BlindsScreen({ route }) {
               blindName={item.name}
               openPercentage={item.openPercentage}
               blindGroup={item.group}
-<<<<<<< Updated upstream
-              onPress={() => navigation.navigate("Find Blinds")}
-=======
               onPress={() =>
                 navigation.navigate("View Blinds", {
                   blinds: item,
@@ -47,7 +44,6 @@ function BlindsScreen({ route }) {
                   houseName: route.params.houseName,
                 })
               }
->>>>>>> Stashed changes
               onLongPress={() =>
                 Alert.alert(
                   "Blind Menu",
