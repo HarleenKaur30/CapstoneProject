@@ -37,7 +37,17 @@ function BlindsScreen({ route }) {
               blindName={item.name}
               openPercentage={item.openPercentage}
               blindGroup={item.group}
+<<<<<<< Updated upstream
               onPress={() => navigation.navigate("Find Blinds")}
+=======
+              onPress={() =>
+                navigation.navigate("View Blinds", {
+                  blinds: item,
+                  houseId: houseId,
+                  houseName: route.params.houseName,
+                })
+              }
+>>>>>>> Stashed changes
               onLongPress={() =>
                 Alert.alert(
                   "Blind Menu",
@@ -47,8 +57,9 @@ function BlindsScreen({ route }) {
                     {
                       text: "Edit",
                       onPress: () =>
-                        navigation.navigate("Find Blinds", {
-                          house: item.title,
+                        navigation.navigate("Edit Blinds Information", {
+                          blinds: item,
+                          house: houseId,
                         }),
                     },
                     {
@@ -83,7 +94,10 @@ function BlindsScreen({ route }) {
               renderLeftActions={() => (
                 <ListItemEditAction
                   onPress={() =>
-                    navigation.navigate("Find Blinds", { house: item.title })
+                    navigation.navigate("Edit Blinds Information", {
+                      blinds: item,
+                      house: houseId,
+                    })
                   }
                 />
               )}
