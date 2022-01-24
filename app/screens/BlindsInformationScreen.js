@@ -36,7 +36,7 @@ function BlindsInformationScreen({ navigation, route }) {
           keyboardType="default"
           onChangeText={(text) => setBlindsID(text)}
           placeholder="Blinds ID"
-          defaultValue={route.params.blindsID}
+          defaultValue={route.params.blindsStringID}
         />
         <AppTextInput
           autoCapitalize="none"
@@ -74,6 +74,7 @@ function BlindsInformationScreen({ navigation, route }) {
           placeholder="Window Height"
         />
         <AppTextInput
+          autoCapitalize="sentences"
           autoCorrect={false}
           icon="compass-rose"
           keyboardType="default"
@@ -86,7 +87,7 @@ function BlindsInformationScreen({ navigation, route }) {
       </View>
       <View style={styles.obstructionImageContainer}>
         <View style={styles.windowContainer}>
-          <Text style={styles.windowText}>No{"\n"}Obstruction</Text>
+          <Text style={styles.windowText}>Not{"\n"}Obstructed</Text>
           <View style={styles.obstructionNoObstruction} />
         </View>
         <View style={styles.windowContainer}>
@@ -102,7 +103,8 @@ function BlindsInformationScreen({ navigation, route }) {
       </View>
       <View style={styles.sliderContainer}>
         <Text style={styles.sliderText}>
-          Obstructed: {Number(obstruction * 100).toFixed(0)}%
+          Obstructed:{" "}
+          {isNaN(obstruction) ? "50" : Number(obstruction * 100).toFixed(0)}%
         </Text>
         <Slider
           style={styles.slider}
@@ -142,6 +144,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.white,
     fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
   },
   container: {
