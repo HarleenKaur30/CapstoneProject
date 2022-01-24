@@ -92,36 +92,33 @@ function BlindsOnScheduleScreen({ route }) {
         />
       </View>
       {/* ListFooterComponent={ */}
-        <View alignItems="center">
-          {/* <View style={styles.pickerContainer}> */}
-            <DropDownPicker
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              placeholder="Add a blind/group to schedule"
-              showTickIcon={true}
-              closeAfterSelecting={true}
-              listMode="SCROLLVIEW"
-              scrollViewProps={{
-                nestedScrollEnabled: true,
-              }}
-              containerStyle={{
-                width: "70%",
-                marginBottom: "2%",
-              }}
-            />
-          {/* </View> */}
+      <View alignItems="center">
+        {/* <View style={styles.pickerContainer}> */}
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          placeholder="Add a blind/group to schedule"
+          showTickIcon={true}
+          closeAfterSelecting={true}
+          listMode="SCROLLVIEW"
+          scrollViewProps={{
+            nestedScrollEnabled: true,
+          }}
+          containerStyle={{
+            width: "70%",
+            marginBottom: "2%",
+          }}
+        />
+        {/* </View> */}
 
-          {/* <View style={styles.button}> */}
-            <AppButton
-              title="Finish Adding"
-              onPress={() => console.log()}
-            />
-          {/* </View> */}
-        </View>
+        {/* <View style={styles.button}> */}
+        <AppButton title="Finish Adding" onPress={() => console.log()} />
+        {/* </View> */}
+      </View>
       {/* } */}
     </View>
   );
