@@ -18,7 +18,7 @@ function QRCodeScreen({ navigation }) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    navigation.navigate("Blinds Information", { blindsID: "A938D81" });
+    navigation.navigate("Blinds Information", { blindsStringID: "A938D8-1" });
   };
 
   if (hasPermission === null) {
