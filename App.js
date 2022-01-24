@@ -25,7 +25,6 @@ import AddHouseScreentest from "./app/screens/AddHouseScreentest";
 import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
 import AddScheduleScreen from "./app/screens/AddScheduleScreen";
 import BlindsOnScheduleScreen from "./app/screens/BlindsOnScheduleScreen";
-import ScheduleScreen from "./app/screens/ScheduleScreen";
 
 //This navigator is responsible for moving across different stack screens
 const Stack = createNativeStackNavigator();
@@ -70,19 +69,15 @@ export default function App() {
           options={{ title: "Add Blinds" }}
         />
         <Stack.Screen
-<<<<<<< Updated upstream
-=======
           name="Edit Blinds Information"
           component={EditBlindsInformationScreen}
           options={{ title: "Edit Blinds" }}
         />
         <Stack.Screen
->>>>>>> Stashed changes
           name="Optimized Schedule"
           component={OptimizedScheduleScreen}
         />
         <Stack.Screen name="Energy Savings" component={EnergySavingsScreen} />
-<<<<<<< Updated upstream
         <Stack.Screen
           name="Schedule Display"
           component={ScheduleDisplayScreen}
@@ -95,9 +90,7 @@ export default function App() {
           name="Blinds Active On Schedule"
           component={BlindsOnScheduleScreen}
         />
-=======
         <Stack.Screen name="Schedules" component={ScheduleScreen} />
->>>>>>> Stashed changes
       </Stack.Navigator>
     </NavigationContainer>
   );
