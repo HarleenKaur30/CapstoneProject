@@ -27,7 +27,12 @@ function HousesScreen({}) {
             <ListHouse
               houseName={item.name}
               numberBlinds={item.numberBlinds}
-              onPress={() => navigation.navigate("Blinds", { houseId: index })}
+              onPress={() =>
+                navigation.navigate("Blinds", {
+                  houseId: index,
+                  houseName: item.name,
+                })
+              }
               onLongPress={() =>
                 Alert.alert(
                   "House Menu",
