@@ -9,6 +9,7 @@ function ListBlindSchedule({
   blindName,
   blindGroup,
   onPress,
+  houseName,
   onLongPress,
   renderRightActions,
 }) {
@@ -28,7 +29,9 @@ function ListBlindSchedule({
             />
             <View style={styles.textContainer}>
               <Text style={styles.blindNameText}>{blindName}</Text>
-              <Text style={styles.blindsInfo}>Group: {blindGroup}</Text>
+              <Text style={styles.blindsInfo}>
+                House: {houseName} Group: {blindGroup}
+              </Text>
             </View>
           </View>
         </TouchableHighlight>
