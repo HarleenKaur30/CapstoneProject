@@ -106,7 +106,7 @@ function BlindsOnScheduleScreen({ route }) {
           }}
           containerStyle={{
             width: "70%",
-            marginBottom: "5%",
+            marginBottom: "4%",
           }}
         />
         <AppButton title="Finish Adding" onPress={() => console.log()} />
