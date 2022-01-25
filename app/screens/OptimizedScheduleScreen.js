@@ -13,8 +13,8 @@ export default class OptScheduleScreen extends Component {
   constructor(props){
     super(props)
     this.data = [ // import this from local buffer, filled from API at midnight each day
-      {time: '03:00am', title: 'Minimum Outdoor Temperature', icon: <FontAwesome5 name="temperature-low" size={30} color={colors.black}/>},
-      {time: '09:00am', title: 'Sunrise', icon: <Feather name="sunrise" size={30} color={colors.black}/>},
+      {time: '3:00am', title: 'Minimum Outdoor Temperature', icon: <FontAwesome5 name="temperature-low" size={30} color={colors.black}/>},
+      {time: '9:00am', title: 'Sunrise', icon: <Feather name="sunrise" size={30} color={colors.black}/>},
       {time: '10:45am', title: 'Close Blinds', icon: <MaterialCommunityIcons name="blinds" size={30} color={colors.black}/>},
       {time: '12:00pm', title: 'Peak Outdoor Temperature', icon: <FontAwesome5 name="temperature-high" size={30} color={colors.black}/>},
       {time: '4:00pm', title: 'Open Blinds', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
@@ -72,8 +72,7 @@ export default class OptScheduleScreen extends Component {
                     refreshing={this.state.refreshing}
                     onRefresh={this._onRefresh}
                   />
-                ),
-              }}
+                ),}}
               titleStyle={{marginBottom: "10%"}}
               innerCircle={'icon'}
               separator={true}

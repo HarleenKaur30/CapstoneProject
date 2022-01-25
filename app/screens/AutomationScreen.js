@@ -20,25 +20,25 @@ function AutomationScreen({navigation}) {
 
         <View style={styles.container}>
 
-                <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    placeholder='Select a house'
-                    showTickIcon={true}
-                    closeAfterSelecting={true}
-                    listMode="SCROLLVIEW"
-                        scrollViewProps={{
-                        nestedScrollEnabled: true,
-                    }}
-                    containerStyle={{
-                        width: "70%",
-                        marginBottom: "2%"
-                    }}
-                />
+            <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                placeholder='Select a house'
+                showTickIcon={true}
+                closeAfterSelecting={true}
+                listMode="SCROLLVIEW"
+                    scrollViewProps={{
+                    nestedScrollEnabled: true,
+                }}
+                containerStyle={{
+                    width: "70%",
+                    marginBottom: "2%"
+                }}
+            />
 
             <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
 
@@ -116,8 +116,6 @@ function AutomationScreen({navigation}) {
         </View>
     );
 }
-
-
 
 
  const styles = StyleSheet.create({
