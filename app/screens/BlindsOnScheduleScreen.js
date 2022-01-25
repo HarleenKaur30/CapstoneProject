@@ -27,10 +27,10 @@ function BlindsOnScheduleScreen({ route }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "Bedroom1", value: "Bedroom2" },
-    { label: "Hallway3", value: "Hallway3" },
-    { label: "Kitchen", value: "Kitchen" },
-    { label: "Outside", value: "Outside" }, //need to dynamically change labels and values
+    { label: "House 1 - Bedroom1", value: "Bedroom2" },
+    { label: "Vacation House - Hallway3", value: "Hallway3" },
+    { label: "Office - Kitchen", value: "Kitchen" },
+    { label: "House 2 - Outside", value: "Outside" }, //need to dynamically change labels and values
   ]);
 
   const handleDelete = (message) => {
@@ -46,17 +46,14 @@ function BlindsOnScheduleScreen({ route }) {
             <ListBlindSchedule
               blindName={item.name}
               blindGroup={item.group}
-              //onPress={() => navigation.navigate("Find Blinds")}
+              //houseName = {} THIS NEEDS TO BE TAKEN CARE OF AT SOME POINT
               onLongPress={() =>
                 Alert.alert(
                   "Blind Menu",
                   "What would you like to do with this blind?",
                   [
                     { text: "Cancel" },
-                    /*                     {
-                      text: "Edit",
-                      onPress: () => navigation.navigate("Find Blinds"),
-                    }, */
+
                     {
                       text: "Remove",
                       onPress: () =>
@@ -91,9 +88,8 @@ function BlindsOnScheduleScreen({ route }) {
           ItemSeparatorComponent={ListItemSeperator}
         />
       </View>
-      {/* ListFooterComponent={ */}
-      <View alignItems="center">
-        {/* <View style={styles.pickerContainer}> */}
+
+      <View style={styles.pickerContainer}>
         <DropDownPicker
           open={open}
           value={value}
@@ -110,23 +106,18 @@ function BlindsOnScheduleScreen({ route }) {
           }}
           containerStyle={{
             width: "70%",
-            marginBottom: "2%",
+            marginBottom: "5%",
           }}
         />
-        {/* </View> */}
-
-        {/* <View style={styles.button}> */}
         <AppButton title="Finish Adding" onPress={() => console.log()} />
-        {/* </View> */}
       </View>
-      {/* } */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   pickerContainer: {
-    flex: 1,
+    flex: 0.25,
     backgroundColor: colors.white,
     padding: "2%",
     justifyContent: "center",
@@ -134,6 +125,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.white,
+    flex: 0.8,
   },
   largeContainer: {
     backgroundColor: colors.white,
