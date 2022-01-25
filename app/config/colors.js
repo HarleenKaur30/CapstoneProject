@@ -12,4 +12,10 @@ export default {
   orange: `#ffa500`,
   orangered: `#ff4500`,
   orangeyellow: "#d39f09",
+  lightgray: `#d3d3d3`,
+  dimgray: `#696969`,
+  lavendar: `#e6e6fa`,
+  honeydew: `#f0fff0`,
+  ivory: `#fffff0`,
+  lightsalmon: `#ffa07a`,
 };
