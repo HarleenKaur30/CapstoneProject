@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Text, View, NativeModules, StyleSheet, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  NativeModules,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
-import DropDownPicker from 'react-native-dropdown-picker'
+import DropDownPicker from "react-native-dropdown-picker";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 
@@ -14,79 +21,79 @@ function AddHouseScreen(props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Edmonton', value: 'Edmonton'},
-    {label: 'Calgary', value: 'Calgary'},
-    {label: 'Toronto', value: 'Toronto'},
-    {label: 'Vancouver', value: 'Vancouver'},
+    { label: "Edmonton", value: "Edmonton" },
+    { label: "Calgary", value: "Calgary" },
+    { label: "Toronto", value: "Toronto" },
+    { label: "Vancouver", value: "Vancouver" },
   ]);
 
   return (
-    <View style={styles.container}>
-      
-      <View style={styles.locationWrapper}>
-      <Text style={styles.sectionTitle}>Location</Text>
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.locationWrapper}>
+          <Text style={styles.sectionTitle}>Location</Text>
+        </View>
 
-      <MaterialCommunityIcons
+        <MaterialCommunityIcons
           name="map-marker"
           size={40}
           style={styles.mapmarkerContainer}
           color={colors.orange}
         />
 
-      <DropDownPicker
+        <DropDownPicker
           open={open}
           value={value}
           items={items}
           setOpen={setOpen}
           setValue={setValue}
-          setItems={setItems} />
+          setItems={setItems}
+        />
 
-      <View style={styles.nicknameWrapper}>
-      <Text style={styles.sectionTitle}>House Nickname</Text>
+        <View style={styles.nicknameWrapper}>
+          <Text style={styles.sectionTitle}>House Nickname</Text>
+        </View>
+
+        <AppTextInput
+          autoCapitalize="words"
+          autoCorrect={false}
+          icon="home"
+          keyboardType="default"
+          onChangeText={(text) => setNickname(text)}
+          placeholder="Input House Nickname"
+        />
+
+        <View style={styles.usualtempWrapper}>
+          <Text style={styles.sectionTitle}>Usual Temperature</Text>
+        </View>
+
+        <AppTextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="thermometer"
+          keyboardType="numeric"
+          onChangeText={(text) => setUsualtemp(text)}
+          placeholder="Input Temperature (degrees Celsius)"
+        />
+
+        <View style={styles.desiredtempWrapper}>
+          <Text style={styles.sectionTitle}>Desired Temperature</Text>
+        </View>
+
+        <AppTextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="thermometer"
+          keyboardType="numeric"
+          onChangeText={(text) => setDesiredtemp(text)}
+          placeholder="Input Temperature (degrees Celsius)"
+        />
+
+        <View style={styles.button}>
+          <AppButton title="Submit" onPress={() => console.log()} />
+        </View>
       </View>
-
-      <AppTextInput
-            autoCapitalize="words"
-            autoCorrect={false}
-            icon="home"
-            keyboardType="default"
-            onChangeText={(text) => setNickname(text)}
-            placeholder="Input House Nickname"
-          />
-
-      <View style={styles.usualtempWrapper}>
-      <Text style={styles.sectionTitle}>Usual Temperature</Text>
-      </View>
-      
-      <AppTextInput 
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="thermometer"
-            keyboardType="numeric"
-            onChangeText={(text) => setUsualtemp(text)}
-            placeholder="Input Temperature (degrees Celsius)"
-          />
-
-      <View style={styles.desiredtempWrapper}>
-      <Text style={styles.sectionTitle}>Desired Temperature</Text>
-      </View>
-
-      
-      <AppTextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="thermometer"
-            keyboardType="numeric"
-            onChangeText={(text) => setDesiredtemp(text)}
-            placeholder="Input Temperature (degrees Celsius)"
-          />
-
-      <View style={styles.button}>
-      <AppButton title="Submit" onPress={() => console.log()}/>
-      </View>
-
-    </View>
+    </ScrollView>
   );
 }
 
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   picker: {
     height: 10,
@@ -115,7 +122,7 @@ const styles = StyleSheet.create({
   mapmarkerContainer: {
     position: "absolute",
     right: "70%",
-    top: "4.5%"
+    top: "4.5%",
   },
   nicknameWrapper: {
     paddingTop: 25,
