@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function ListBlind({
   blindName,
-  openPercetage,
+  openPercentage,
   blindGroup,
   onPress,
   onLongPress,
@@ -34,7 +34,7 @@ function ListBlind({
             <View style={styles.textContainer}>
               <Text style={styles.blindNameText}>{blindName}</Text>
               <Text style={styles.blindsInfo}>
-                {openPercetage}% open, Group: {blindGroup}
+                {openPercentage}% open, Group: {blindGroup}
               </Text>
             </View>
           </View>

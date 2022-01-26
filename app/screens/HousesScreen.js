@@ -27,7 +27,12 @@ function HousesScreen({}) {
             <ListHouse
               houseName={item.name}
               numberBlinds={item.numberBlinds}
-              onPress={() => navigation.navigate("Blinds", { houseId: index })}
+              onPress={() =>
+                navigation.navigate("Blinds", {
+                  houseId: index,
+                  houseName: item.name,
+                })
+              }
               onLongPress={() =>
                 Alert.alert(
                   "House Menu",
@@ -78,21 +83,23 @@ function HousesScreen({}) {
             />
           )}
           ItemSeparatorComponent={ListItemSeperator}
+          ListFooterComponent={
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Add House"
+                onPress={() => {
+                  values.maxNumberOfHouses === values.houses.number
+                    ? Alert.alert(
+                        "House Could Not Be Added",
+                        "The maximum number of houses have already been added using this device.",
+                        [{ text: "Ok" }]
+                      )
+                    : navigation.navigate("Add House");
+                }}
+              />
+            </View>
+          }
         />
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Add House"
-            onPress={() => {
-              values.maxNumberOfHouses === values.houses.number
-                ? Alert.alert(
-                    "House Could Not Be Added",
-                    "The maximum number of houses have already been added using this device.",
-                    [{ text: "Ok" }]
-                  )
-                : navigation.navigate("Add House");
-            }}
-          />
-        </View>
       </View>
     </View>
   );

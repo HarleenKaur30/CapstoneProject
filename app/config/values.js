@@ -1,15 +1,17 @@
 export default {
   maxNumberOfHouses: 5,
   maxNumberOfBlinds: 10,
+  maxNumberOfSchedules: 10,
 
   houses: {
     number: 3,
+    schedules: 3,
 
     house1: {
       id: 1,
       name: "House",
 
-      blinds: 2,
+      blinds: 10,
 
       blind1: {
         name: "Bedroom 1",

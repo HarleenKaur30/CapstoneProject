@@ -9,8 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
-import ChooseHouseScreen from "./ChooseHouseScreen";
-import { FontAwesome5 } from "@expo/vector-icons";
+
 
 /* This tab navigator is responsible for the navigation of tabs */
 const Tab = createBottomTabNavigator();

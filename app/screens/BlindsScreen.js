@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, FlatList, View, Alert } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Alert,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import ListBlind from "../components/ListBlind";
 import ListItemSeperator from "../components/ListItemSeperator";
@@ -24,15 +31,18 @@ function BlindsScreen({ route }) {
     <View style={styles.largeContainer}>
       <View style={styles.container}>
         <FlatList
-          data={newBlinds[houseId].blinds} //This 0 has to be dynamic while
-          //keyExtractor={(message) => message.id.toString()}
+          data={newBlinds[houseId].blinds}
           renderItem={({ item }) => (
             <ListBlind
               blindName={item.name}
-              openPercetage={item.openPercentage}
+              openPercentage={item.openPercentage}
               blindGroup={item.group}
               onPress={() =>
-                navigation.navigate("Find Blinds", { house: item.title })
+                navigation.navigate("View Blinds", {
+                  blinds: item,
+                  houseId: houseId,
+                  houseName: route.params.houseName,
+                })
               }
               onLongPress={() =>
                 Alert.alert(
@@ -43,8 +53,9 @@ function BlindsScreen({ route }) {
                     {
                       text: "Edit",
                       onPress: () =>
-                        navigation.navigate("Find Blinds", {
-                          house: item.title,
+                        navigation.navigate("Edit Blinds Information", {
+                          blinds: item,
+                          house: houseId,
                         }),
                     },
                     {
@@ -79,29 +90,33 @@ function BlindsScreen({ route }) {
               renderLeftActions={() => (
                 <ListItemEditAction
                   onPress={() =>
-                    navigation.navigate("Find Blinds", { house: item.title })
+                    navigation.navigate("Edit Blinds Information", {
+                      blinds: item,
+                      house: houseId,
+                    })
                   }
                 />
               )}
             />
           )}
           ItemSeparatorComponent={ListItemSeperator}
+          ListFooterComponent={
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Add Blind"
+                onPress={() => {
+                  values.maxNumberOfBlinds === newBlinds[houseId].numberBlinds
+                    ? Alert.alert(
+                        "Blind Could Not Be Added",
+                        "The maximum number of blinds have already been added using this house.",
+                        [{ text: "Ok" }]
+                      )
+                    : navigation.navigate("Find Blinds");
+                }}
+              />
+            </View>
+          }
         />
-
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Add Blind"
-            onPress={() => {
-              values.maxNumberOfBlinds === values.houses.number //THIS LOGIC ALSO NEEDS TO BE CHANGED
-                ? Alert.alert(
-                    "Blind Could Not Be Added",
-                    "The maximum number of blinds have already been added using this device.",
-                    [{ text: "Ok" }]
-                  )
-                : navigation.navigate("Find Blinds");
-            }}
-          />
-        </View>
       </View>
     </View>
   );

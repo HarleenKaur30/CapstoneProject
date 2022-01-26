@@ -8,31 +8,72 @@ import {
   View,
   Image,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { useState, useEffect } from "react";
 import colors from "../../app/config/colors";
 import values from "../../app/config/values";
-import Button from "../components/Button";
+import AppButton from "../components/AppButton";
 import { MaterialIcons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  AntDesign,
+  Ionicons,
+} from "@expo/vector-icons";
 import HousesScreen from "./HousesScreen";
+import * as Animatable from "react-native-animatable";
 
 function HomeScreen({ navigation }) {
-  const [houseCount, setHouseCount] = useState(!values.houses.number);
+  const [houseCount, setHouseCount] = useState(values.houses.number);
 
   if (houseCount) {
     return (
-      <SafeAreaView style={styles.container}>
-        <MaterialIcons
-          style={styles.icon}
-          name="library-add"
-          size={60}
-          color="lightgray"
-        />
+      <SafeAreaView
+        style={[
+          styles.container,
+          {
+            flexDirection: "column",
+          },
+        ]}
+      >
+        <View style={[styles.weatherContainer, { flexDirection: "row" }]}>
+          <Animatable.View
+            style={styles.weatherIconContainer}
+            animation="pulse"
+            iterationCount={15}
+            direction="alternate"
+          >
+            <Image
+              style={styles.weatherIconImageContainer}
+              source={require("../assets/Sun.png")}
+            />
+          </Animatable.View>
 
-        <Button
-          title="Add Device"
-          onPress={() => navigation.navigate("Add Device")}
-        />
+          <View style={styles.weatherTextContainer}>
+            <Text style={styles.weatherTextDate}>February 30th, 2050</Text>
+            <Text style={styles.weatherTextTemperature}>Sunny 25° C</Text>
+            <Text style={styles.weatherTextPeakTemperature}>
+              Peak Temperature: 30°C {"\n"} Time of Peak Temperatue: 12:00pm
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.icon}>
+          <Text style={styles.buttonText}>Click to add device!</Text>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("Add Device");
+            }}
+          >
+            <MaterialIcons
+              name="library-add"
+              size={100}
+              color={colors.orange}
+            />
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   } else {
@@ -44,21 +85,95 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    //alignItems: "center",
+    //justifyContent: "center",
+  },
+
+  weatherContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.ivory,
+    borderWidth: 1,
+    borderColor: colors.secondary,
+  },
+
+  weatherTextContainer: {
+    flex: 2.2,
+    backgroundColor: colors.ivory,
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+
+  weatherIconContainer: {
+    flex: 1,
+    backgroundColor: colors.ivory,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  weatherIconImageContainer: {
+    height: 80,
+    width: 80,
   },
 
   icon: {
+    flex: 4,
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 15,
   },
 
-  scrolling: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+  weatherTextDate: {
+    color: colors.dimgray,
+    fontSize: 15.5,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    //fontWeight: "bold",
+  },
+  weatherTextTemperature: {
+    color: colors.black,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
+  },
+  weatherTextPeakTemperature: {
+    color: colors.black,
+    fontSize: 15.5,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    //fontWeight: "bold",
+  },
+
+  buttonText: {
+    color: colors.black,
+    fontSize: 22,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
+  },
+
+  textContainer: {
+    flex: 0.8,
+    height: 200,
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: colors.white,
+    borderBottomColor: colors.light,
+    marginTop: "3%",
+    position: "absolute",
+  },
+
+  button: {
+    height: 150,
+    width: 150,
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "5%",
+    padding: "5%",
+    top: "5%",
+    backgroundColor: colors.ivory,
+    borderWidth: 1,
+    borderColor: colors.secondary,
   },
 });
 
