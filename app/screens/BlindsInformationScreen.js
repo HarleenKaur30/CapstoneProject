@@ -121,7 +121,10 @@ function BlindsInformationScreen({ navigation, route }) {
       <View style={styles.sectionEndContainer} />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Blinds")}
+        //onPress={() =>
+        //navigation.navigate("Blinds")
+        //}
+        // Need to change logic
       >
         <Text style={styles.buttonText}>Finish Adding Blinds</Text>
       </TouchableOpacity>
