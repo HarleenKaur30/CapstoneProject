@@ -9,7 +9,7 @@ import { MaterialCommunityIcons, FontAwesome, Feather, FontAwesome5 } from "@exp
 import Timeline from 'react-native-timeline-flatlist'
 import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens'
 
-const energySavings=25.2 // need to import this value from backend energy savings calculation (once available)
+const energySavings=25.2 // need to import this value from backend energy savings calculation
 
 
 export default class OptScheduleScreen extends Component {

@@ -125,10 +125,9 @@ function EnergySavingsScreen({navigation}) {
                   backgroundGradientFromOpacity: 0,
                   backgroundGradientToOpacity: 0,
                   color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`, 
-                  strokeWidth: 3,
                   fillShadowGradient: colors.secondary,
                   fillShadowGradientOpacity: 1,
-                  barPercentage: .5,
+                  barPercentage: .3,
                   barRadius: 10,
                 }}
                 showValuesOnTopOfBars={true}
