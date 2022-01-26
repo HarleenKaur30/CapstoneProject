@@ -13,7 +13,7 @@ import BlindsScreen from "./app/screens/BlindsScreen";
 import BlindsInformationScreen from "./app/screens/BlindsInformationScreen";
 import EditBlindsInformationScreen from "./app/screens/EditBlindsInformationScreen";
 import QRCodeScreen from "./app/screens/QRCodeScreen";
-import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreen";
+import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreenWithEnergy";
 import EnergySavingsScreen from "./app/screens/EnergySavingsScreen";
 import ShowBlindsScreen from "./app/screens/ShowBlindsScreen";
 import ScheduleScreen from "./app/screens/ScheduleScreen";

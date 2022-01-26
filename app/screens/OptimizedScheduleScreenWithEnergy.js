@@ -1,10 +1,13 @@
-// screen to be used when energy savings data is not available.
+// screen to be used when energy savings data is available. Includes additional info bar showing evergy savings and button
+// to navigate to EnergySavingsScreen. 
+//To use this screen replace "import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreen";" in App.js with "import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreenWithEnergy";"
 
 import React, {Component} from 'react';
 import { Text, View, SafeAreaView, Platform, StyleSheet, TouchableOpacity, RefreshControl, Alert} from 'react-native';
 import colors from "../config/colors";
 import { MaterialCommunityIcons, FontAwesome, Feather, FontAwesome5 } from "@expo/vector-icons";
 import Timeline from 'react-native-timeline-flatlist'
+import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens'
 
 const energySavings=25.2 // need to import this value from backend energy savings calculation (once available)
 
@@ -39,7 +42,7 @@ export default class OptScheduleScreen extends Component {
   render() {
     return (
         <SafeAreaView style={styles.container}>
-          
+
           <View style={styles.house}> 
           {/* this text must be a dynamic variable set equal to the house selected from the Automation screen picker */}
           <Text style={styles.text}> 
@@ -86,6 +89,23 @@ export default class OptScheduleScreen extends Component {
               timeContainerStyle={{minWidth:72}}
             />
           </View>
+
+          <View style={styles.energySavingsContainer}>
+            <Text style={styles.smallText}>
+              Estimated Energy Savings: <Text style={styles.energyText}>{energySavings} kWh</Text>
+            </Text>
+
+            <TouchableOpacity style={styles.smallButton}
+                onPress={() => {
+                  this.props.navigation.navigate("Energy Savings");
+              }}
+            >
+              <Text style={styles.smallText}>
+                View Details
+              </Text>
+            </TouchableOpacity>
+          </View>
+
         </SafeAreaView>
     );
   }
@@ -158,18 +178,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: "4%",
   },
-  timelineContainer: {
-    flex: 1,
-    height: 230,
-    width: "100%",
-    alignItems: "center",
-    backgroundColor: colors.white,
-  },
   timelineIcon: {
     width: 30,
     height: 30,
   },
   timeline: {
+    flex: 1,
+  },
+  timelineContainer: {
     flex: 1,
     backgroundColor: colors.white,
     marginHorizontal: 0,
