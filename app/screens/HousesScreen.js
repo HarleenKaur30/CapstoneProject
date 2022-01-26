@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, FlatList, View, Alert } from "react-native";
+import { StyleSheet, FlatList, View, Alert, Image, Text } from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
@@ -9,6 +9,7 @@ import colors from "../config/colors";
 import houses from "../config/houses";
 import values from "../config/values";
 import { useNavigation } from "@react-navigation/native";
+import * as Animatable from "react-native-animatable";
 
 function HousesScreen({}) {
   const [newHouses, setNewHouses] = useState(houses);
@@ -19,6 +20,27 @@ function HousesScreen({}) {
 
   return (
     <View style={styles.largeContainer}>
+      <View style={[styles.weatherContainer, { flexDirection: "row" }]}>
+        <Animatable.View
+          style={styles.weatherIconContainer}
+          animation="pulse"
+          iterationCount={15}
+          direction="alternate"
+        >
+          <Image
+            style={styles.weatherIconImageContainer}
+            source={require("../assets/Sun.png")}
+          />
+        </Animatable.View>
+
+        <View style={styles.weatherTextContainer}>
+          <Text style={styles.weatherTextDate}>February 30th, 2050</Text>
+          <Text style={styles.weatherTextTemperature}>Sunny 25° C</Text>
+          <Text style={styles.weatherTextPeakTemperature}>
+            Peak Temperature: 30°C {"\n"} Time of Peak Temperatue: 12:00pm
+          </Text>
+        </View>
+      </View>
       <View style={styles.container}>
         <FlatList
           data={newHouses}
@@ -119,6 +141,50 @@ const styles = StyleSheet.create({
   largeContainer: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  weatherContainer: {
+    width: "100%",
+    height: "20%",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.ivory,
+    borderWidth: 1,
+    borderColor: colors.secondary,
+  },
+  weatherTextContainer: {
+    flex: 2.2,
+    backgroundColor: colors.ivory,
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+  weatherIconContainer: {
+    flex: 1,
+    backgroundColor: colors.ivory,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  weatherIconImageContainer: {
+    height: 80,
+    width: 80,
+  },
+  weatherTextDate: {
+    color: colors.dimgray,
+    fontSize: 15.5,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    //fontWeight: "bold",
+  },
+  weatherTextTemperature: {
+    color: colors.black,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
+  },
+  weatherTextPeakTemperature: {
+    color: colors.black,
+    fontSize: 15.5,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    //fontWeight: "bold",
   },
 });
 
