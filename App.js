@@ -12,7 +12,7 @@ import HousesScreen from "./app/screens/HousesScreen";
 import BlindsScreen from "./app/screens/BlindsScreen";
 import BlindsInformationScreen from "./app/screens/BlindsInformationScreen";
 import QRCodeScreen from "./app/screens/QRCodeScreen";
-import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreen";
+import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreenWithEnergy";
 import EnergySavingsScreen from "./app/screens/EnergySavingsScreen";
 import colors from "./app/config/colors";
 
