@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, FlatList, View, Alert } from "react-native";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
 
 import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
 import colors from "../config/colors";
-import values from "../config/values";
 import houses from "../config/houses";
+import values from "../config/values";
 
 function ChooseHouseScreen({ navigation }) {
   return (
