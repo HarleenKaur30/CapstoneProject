@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import VerticalSlider from "rn-vertical-slider";
 
@@ -14,77 +15,81 @@ function ShowBlindsScreen({ navigation, route }) {
   const [newOpenPercentage, setNewOpenPercentage] = useState();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        {route.params.houseName}: {route.params.blinds.name}
-      </Text>
-      <View style={styles.blindHeader} />
-      <View style={styles.blindContainer}>
-        <ImageBackground
-          source={require("../assets/window.jpg")}
-          style={styles.blindImage}
-        >
-          <View
-            style={{
-              width: "100%",
-              height: isNaN(newOpenPercentage)
-                ? "" + 100 - route.params.blinds.openPercentage + "%"
-                : "" + 100 - newOpenPercentage + "%",
-              backgroundColor: "#E2DCCD",
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
-              borderColor: colors.dark,
-              borderWidth: 3,
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <Text style={styles.sliderPullText}>Pull</Text>
-            <View style={styles.blindButton} />
-          </View>
-          <View style={{ width: "100%", height: "100%", position: "absolute" }}>
-            <VerticalSlider
-              value={
-                isNaN(newOpenPercentage)
-                  ? route.params.blinds.openPercentage
-                  : newOpenPercentage
-              }
-              disabled={false}
-              min={0}
-              max={100}
-              onChange={(numberValue) => setNewOpenPercentage(numberValue)}
-              width="100%"
-              height={325}
-              step={1}
-              minimumTrackTintColor="transparent"
-              maximumTrackTintColor={"transparent"}
-            />
-          </View>
-        </ImageBackground>
-      </View>
-      <Text style={styles.sliderText}>
-        {isNaN(newOpenPercentage)
-          ? route.params.blinds.openPercentage
-          : newOpenPercentage}
-        % Open
-      </Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("Schedules")}
-        // button to change schedules, this path will likely need to be changed
-      >
-        <Text style={styles.buttonText}>
-          Current Schedule:{"\n"}
-          {route.params.blinds.schedule}
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          {route.params.houseName}: {route.params.blinds.name}
         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("Optimized Schedule")}
-      >
-        <Text style={styles.buttonText}>See Optimized Schedule</Text>
-      </TouchableOpacity>
-    </View>
+        <View style={styles.blindHeader} />
+        <View style={styles.blindContainer}>
+          <ImageBackground
+            source={require("../assets/window.jpg")}
+            style={styles.blindImage}
+          >
+            <View
+              style={{
+                width: "100%",
+                height: isNaN(newOpenPercentage)
+                  ? "" + 100 - route.params.blinds.openPercentage + "%"
+                  : "" + 100 - newOpenPercentage + "%",
+                backgroundColor: "#E2DCCD",
+                borderBottomLeftRadius: 20,
+                borderBottomRightRadius: 20,
+                borderColor: colors.dark,
+                borderWidth: 3,
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.sliderPullText}>Pull</Text>
+              <View style={styles.blindButton} />
+            </View>
+            <View
+              style={{ width: "100%", height: "100%", position: "absolute" }}
+            >
+              <VerticalSlider
+                value={
+                  isNaN(newOpenPercentage)
+                    ? route.params.blinds.openPercentage
+                    : newOpenPercentage
+                }
+                disabled={false}
+                min={0}
+                max={100}
+                onChange={(numberValue) => setNewOpenPercentage(numberValue)}
+                width="100%"
+                height={325}
+                step={1}
+                minimumTrackTintColor="transparent"
+                maximumTrackTintColor={"transparent"}
+              />
+            </View>
+          </ImageBackground>
+        </View>
+        <Text style={styles.sliderText}>
+          {isNaN(newOpenPercentage)
+            ? route.params.blinds.openPercentage
+            : newOpenPercentage}
+          % Open
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Schedules")}
+          // button to change schedules, this path will likely need to be changed
+        >
+          <Text style={styles.buttonText}>
+            Current Schedule:{"\n"}
+            {route.params.blinds.schedule}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Optimized Schedule")}
+        >
+          <Text style={styles.buttonText}>See Optimized Schedule</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
