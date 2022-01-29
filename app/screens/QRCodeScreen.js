@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View } from "react-native";
-
+import { StyleSheet, Text, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import colors from "../config/colors";
@@ -16,9 +15,9 @@ function QRCodeScreen({ navigation }) {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    navigation.navigate("Blinds Information", { blindsStringID: "A938D8-1" });
+    navigation.navigate("Blinds Information", { blindsStringID: data });
   };
 
   if (hasPermission === null) {
