@@ -15,7 +15,7 @@ function ShowBlindsScreen({ navigation, route }) {
   const [newOpenPercentage, setNewOpenPercentage] = useState();
 
   return (
-    <ScrollView>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={styles.container}>
         <Text style={styles.text}>
           {route.params.houseName}: {route.params.blinds.name}
@@ -122,13 +122,13 @@ const styles = StyleSheet.create({
     marginTop: "3%",
   },
   button: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.orange,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: "3.5%",
     width: "90%",
-    marginTop: "5%",
+    marginVertical: "2.5%",
     marginHorizontal: "5%",
   },
   buttonText: {
