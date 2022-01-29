@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import colors from "../config/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -17,14 +17,13 @@ function ListItemDeleteAction({ onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.orangered,
+    backgroundColor: colors.orangereddelete,
     width: "33%",
     justifyContent: "center",
     alignItems: "center",
     padding: "5%",
   },
   deleteText: {
-    //paddingLeft: "10%",
     color: colors.white,
     fontSize: 15,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
