@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   Platform,
   ScrollView,
-  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import Slider from "@react-native-community/slider";
 
@@ -14,7 +13,7 @@ import colors from "../config/colors";
 import AppTextInput from "../components/AppTextInput";
 import AppTextInput2 from "../components/AppTextInput2";
 
-function BlindsInformationScreen({ navigation, route }) {
+function BlindsInformationScreen({ route }) {
   const [blindsID, setBlindsID] = useState();
   const [blindsName, setBlindsName] = useState();
   const [group, setGroup] = useState();
@@ -111,14 +110,13 @@ function BlindsInformationScreen({ navigation, route }) {
           minimumValue={0}
           maximumValue={1}
           minimumTrackTintColor={colors.medium}
-          maximumTrackTintColor={colors.darkorange}
+          maximumTrackTintColor={colors.orange}
           thumbTintColor={colors.medium}
           step={0.05}
           onValueChange={(numberValue) => setObstruction(numberValue)}
           value={0.5}
         />
       </View>
-      <View style={styles.sectionEndContainer} />
       <TouchableOpacity
         style={styles.button}
         //onPress={() =>
@@ -134,7 +132,7 @@ function BlindsInformationScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.orange,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -192,23 +190,18 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   sectionContainer: {
-    backgroundColor: colors.darkorange,
+    backgroundColor: colors.white,
     paddingHorizontal: "5%",
-    paddingVertical: "4%",
+    paddingTop: "4%",
     marginBottom: "2.5%",
     width: "100%",
   },
-  sectionEndContainer: {
-    backgroundColor: colors.darkorange,
-    marginBottom: "2%",
-    width: "100%",
-    height: "0.25%",
-  },
   sectionText: {
-    color: colors.white,
-    fontSize: 22,
+    color: colors.black,
+    fontSize: 24,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
+    textAlign: "center",
   },
   slider: {
     width: "100%",
