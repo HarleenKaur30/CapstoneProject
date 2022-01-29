@@ -1,13 +1,12 @@
 import React from "react";
 import {
-  StyleSheet,
-  NativeModules,
+  Alert,
   Platform,
-  View,
+  ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  Alert,
-  ScrollView,
+  View,
 } from "react-native";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
@@ -67,27 +66,7 @@ function AddDeviceScreen({ navigation }) {
   );
 }
 
-const { StatusBarManager } = NativeModules;
 const styles = StyleSheet.create({
-  addHouse: {
-    height: "47.5%",
-    width: "100%",
-    borderWidth: 5,
-    borderRadius: 25,
-    borderColor: colors.medium,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "5%",
-  },
-  addBlinds: {
-    height: "47.5%",
-    width: "100%",
-    borderWidth: 5,
-    borderRadius: 25,
-    borderColor: colors.medium,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
     height: 150,
     width: 150,
@@ -110,15 +89,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    padding: "5%",
+    paddingTop: "5%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    color: colors.black,
-    fontSize: 18,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
   },
   textContainer: {
     height: 200,
