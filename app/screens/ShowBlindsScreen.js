@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  Text,
-  View,
-  StyleSheet,
   ImageBackground,
-  TouchableOpacity,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import VerticalSlider from "rn-vertical-slider";
 
@@ -143,12 +143,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: "5%",
-  },
-  slider: {
-    width: "100%",
-    height: "10%",
-    //position: "absolute",
-    //top:
   },
   sliderPullText: {
     color: colors.medium,
