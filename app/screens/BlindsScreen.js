@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  Alert,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, FlatList, View, Alert } from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import ListBlind from "../components/ListBlind";
 import ListItemSeperator from "../components/ListItemSeperator";
