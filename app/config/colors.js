@@ -20,4 +20,9 @@ export default {
   honeydew: `#f0fff0`,
   ivory: `#fffff0`,
   lightsalmon: `#ffa07a`,
+  blue: `#0000ff`,
+  cornflowerblue: `#6495ed`,
+  lightskyblue: `#87cefa`,
+  palevioletred: `#db7093`,
+  salmon: `#fa8072`,
 };
