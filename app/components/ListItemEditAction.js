@@ -17,7 +17,7 @@ function ListItemEditAction({ onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.orangeyellow,
+    backgroundColor: colors.cornflowerblue,
     width: "33%",
     justifyContent: "center",
     alignItems: "center",
