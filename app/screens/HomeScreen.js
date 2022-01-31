@@ -3,23 +3,14 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  ScrollView,
-  FlatList,
   View,
   Image,
-  TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import colors from "../../app/config/colors";
 import values from "../../app/config/values";
-import AppButton from "../components/AppButton";
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons";
 import HousesScreen from "./HousesScreen";
 import * as Animatable from "react-native-animatable";
 
@@ -85,8 +76,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    //alignItems: "center",
-    //justifyContent: "center",
   },
 
   weatherContainer: {
@@ -94,21 +83,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.ivory,
+    backgroundColor: colors.light,
     borderWidth: 1,
     borderColor: colors.secondary,
   },
 
   weatherTextContainer: {
     flex: 2.2,
-    backgroundColor: colors.ivory,
+    backgroundColor: colors.light,
     alignItems: "flex-start",
     justifyContent: "center",
   },
 
   weatherIconContainer: {
     flex: 1,
-    backgroundColor: colors.ivory,
+    backgroundColor: colors.light,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -129,7 +118,6 @@ const styles = StyleSheet.create({
     color: colors.dimgray,
     fontSize: 15.5,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    //fontWeight: "bold",
   },
   weatherTextTemperature: {
     color: colors.black,
@@ -141,7 +129,6 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: 15.5,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    //fontWeight: "bold",
   },
 
   buttonText: {
@@ -171,7 +158,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
     padding: "5%",
     top: "5%",
-    backgroundColor: colors.ivory,
+    backgroundColor: colors.light,
     borderWidth: 1,
     borderColor: colors.secondary,
   },
