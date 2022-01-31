@@ -73,7 +73,7 @@ function BlindsOnScheduleScreen({ route }) {
                 <ListItemDeleteAction
                   onPress={() =>
                     Alert.alert(
-                      "Delete",
+                      "Remove",
                       "Are you sure you would like to remove this blind from the schedule?",
                       [
                         { text: "Cancel" },
