@@ -6,9 +6,6 @@ import colors from "../config/colors";
 import { MaterialCommunityIcons, FontAwesome, Feather, FontAwesome5 } from "@expo/vector-icons";
 import Timeline from 'react-native-timeline-flatlist'
 
-const energySavings=25.2 // need to import this value from backend energy savings calculation (once available)
-
-
 export default class OptScheduleScreen extends Component {
   constructor(props){
     super(props)
@@ -40,9 +37,9 @@ export default class OptScheduleScreen extends Component {
     return (
         <SafeAreaView style={styles.container}>
           
-          <View style={styles.house}> 
+          <View style={styles.houseContainer}> 
           {/* this text must be a dynamic variable set equal to the house selected from the Automation screen picker */}
-          <Text style={styles.text}> 
+          <Text style={styles.timelineText}> 
               House 1  
             </Text>        
           </View>
@@ -70,7 +67,14 @@ export default class OptScheduleScreen extends Component {
               circleColor={colors.white}
               lineColor={colors.secondary}
               timeContainerStyle={{minWidth:52, marginTop: 0}}
-              timeStyle={{textAlign: 'center', backgroundColor: colors.light, color: colors.black, padding:5, borderRadius:4, borderWidth:2, borderColor: colors.orange, marginTop: "10%"}}
+              timeStyle={{
+                textAlign: 'center', 
+                backgroundColor: colors.light, 
+                color: colors.black, padding:5, 
+                borderRadius:4, borderWidth:2, 
+                borderColor: colors.orange, 
+                marginTop: "10%"
+              }}
               descriptionStyle={{color:'gray'}}
               options={{
                 style:{paddingTop:5},
@@ -95,62 +99,21 @@ export default class OptScheduleScreen extends Component {
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: colors.black,
+    color: colors.white,
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
   },
-  energyText: {
-    color: "#1da32d",
-    fontSize: 14,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
-    paddingLeft: "2%",
-  },
-  smallText: {
-    color: colors.black,
-    fontSize: 14,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
-    paddingLeft: "2%",
-  },
   button: {
-    height: "10%",
+    height: 60,
     width: "100%",
     borderRadius: 100,
     justifyContent: "space-evenly",
     alignItems: "center",
     padding: "5%",
-    backgroundColor: colors.light,
-    borderWidth: 1,
-    borderColor: colors.secondary,
-  },
-  roundButton: {
-    height: 63,
-    width: 63,
-    borderRadius: 100,
-    position: "absolute",
-    top: "3%",
-    right: "4%",
-    justifyContent: "space-evenly",
-    padding: "5%",
-    backgroundColor: colors.light,
-    borderWidth: 1,
-    borderColor: colors.secondary,
-  },
-  smallButton: {
-    position: "absolute",
-    right: "2%",
-    bottom: "7%",
-    height: 40,
-    width: 100,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "5%",
-    backgroundColor: colors.light,
-    borderWidth: 1,
-    borderColor: colors.secondary,
+    backgroundColor: colors.orange,
+    // borderWidth: 1,
+    // borderColor: colors.secondary,
   },
   container: {
     flex: 1,
@@ -165,10 +128,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.white,
   },
-  timelineIcon: {
-    width: 30,
-    height: 30,
-  },
   timeline: {
     flex: 1,
     backgroundColor: colors.white,
@@ -176,15 +135,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: "5%",
   },
-  energySavingsContainer: {
-    width: "100%",
-    height: 50,
-    borderWidth: 1,
-    borderColor: colors.silvergray,
-    borderRadius: 5,
-    justifyContent: "space-evenly",
-  },
-  house: {
+  houseContainer: {
     height: 30,
     width: "50%",
     alignItems: "center",
@@ -195,7 +146,7 @@ const styles = StyleSheet.create({
     borderColor: colors.medium,
     marginBottom: 10,
   },
-  text: {
+  timelineText: {
     color: colors.black,
     fontSize: 16,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",

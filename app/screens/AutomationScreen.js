@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  Picker,
   Platform,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Alert,
 } from "react-native";
 import colors from "../config/colors";
-import houses from "../config/houses";
 import {
   MaterialCommunityIcons,
   AntDesign,
@@ -90,12 +87,7 @@ function AutomationScreen({ navigation }) {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              // add navigation schedule creation screen
-              Alert.alert(
-                "Custom Schedule",
-                "This will take you to a separate screen to create a schedule (once that screen is done)",
-                [{ text: "Ok" }]
-              );
+              navigation.navigate("Schedule Display");
             }}
           >
             <Ionicons name="create-outline" size={100} color={colors.orange} />
@@ -113,15 +105,6 @@ const styles = StyleSheet.create({
     padding: "2%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  houseContainer: {
-    height: 70,
-    width: "70%",
-    alignItems: "center",
-    // backgroundColor: colors.white,
-    marginBottom: "1%",
-    minHeight: 10,
-    position: "relative",
   },
   scrollView: {
     backgroundColor: colors.white,

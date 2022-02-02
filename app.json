@@ -4,9 +4,9 @@
     "slug": "CapstoneProject",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app/assets/logo.png",
     "splash": {
-      "image": "./app/assets/splash2.png",
+      "image": "./app/assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/icon.png",
+        "foregroundImage": "./app/assets/logo.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./app/assets/icon.png"
+      "favicon": "./app/assets/logo.png"
     }
   }
 }
