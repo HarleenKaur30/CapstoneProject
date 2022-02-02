@@ -22,7 +22,7 @@ const [password, setPassword] = useState("");
 
 return (
 <View style={styles.container}>
-      <Image style={styles.image} source={require("../assets/AIShadingLogo.jpg")} />
+      <Image style={styles.image} source={require("../assets/logo.png")} />
 
       <StatusBar style="auto" />
       
