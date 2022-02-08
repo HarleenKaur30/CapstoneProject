@@ -20,6 +20,7 @@ function Tabs() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: colors.darkorange,
+        headerShown: false,
       }}
     >
       <Tab.Screen

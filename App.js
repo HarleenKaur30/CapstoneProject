@@ -1,10 +1,8 @@
 import LoginScreen from "./app/screens/LoginScreen";
-import HomeScreen from "./app/screens/HomeScreen";
 
 import Tabs from "./app/screens/Tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AddDeviceScreen from "./app/screens/AddDeviceScreen";
 import AddHouseScreen from "./app/screens/AddHouseScreen";
 import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
 import FindBlindsScreen from "./app/screens/FindBlindsScreen";
@@ -16,20 +14,24 @@ import QRCodeScreen from "./app/screens/QRCodeScreen";
 import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreenWithEnergy";
 import EnergySavingsScreen from "./app/screens/EnergySavingsScreen";
 import ShowBlindsScreen from "./app/screens/ShowBlindsScreen";
-import ScheduleScreen from "./app/screens/ScheduleScreen";
 import colors from "./app/config/colors";
 
-import { TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { TouchableOpacity, StyleSheet, Text, Alert} from "react-native";
 import AddHouseScreentest from "./app/screens/AddHouseScreentest";
 import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
 import AddScheduleScreen from "./app/screens/AddScheduleScreen";
 import BlindsOnScheduleScreen from "./app/screens/BlindsOnScheduleScreen";
 
+// function to get screen title from nested navigation
+function getHeaderTitle(route) {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  return routeName;
+}
+
 //This navigator is responsible for moving across different stack screens
 const Stack = createNativeStackNavigator();
 
-/* Note that in the code below, nested navaigation is being used.
+/* Note that in the code below, nested navigation is being used.
  Tab Navigator defined on the Tabs.js is nested within the Stack Navigator.
  Add new screens to the Navigation Container below and then use button press events on the corresponding screens to move to the stacked screen you would like to. */
 
@@ -40,18 +42,30 @@ export default function App() {
         <Stack.Screen
           name="Tabs"
           component={Tabs}
-          options={({ navigation }) => ({
-            headerShown: false,
+          options={({navigation, route}) => ({
+            //headerShown: false,
+            headerTitle: getHeaderTitle(route),
             headerRight: () => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Add Device")}
+              <TouchableOpacity style={styles.headerButton}
+                onPress={() =>{ 
+                  Alert.alert(
+                    'Log out current user?',
+                    'Select OK to continue',
+                    [
+                      {text: "Cancel"},
+                      {text: "OK", onPress: () => navigation.navigate("Login Screen")}, // flush user login info
+                    ]
+                  )   
+                }}
               >
-                <MaterialIcons name="add" size={30} color="black" />
+                <Text style={styles.headerButtonText}>
+                  Log Out
+                </Text>
               </TouchableOpacity>
             ),
+            
           })}
         />
-        <Stack.Screen name="Add Device" component={AddDeviceScreen} />
         <Stack.Screen name="Add House" component={AddHouseScreen} />
         <Stack.Screen
           name="Choose House"
@@ -90,8 +104,32 @@ export default function App() {
           name="Blinds Active On Schedule"
           component={BlindsOnScheduleScreen}
         />
-        <Stack.Screen name="Schedules" component={ScheduleScreen} />
+        <Stack.Screen name="Login Screen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+  },
+  headerButton: {
+    height: 35,
+    width: 100,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "2%",
+    backgroundColor: colors.orange,
+    marginRight: 10,
+  },
+  headerButtonText: {
+    color: colors.white,
+    fontSize: 15,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
+  },
+});
