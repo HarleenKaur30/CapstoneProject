@@ -1,7 +1,10 @@
 import LoginScreen from "./app/screens/LoginScreen";
 
 import Tabs from "./app/screens/Tabs";
-import { NavigationContainer, getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddHouseScreen from "./app/screens/AddHouseScreen";
 import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
@@ -16,7 +19,7 @@ import EnergySavingsScreen from "./app/screens/EnergySavingsScreen";
 import ShowBlindsScreen from "./app/screens/ShowBlindsScreen";
 import colors from "./app/config/colors";
 
-import { TouchableOpacity, StyleSheet, Text, Alert} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, Alert } from "react-native";
 import AddHouseScreentest from "./app/screens/AddHouseScreentest";
 import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
 import AddScheduleScreen from "./app/screens/AddScheduleScreen";
@@ -42,28 +45,29 @@ export default function App() {
         <Stack.Screen
           name="Tabs"
           component={Tabs}
-          options={({navigation, route}) => ({
+          options={({ navigation, route }) => ({
             //headerShown: false,
             headerTitle: getHeaderTitle(route),
             headerRight: () => (
-              <TouchableOpacity style={styles.headerButton}
-                onPress={() =>{ 
+              <TouchableOpacity
+                style={styles.headerButton}
+                onPress={() => {
                   Alert.alert(
-                    'Log out current user?',
-                    'Select OK to continue',
+                    "Log out current user?",
+                    "Select OK to continue",
                     [
-                      {text: "Cancel"},
-                      {text: "OK", onPress: () => navigation.navigate("Login Screen")}, // flush user login info
+                      { text: "Cancel" },
+                      {
+                        text: "OK",
+                        onPress: () => navigation.navigate("Login Screen"),
+                      }, // flush user login info
                     ]
-                  )   
+                  );
                 }}
               >
-                <Text style={styles.headerButtonText}>
-                  Log Out
-                </Text>
+                <Text style={styles.headerButtonText}>Log Out</Text>
               </TouchableOpacity>
             ),
-            
           })}
         />
         <Stack.Screen name="Add House" component={AddHouseScreen} />
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
-  headerButton: {
+  /* headerButton: {
     height: 35,
     width: 100,
     borderRadius: 25,
@@ -125,11 +129,22 @@ const styles = StyleSheet.create({
     padding: "2%",
     backgroundColor: colors.orange,
     marginRight: 10,
+  }, */
+
+  headerButton: {
+    height: 35,
+    width: 100,
+    //borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "2%",
+    //backgroundColor: colors.orange,
+    //marginRight: 1,
   },
   headerButtonText: {
-    color: colors.white,
+    color: colors.dimgray,
     fontSize: 15,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
+    //fontWeight: "bold",
   },
 });
