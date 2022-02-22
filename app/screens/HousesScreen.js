@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, FlatList, View, Alert, Image, Text } from "react-native";
+import { Alert, Image, FlatList, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
@@ -36,8 +36,8 @@ function HousesScreen({}) {
         <View style={styles.weatherTextContainer}>
           <Text style={styles.weatherTextDate}>February 30th, 2050</Text>
           <Text style={styles.weatherTextTemperature}>Sunny 25° C</Text>
-          <Text style={styles.weatherTextPeakTemperature}>
-            Peak Temperature: 30°C {"\n"} Time of Peak Temperatue: 12:00pm
+          <Text style={styles.weatherTextSunriseSunset}>
+            Sunrise: 8:34 A.M. {"\n"}Sunset: 10:23 P.M.
           </Text>
         </View>
       </View>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
   },
-  weatherTextPeakTemperature: {
+  weatherTextSunriseSunset: {
     color: colors.black,
     fontSize: 15.5,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
