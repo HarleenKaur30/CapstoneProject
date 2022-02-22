@@ -15,7 +15,7 @@ import HousesScreen from "./HousesScreen";
 import * as Animatable from "react-native-animatable";
 
 function HomeScreen({ navigation }) {
-  const [houseCount, setHouseCount] = useState(values.houses.number);
+  const [houseCount, setHouseCount] = useState(!values.houses.number);
 
   if (!houseCount) {
     return (
