@@ -1,6 +1,4 @@
-
 /* This screen opens if the customer is not logged in and wishes to login in (has already registered)*/
-
 
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
@@ -14,23 +12,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import colors from "../config/colors";
 
 function LoginScreen(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-
-return (
-<View style={styles.container}>
+  return (
+    <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/logo.png")} />
 
       <StatusBar style="auto" />
-      
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Email"
-          placeholderTextColor= "#003f5c"
+          placeholderTextColor={colors.silvergray}
           onChangeText={(email) => setEmail(email)}
         />
       </View>
@@ -39,7 +37,7 @@ return (
         <TextInput
           style={styles.textInput}
           placeholder="Password"
-          placeholderTextColor="#003f5c"
+          placeholderTextColor={colors.silvergray}
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
@@ -50,17 +48,16 @@ return (
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton}>
-        <Text>LOGIN</Text>
+        <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
-    );
+  );
 }
 
- 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -75,13 +72,13 @@ const styles = StyleSheet.create({
 
   //Style for the container that contains the Email and Password
   inputView: {
-    backgroundColor: "#e6e6fa",
+    backgroundColor: colors.light,
     borderRadius: 30,
     width: "70%",
     height: 45,
     marginBottom: 20,
 
-    alignItems: "center",
+    //alignItems: "center",
   },
 
   //Style for the text for Email and Password
@@ -90,12 +87,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
 
   //Style for the forgot password button
   forgotButton: {
     height: 30,
-    marginBottom: 30,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    //marginBottom: 30,
   },
 
   //Style for the login button
@@ -105,8 +104,16 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#9370db",
+    marginTop: 20,
+    backgroundColor: colors.cornflowerblue,
+  },
+
+  //Style for the login text
+  loginText: {
+    color: colors.white,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
