@@ -16,7 +16,7 @@ import HousesScreen from "./HousesScreen";
 import * as Animatable from "react-native-animatable";
 
 function HomeScreen({ navigation }) {
-  const [houseCount, setHouseCount] = useState(values.houses.number);
+  const [houseCount, setHouseCount] = useState(!values.houses.number);
 
   
 
@@ -46,8 +46,8 @@ function HomeScreen({ navigation }) {
           <View style={styles.weatherTextContainer}>
             <Text style={styles.weatherTextDate}>February 30th, 2050</Text>
             <Text style={styles.weatherTextTemperature}>Sunny 25° C</Text>
-            <Text style={styles.weatherTextPeakTemperature}>
-              Peak Temperature: 30°C {"\n"} Time of Peak Temperatue: 12:00pm
+            <Text style={styles.weatherTextSunriseSunset}>
+              Sunrise: 8:34 A.M. {"\n"}Sunset: 10:23 P.M.
             </Text>
           </View>
         </View>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
   },
-  weatherTextPeakTemperature: {
+  weatherTextSunriseSunset: {
     color: colors.black,
     fontSize: 15.5,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",

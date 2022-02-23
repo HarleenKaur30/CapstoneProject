@@ -1,6 +1,4 @@
-
 /* This screen opens if the customer is not logged in and wishes to login in (has already registered)*/
-
 
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
@@ -12,6 +10,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import colors from "../config/colors";
+
 import colors from "../config/colors";
 
 
@@ -26,13 +26,14 @@ return (
     <Image style={styles.image} source={require("../assets/logo.png")} />
   </View>
 
+
       <StatusBar style="auto" />
-      
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Email"
-          placeholderTextColor= "#003f5c"
+          placeholderTextColor={colors.silvergray}
           onChangeText={(email) => setEmail(email)}
         />
       </View>
@@ -41,7 +42,7 @@ return (
         <TextInput
           style={styles.textInput}
           placeholder="Password"
-          placeholderTextColor="#003f5c"
+          placeholderTextColor={colors.silvergray}
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
@@ -50,6 +51,7 @@ return (
       <TouchableOpacity>
         <Text style={styles.forgotButton}>Forgot Password</Text>
       </TouchableOpacity>
+
 
       <TouchableOpacity 
         style={styles.loginButton}
@@ -65,7 +67,6 @@ return (
   );
 }
 
- 
 const styles = StyleSheet.create({
   parentContainer: {
     backgroundColor: colors.white,
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
   },
+
   inputView: {//Style for the container that contains the Email and Password
     backgroundColor: colors.light,
     borderRadius: 30,
@@ -104,7 +106,8 @@ const styles = StyleSheet.create({
   },
   forgotButton: { //Style for the forgot password button
     height: 30,
-    marginBottom: 30,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    //marginBottom: 30,
   },
   loginButton: { //Style for the login button
     width: "80%",

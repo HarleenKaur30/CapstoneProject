@@ -8,18 +8,44 @@ import {
   View,
 } from "react-native";
 import VerticalSlider from "rn-vertical-slider";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
 function ShowBlindsScreen({ navigation, route }) {
   const [newOpenPercentage, setNewOpenPercentage] = useState();
+  const battery = route.params.blinds.batteryPercentage;
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={styles.container}>
-        <Text style={styles.text}>
-          {route.params.houseName}: {route.params.blinds.name}
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.text}>
+            {route.params.houseName}: {route.params.blinds.name}
+          </Text>
+          <MaterialCommunityIcons
+            name={
+              (battery / 10).toFixed(0) > 0 && (battery / 10).toFixed(0) < 10
+                ? "battery-" + "" + (battery / 10).toFixed(0) * 10
+                : (battery / 10).toFixed(0) == 10
+                ? "battery"
+                : (battery / 10).toFixed(0) == 0
+                ? "battery-alert-variant-outline"
+                : "battery-unknown"
+            }
+            color={
+              (battery / 10).toFixed(0) <= 1 && (battery / 10).toFixed(0) >= 0
+                ? colors.danger
+                : colors.dark
+            }
+            size={30}
+          />
+        </View>
         <View style={styles.blindHeader} />
         <View style={styles.blindContainer}>
           <ImageBackground
@@ -166,6 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
+    marginRight: "5%",
   },
 });
 
