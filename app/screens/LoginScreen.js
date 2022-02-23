@@ -8,21 +8,19 @@ import {
   View,
   Image,
   TextInput,
+  Button,
   TouchableOpacity,
 } from "react-native";
+
 import colors from "../config/colors";
 
-function LoginScreen({navigation}) {
+function LoginScreen(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-
-return (
-<View style={styles.parentContainer} >
-  <View style={styles.imageContainer}>
-    <Image style={styles.image} source={require("../assets/logo.png")} />
-  </View>
-
+  return (
+    <View style={styles.container}>
+      <Image style={styles.image} source={require("../assets/logo.png")} />
 
       <StatusBar style="auto" />
 
@@ -46,74 +44,76 @@ return (
       </View>
 
       <TouchableOpacity>
-        <Text style={styles.forgotButton}>Forgot Password</Text>
+        <Text style={styles.forgotButton}>Forgot Password?</Text>
       </TouchableOpacity>
 
-
-      <TouchableOpacity 
-        style={styles.loginButton}
-        onPress={() => 
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Home' }], // temporary direct navigation to home screen, to be replaced with authorization
-          })
-        }>
-        <Text style={styles.textInput}>LOGIN</Text>
+      <TouchableOpacity style={styles.loginButton}>
+        <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  parentContainer: {
-    backgroundColor: colors.white,
-    marginHorizontal: 0,
-    width: "100%",
-    alignItems: "center",
-    height: "100%",
-  },
-  imageContainer: {
-    width: "100%",
-    height: 250,
+  container: {
+    flex: 1,
     backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
-  image: { //Style for the AI Shading logo
-    width: 250,
-    height: 250,
+
+  //Style for the AI Shading logo
+  image: {
+    width: 124,
+    height: 100,
+    position: "absolute",
+    top: 100,
   },
 
-  inputView: {//Style for the container that contains the Email and Password
+  //Style for the container that contains the Email and Password
+  inputView: {
     backgroundColor: colors.light,
     borderRadius: 30,
     width: "70%",
     height: 45,
     marginBottom: 20,
-    alignItems: "center",
-    borderColor: colors.orange,
-    borderWidth: 2,
-    justifyContent: "center",
+
+    //alignItems: "center",
   },
-  textInput: { //Style for the text for Email and Password
-    color: colors.black,
-    fontSize: 14,
+
+  //Style for the text for Email and Password
+  textInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
   },
-  forgotButton: { //Style for the forgot password button
+
+  //Style for the forgot password button
+  forgotButton: {
     height: 30,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     //marginBottom: 30,
   },
-  loginButton: { //Style for the login button
+
+  //Style for the login button
+  loginButton: {
     width: "80%",
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "15%",
-    backgroundColor: colors.logo_blue,
+    marginTop: 20,
+    backgroundColor: colors.cornflowerblue,
+  },
+
+  //Style for the login text
+  loginText: {
+    color: colors.white,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
