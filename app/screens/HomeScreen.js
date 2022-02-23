@@ -6,6 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import colors from "../../app/config/colors";
@@ -16,6 +17,8 @@ import * as Animatable from "react-native-animatable";
 
 function HomeScreen({ navigation }) {
   const [houseCount, setHouseCount] = useState(!values.houses.number);
+
+  
 
   if (!houseCount) {
     return (

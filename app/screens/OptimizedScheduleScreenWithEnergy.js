@@ -15,10 +15,10 @@ export default class OptScheduleScreen extends Component {
   constructor(props){
     super(props)
     this.data = [ // import this from local buffer, filled from API at midnight each day
-      {time: '3:00am', title: 'Minimum Outdoor Temperature', icon: <FontAwesome5 name="temperature-low" size={30} color={colors.black}/>},
+      {time: '3:00am', title: 'Minimum Outdoor Temperature', icon: <FontAwesome5 name="thermometer-quarter" size={30} color={colors.black}/>},
       {time: '9:00am', title: 'Sunrise', icon: <Feather name="sunrise" size={30} color={colors.black}/>},
       {time: '10:45am', title: 'Close Blinds', icon: <MaterialCommunityIcons name="blinds" size={30} color={colors.black}/>},
-      {time: '12:00pm', title: 'Peak Outdoor Temperature', icon: <FontAwesome5 name="temperature-high" size={30} color={colors.black}/>},
+      {time: '12:00pm', title: 'Peak Outdoor Temperature', icon: <FontAwesome5 name="thermometer-full" size={30} color={colors.black}/>},
       {time: '4:00pm', title: 'Open Blinds', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
       {time: '7:00pm', title: 'Sunset', icon: <Feather name="sunset" size={30} color={colors.black}/>},
       {time: '12:00am', title: 'Next Forecast Update', icon: <FontAwesome name="refresh" size={30} color={colors.black}/>}
@@ -70,9 +70,17 @@ export default class OptScheduleScreen extends Component {
               data={this.data}
               circleSize={40}
               circleColor={colors.white}
-              lineColor={colors.secondary}
+              lineColor={colors.orange}
               timeContainerStyle={{minWidth:52, marginTop: 0}}
-              timeStyle={{textAlign: 'center', backgroundColor: colors.light, color: colors.black, padding:5, borderRadius:4, borderWidth:2, borderColor: colors.orange, marginTop: "10%"}}
+              timeStyle={{
+                textAlign: 'center', 
+                backgroundColor: colors.light, 
+                color: colors.black, 
+                padding:5, 
+                borderRadius:4, 
+                borderWidth:2, 
+                borderColor: colors.logo_blue, 
+                marginTop: "10%"}}
               descriptionStyle={{color:'gray'}}
               options={{
                 style:{paddingTop:5},
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     padding: "5%",
-    backgroundColor: colors.orange,
+    backgroundColor: colors.logo_blue,
     // borderWidth: 1,
     // borderColor: colors.secondary,
   },
@@ -160,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: "5%",
-    backgroundColor: colors.orange,
+    backgroundColor: colors.logo_blue,
     // borderWidth: 1,
     // borderColor: colors.secondary,
   },
