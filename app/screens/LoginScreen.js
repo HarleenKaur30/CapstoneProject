@@ -14,7 +14,7 @@ import {
 
 import colors from "../config/colors";
 
-function LoginScreen(props) {
+function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -47,7 +47,15 @@ function LoginScreen(props) {
         <Text style={styles.forgotButton}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "Home" }], // temporary direct navigation to home screen, to be replaced with authorization
+          })
+        }
+      >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
