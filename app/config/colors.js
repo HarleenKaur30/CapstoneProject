@@ -1,6 +1,6 @@
 export default {
   //primary: "#fc5c65",
-  secondary: "#4ecdc4", // logo blue: "#4dafff"
+  secondary: "#4ecdc4", 
   black: "#000",
   white: "#fff",
   medium: "#6e6969",
@@ -21,6 +21,7 @@ export default {
   ivory: `#fffff0`,
   lightsalmon: `#ffa07a`,
   blue: `#0000ff`,
+  logo_blue: '#4dafff', //added at client request
   cornflowerblue: `#6495ed`,
   lightskyblue: `#87cefa`,
   palevioletred: `#db7093`,

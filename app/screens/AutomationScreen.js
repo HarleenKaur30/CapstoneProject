@@ -44,10 +44,13 @@ function AutomationScreen({ navigation }) {
         containerStyle={{
           width: "70%",
           marginBottom: "2%",
+          marginTop: "2%",
+          elevation: 1,
+          zIndex: 1,
         }}
       />
 
-      <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
+      <View style={styles.scrollView} nestedScrollEnabled={true}>
         {/* View Optimized Schedule button */}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>View Optimized Schedule</Text>
@@ -58,7 +61,7 @@ function AutomationScreen({ navigation }) {
               navigation.navigate("Optimized Schedule");
             }}
           >
-            <AntDesign name="areachart" size={100} color={colors.orange} />
+            <AntDesign name="areachart" size={90} color={colors.logo_blue} />
           </TouchableOpacity>
         </View>
 
@@ -74,8 +77,8 @@ function AutomationScreen({ navigation }) {
           >
             <MaterialCommunityIcons
               name="timetable"
-              size={100}
-              color={colors.orange}
+              size={90}
+              color={colors.logo_blue}
             />
           </TouchableOpacity>
         </View>
@@ -90,20 +93,20 @@ function AutomationScreen({ navigation }) {
               navigation.navigate("Schedule Display");
             }}
           >
-            <Ionicons name="create-outline" size={100} color={colors.orange} />
+            <Ionicons name="create-outline" size={90} color={colors.logo_blue} />
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "100%",
     backgroundColor: colors.white,
     padding: "2%",
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
   },
   scrollView: {
@@ -112,13 +115,12 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   textContainer: {
-    height: 200,
+    height: "31.7%",
     width: "100%",
     alignItems: "center",
     backgroundColor: colors.white,
     borderBottomColor: colors.light,
     borderBottomWidth: 1,
-    marginTop: "3%",
     position: "relative",
   },
   buttonText: {
@@ -128,8 +130,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    height: 150,
-    width: 150,
+    height: 125,
+    width: 125,
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
     top: "5%",
     backgroundColor: colors.light,
     borderWidth: 1,
-    borderColor: colors.secondary,
+    borderColor: colors.orange,
   },
 });
 

@@ -24,6 +24,9 @@ import AddHouseScreentest from "./app/screens/AddHouseScreentest";
 import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
 import AddScheduleScreen from "./app/screens/AddScheduleScreen";
 import BlindsOnScheduleScreen from "./app/screens/BlindsOnScheduleScreen";
+import UserInfoScreen from "./app/screens/UserInfoScreen";
+import AccountScreen from "./app/screens/AccountInfoScreen";
+import {Ionicons} from '@expo/vector-icons';
 
 // function to get screen title from nested navigation
 function getHeaderTitle(route) {
@@ -41,9 +44,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Tabs">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
-          name="Tabs"
+          name="Home"
           component={Tabs}
           options={({ navigation, route }) => ({
             //headerShown: false,
@@ -52,35 +55,43 @@ export default function App() {
               <TouchableOpacity
                 style={styles.headerButton}
                 onPress={() => {
-                  Alert.alert(
-                    "Log out current user?",
-                    "Select OK to continue",
-                    [
-                      { text: "Cancel" },
-                      {
-                        text: "OK",
-                        onPress: () => navigation.navigate("Login Screen"),
-                      }, // flush user login info
-                    ]
-                  );
+                  navigation.navigate("User Info");
                 }}
               >
-                <Text style={styles.headerButtonText}>Log Out</Text>
+                <Ionicons name="person" size={30} color={colors.black}/>
               </TouchableOpacity>
             ),
           })}
         />
-        <Stack.Screen name="Add House" component={AddHouseScreen} />
+        <Stack.Screen 
+          name="Add House" 
+          component={AddHouseScreen} 
+        />
         <Stack.Screen
           name="Choose House"
           component={ChooseHouseScreen}
           options={{ title: "Add Blinds" }}
         />
-        <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
-        <Stack.Screen name="Houses" component={HousesScreen} />
-        <Stack.Screen name="Blinds" component={BlindsScreen} />
-        <Stack.Screen name="QR Scanner" component={QRCodeScreen} />
-        <Stack.Screen name="View Blinds" component={ShowBlindsScreen} />
+        <Stack.Screen 
+          name="Find Blinds" 
+          component={FindBlindsScreen} 
+        />
+        <Stack.Screen 
+          name="Houses" 
+          component={HousesScreen} 
+        />
+        <Stack.Screen 
+          name="Blinds" 
+          component={BlindsScreen} 
+        />
+        <Stack.Screen 
+          name="QR Scanner" 
+          component={QRCodeScreen} 
+        />
+        <Stack.Screen 
+          name="View Blinds" 
+          component={ShowBlindsScreen} 
+        />
         <Stack.Screen
           name="Blinds Information"
           component={BlindsInformationScreen}
@@ -95,7 +106,10 @@ export default function App() {
           name="Optimized Schedule"
           component={OptimizedScheduleScreen}
         />
-        <Stack.Screen name="Energy Savings" component={EnergySavingsScreen} />
+        <Stack.Screen 
+          name="Energy Savings" 
+          component={EnergySavingsScreen} 
+        />
         <Stack.Screen
           name="Schedule Display"
           component={ScheduleDisplayScreen}
@@ -108,7 +122,18 @@ export default function App() {
           name="Blinds Active On Schedule"
           component={BlindsOnScheduleScreen}
         />
-        <Stack.Screen name="Login Screen" component={LoginScreen} />
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+        />
+        <Stack.Screen
+          name="User Info"
+          component={UserInfoScreen}
+        />
+        <Stack.Screen
+          name="Account Information"
+          component={AccountScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -120,26 +145,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
-  /* headerButton: {
-    height: 35,
-    width: 100,
-    borderRadius: 25,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "2%",
-    backgroundColor: colors.orange,
-    marginRight: 10,
-  }, */
-
   headerButton: {
     height: 35,
-    width: 100,
-    //borderRadius: 25,
+    width: 50,
     alignItems: "center",
     justifyContent: "center",
     padding: "2%",
-    //backgroundColor: colors.orange,
-    //marginRight: 1,
+    marginRight: 2,
   },
   headerButtonText: {
     color: colors.dimgray,
