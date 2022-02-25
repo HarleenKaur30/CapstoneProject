@@ -31,7 +31,7 @@ function AddDeviceScreen({ navigation }) {
                 : navigation.navigate("Add House");
             }}
           >
-            <FontAwesome5 name="home" size={100} color={colors.orange} />
+            <FontAwesome5 name="home" size={100} color={colors.logo_blue} />
           </TouchableOpacity>
         </View>
         <View style={styles.textContainer}>
@@ -57,7 +57,7 @@ function AddDeviceScreen({ navigation }) {
             <MaterialCommunityIcons
               name="blinds"
               size={100}
-              color={colors.orange}
+              color={colors.logo_blue}
             />
           </TouchableOpacity>
         </View>
