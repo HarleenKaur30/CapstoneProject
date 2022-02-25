@@ -110,7 +110,7 @@ function BlindsInformationScreen({ route }) {
           minimumValue={0}
           maximumValue={1}
           minimumTrackTintColor={colors.medium}
-          maximumTrackTintColor={colors.orange}
+          maximumTrackTintColor={colors.logo_blue}
           thumbTintColor={colors.medium}
           step={0.05}
           onValueChange={(numberValue) => setObstruction(numberValue)}
@@ -132,7 +132,7 @@ function BlindsInformationScreen({ route }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.orange,
+    backgroundColor: colors.logo_blue,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -180,10 +180,10 @@ const styles = StyleSheet.create({
     borderRightWidth: 44,
     borderTopWidth: 44,
     borderRightColor: "transparent",
-    borderTopColor: colors.orange,
+    borderTopColor: colors.logo_blue,
   },
   obstructionNoObstruction: {
-    backgroundColor: colors.orange,
+    backgroundColor: colors.logo_blue,
     height: 50,
     width: 50,
     borderColor: colors.black,
