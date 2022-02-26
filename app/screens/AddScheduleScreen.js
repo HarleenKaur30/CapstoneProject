@@ -10,17 +10,23 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import VerticalSlider from "rn-vertical-slider";
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 function AddScheduleScreen({ navigation }) {
     const [date, setDate] = useState(new Date(1598051730000));
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState('time');
+    const [text, setText] = useState('No Time Chosen');
     const [newOpenPercentage, setNewOpenPercentage] = useState();
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let ftime = 'Hours: ' + tempDate.getHours() + ' | Minutes: ' + tempDate.getMinutes();
+    setText(ftime)
   };
 
   const showMode = (currentMode) =>  {
@@ -44,13 +50,13 @@ function AddScheduleScreen({ navigation }) {
           color={colors.logo_blue}
         />
       </View>
-    
-      
 
       <View style={styles.selectorButton}>
         <AppButton onPress={showTimepicker} title="Open Selector" />
+        <Text style={{fontSize: 18}}>{text}</Text>
       </View>
 
+     
 
       {show && (
         <DateTimePicker
@@ -128,8 +134,8 @@ function AddScheduleScreen({ navigation }) {
           title="Add"
           onPress={() => {
           navigation.navigate("Schedule Display");
-        }}
-        />
+          }}
+          />
         </View>
 
         <View style={styles.cancelButton}>
@@ -140,7 +146,6 @@ function AddScheduleScreen({ navigation }) {
           }}
         />
         </View>
-
 
 </ScrollView>
 
@@ -170,12 +175,11 @@ const styles = StyleSheet.create({
         alignItems: "center"
       },
       addButton: {
-        top: '70%',
         alignItems: 'center',
       },
       cancelButton: {
         alignItems: 'center',
-        top: '70%'
+        paddingBottom: '20%'
       },
       selectorButton: {
         alignItems: 'center',
