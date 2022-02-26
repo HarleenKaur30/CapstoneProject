@@ -19,7 +19,7 @@ function Tabs() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: colors.darkorange,
+        tabBarActiveTintColor: colors.logo_blue,
         headerShown: false,
       }}
     >

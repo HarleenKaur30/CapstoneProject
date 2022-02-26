@@ -38,7 +38,7 @@ function AddHouseScreen(props) {
           name="map-marker"
           size={40}
           style={styles.mapmarkerContainer}
-          color={colors.orange}
+          color={colors.logo_blue}
         />
 
         <DropDownPicker
