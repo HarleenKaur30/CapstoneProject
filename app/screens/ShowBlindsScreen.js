@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     marginTop: "3%",
   },
   button: {
-    backgroundColor: colors.logo_blue,
+    backgroundColor: colors.orange,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
