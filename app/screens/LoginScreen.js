@@ -58,18 +58,6 @@ function LoginScreen({ navigation }) {
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.registerButton}
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Register" }], // temporary direct navigation to home screen, to be replaced with authorization
-          })
-        }
-      >
-        <Text style={styles.registerText}>REGISTER</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -84,11 +72,10 @@ const styles = StyleSheet.create({
 
   //Style for the AI Shading logo
   image: {
-    width: 170,
-    height: 160,
-    //position: "absolute",
-    //top: 100,
-    marginTop: "-25%",
+    width: 124,
+    height: 100,
+    position: "absolute",
+    top: 100,
   },
 
   //Style for the container that contains the Email and Password
@@ -126,30 +113,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    backgroundColor: colors.logo_blue,
+    backgroundColor: colors.cornflowerblue,
   },
 
   //Style for the login text
   loginText: {
-    color: colors.white,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-
-  //Style for the register button
-  registerButton: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: colors.darkorange,
-  },
-
-  //Style for the register text
-  registerText: {
     color: colors.white,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
