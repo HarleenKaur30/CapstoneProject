@@ -68,9 +68,9 @@ export default class ScheduleDisScreen extends Component {
               data={this.data}
               circleSize={40}
               circleColor={colors.white}
-              lineColor={colors.orange}
+              lineColor={colors.secondary}
               timeContainerStyle={{minWidth:52, marginTop: 0}}
-              timeStyle={{textAlign: 'center', backgroundColor: colors.light, color: colors.black, padding:5, borderRadius:4, borderWidth:2, borderColor: colors.logo_blue, marginTop: "10%"}}
+              timeStyle={{textAlign: 'center', backgroundColor: colors.light, color: colors.black, padding:5, borderRadius:4, borderWidth:2, borderColor: colors.orange, marginTop: "10%"}}
               descriptionStyle={{color:'gray'}}
               options={{
                 style:{paddingTop:5},
@@ -222,8 +222,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: "-20%",
-    width: "50%"
+    paddingTop: "-20%"
   }
 }); 
 
