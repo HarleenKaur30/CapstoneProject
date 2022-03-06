@@ -29,7 +29,7 @@ function ListBlind({
             <MaterialCommunityIcons
               name="blinds"
               size={40}
-              color={colors.orange}
+              color={colors.logo_blue}
             />
             <View style={styles.textContainer}>
               <Text style={styles.blindNameText}>{blindName}</Text>
