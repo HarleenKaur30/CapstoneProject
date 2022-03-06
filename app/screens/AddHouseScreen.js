@@ -1,29 +1,20 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
   NativeModules,
   StyleSheet,
-  Platform,
+  SafeAreaView,
   ScrollView,
-  Dimensions
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import colors from "../config/colors";
 import DropDownPicker from "react-native-dropdown-picker";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
-import * as Location from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
 
 function AddHouseScreen(props) {
-  const [location, setLocation] = useState(null);
-  const [city, setCity] = useState(null);
-  const [pin, setPin] = useState({
-    latitude: 13.406,
-    longitude: 123.3753,
-  })
-  const [errorMsg, setErrorMsg] = useState(null);
   const [nickname, setNickname] = useState();
   const [usualtemp, setUsualtemp] = useState();
   const [desiredtemp, setDesiredtemp] = useState();
@@ -36,72 +27,20 @@ function AddHouseScreen(props) {
     { label: "Vancouver", value: "Vancouver" },
   ]);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-
-      let place = await Location.reverseGeocodeAsync({
-        latitude : location.coords.latitude,
-        longitude : location.coords.longitude
-      });
-      
-      let city;
-      place.find( p => {
-        city = p.city
-        setCity(p.city)
-      })
-
-      setPin({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      })
-
-   }) ();  
-  }, []);
-
-  let text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(city);
-  }
-
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.locationWrapper}>
           <Text style={styles.sectionTitle}>Location</Text>
-          <Text style={styles.secondaryTitle}>Auto-location</Text>
-          <Text> City: {text}</Text>
-          <MapView 
-            style={styles.map} 
-            initialRegion={{
-              latitude: 53.5232,
-              longitude: 113.5263,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.0005,
-            }}
-            region={pin}
-          >
-            <Marker coordinate={pin} />
-          </MapView>
         </View>
 
         <MaterialCommunityIcons
           name="map-marker"
           size={40}
           style={styles.mapmarkerContainer}
-          color={colors.logo_blue}
+          color={colors.orange}
         />
 
-        <Text style={styles.secondaryTitle}>OR Manually Choose Location</Text>
         <DropDownPicker
           open={open}
           value={value}
@@ -170,23 +109,15 @@ const styles = StyleSheet.create({
   locationWrapper: {
     paddingTop: 25,
     paddingBottom: 15,
-    alignItems: "center"
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: "bold",
   },
-  sectionTitle: {
-    fontSize: 20,
-  },
   picker: {
     height: 10,
     width: 600,
     marginTop: -75,
-  },
-  map: {
-    width: Dimensions.get('window').width,
-    height: 300,
   },
   mapmarkerContainer: {
     position: "absolute",
