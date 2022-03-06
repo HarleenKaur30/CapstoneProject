@@ -79,7 +79,7 @@ function AddHouseScreen(props) {
         <View style={styles.locationWrapper}>
           <Text style={styles.sectionTitle}>Location</Text>
           <Text style={styles.secondaryTitle}>Auto-location</Text>
-          <Text> Region: {text}</Text>
+          <Text> City: {text}</Text>
           <MapView 
             style={styles.map} 
             initialRegion={{
