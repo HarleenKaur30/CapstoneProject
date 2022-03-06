@@ -117,7 +117,7 @@ function BlindsScreen({ route }) {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: colors.logo_blue,
+    backgroundColor: colors.orange,
     borderRadius: 25,
     width: "40%",
     marginHorizontal: "30%",
