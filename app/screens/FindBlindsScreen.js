@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     //alignItems: "center",
   },
   qrButtonContainer: {
-    backgroundColor: colors.logo_blue,
+    backgroundColor: colors.orange,
     height: "25%",
     width: "100%",
     flexDirection: "row",
