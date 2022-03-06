@@ -8,30 +8,30 @@ import {
   Alert,
 } from "react-native";
 import colors from "../config/colors";
-import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  Ionicons,
+  MaterialCommunityIcons, 
+} from "@expo/vector-icons";
 
-const appVersion = 0.3; //add global variable to indicate app version number and import it here, or remove
+const appVersion=0.3 //add global variable to indicate app version number and import it here, or remove
 
 function UserInfoScreen({ navigation }) {
   return (
     <View style={styles.parentContainer}>
-      <TouchableOpacity
-        style={styles.list}
-        onPress={() => {
-          navigation.navigate("Account Information");
-        }}
-      >
-        <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="table-account"
-            size={40}
-            color={colors.logo_blue}
-          />
-        </View>
-        <Text style={styles.textStyle}> Account Information</Text>
-      </TouchableOpacity>
 
-      {/* <TouchableOpacity  
+        <TouchableOpacity  
+          style={styles.list}
+          onPress={() => {
+            navigation.navigate("Account Information");
+          }}>
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons name="table-account" size={40} color={colors.logo_blue}/>
+          </View>
+          <Text style={styles.textStyle}> Account Information</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity  
           style={styles.list}
           onPress={() => {
             Alert.alert(
@@ -49,29 +49,30 @@ function UserInfoScreen({ navigation }) {
           <Text style={styles.textStyle}> Reset Password</Text>
         </TouchableOpacity> */}
 
-      <TouchableOpacity
-        style={styles.list}
-        onPress={() => {
-          Alert.alert("Log out current user?", "Select OK to continue", [
-            { text: "Cancel" },
-            {
-              text: "OK",
-              onPress: () =>
-                navigation.reset({ index: 0, routes: [{ name: "Welcome" }] }),
-            }, // flush user login info
-          ]);
-        }}
-      >
-        <View style={styles.iconContainer}>
-          <Entypo name="log-out" size={40} color={colors.logo_blue} />
+        <TouchableOpacity  
+          style={styles.list}
+          onPress={() => {
+            Alert.alert(
+                "Log out current user?",
+                "Select OK to continue",
+                [
+                { text: "Cancel" },
+                { text: "OK", onPress: () => navigation.reset({index: 0, routes: [{ name: 'Login' }],}),}, // flush user login info
+                ]
+            );
+          }}>
+          <View style={styles.iconContainer}>
+            <Entypo name="log-out" size={40} color={colors.logo_blue}/>
+          </View>
+          <Text style={styles.textStyle}> Log Out</Text>
+        </TouchableOpacity>
+        <View style={styles.list}>
+          <Text>App Version: {appVersion}</Text> 
         </View>
-        <Text style={styles.textStyle}> Log Out</Text>
-      </TouchableOpacity>
-      <View style={styles.list}>
-        <Text>App Version: {appVersion}</Text>
-      </View>
+        
+
     </View>
-  );
+);
 }
 
 const styles = StyleSheet.create({
@@ -103,7 +104,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "25%",
   },
-  textContainer: {},
+  textContainer: {
+
+  }
 });
 
 export default UserInfoScreen;
