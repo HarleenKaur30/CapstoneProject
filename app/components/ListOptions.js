@@ -11,7 +11,7 @@ function ListOptions({ optionName, iconName, onPress }) {
         <MaterialCommunityIcons
           name={iconName}
           size={40}
-          color={colors.logo_blue}
+          color={colors.orange}
         />
         <Text style={styles.optionNameText}>{optionName}</Text>
       </View>
