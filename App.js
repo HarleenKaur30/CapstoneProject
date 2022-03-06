@@ -1,3 +1,5 @@
+import LoginScreen from "./app/screens/LoginScreen";
+
 import Tabs from "./app/screens/Tabs";
 import {
   NavigationContainer,
@@ -15,9 +17,6 @@ import QRCodeScreen from "./app/screens/QRCodeScreen";
 import OptimizedScheduleScreen from "./app/screens/OptimizedScheduleScreenWithEnergy";
 import EnergySavingsScreen from "./app/screens/EnergySavingsScreen";
 import ShowBlindsScreen from "./app/screens/ShowBlindsScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
 import colors from "./app/config/colors";
 
 import { TouchableOpacity, StyleSheet, Text, Alert } from "react-native";
@@ -27,7 +26,7 @@ import AddScheduleScreen from "./app/screens/AddScheduleScreen";
 import BlindsOnScheduleScreen from "./app/screens/BlindsOnScheduleScreen";
 import UserInfoScreen from "./app/screens/UserInfoScreen";
 import AccountScreen from "./app/screens/AccountInfoScreen";
-import { Ionicons } from "@expo/vector-icons";
+import {Ionicons} from '@expo/vector-icons';
 
 // function to get screen title from nested navigation
 function getHeaderTitle(route) {
@@ -59,22 +58,40 @@ export default function App() {
                   navigation.navigate("User Info");
                 }}
               >
-                <Ionicons name="person" size={30} color={colors.black} />
+                <Ionicons name="person" size={30} color={colors.black}/>
               </TouchableOpacity>
             ),
           })}
         />
-        <Stack.Screen name="Add House" component={AddHouseScreen} />
+        <Stack.Screen 
+          name="Add House" 
+          component={AddHouseScreen} 
+        />
         <Stack.Screen
           name="Choose House"
           component={ChooseHouseScreen}
           options={{ title: "Add Blinds" }}
         />
-        <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
-        <Stack.Screen name="Houses" component={HousesScreen} />
-        <Stack.Screen name="Blinds" component={BlindsScreen} />
-        <Stack.Screen name="QR Scanner" component={QRCodeScreen} />
-        <Stack.Screen name="View Blinds" component={ShowBlindsScreen} />
+        <Stack.Screen 
+          name="Find Blinds" 
+          component={FindBlindsScreen} 
+        />
+        <Stack.Screen 
+          name="Houses" 
+          component={HousesScreen} 
+        />
+        <Stack.Screen 
+          name="Blinds" 
+          component={BlindsScreen} 
+        />
+        <Stack.Screen 
+          name="QR Scanner" 
+          component={QRCodeScreen} 
+        />
+        <Stack.Screen 
+          name="View Blinds" 
+          component={ShowBlindsScreen} 
+        />
         <Stack.Screen
           name="Blinds Information"
           component={BlindsInformationScreen}
@@ -89,7 +106,10 @@ export default function App() {
           name="Optimized Schedule"
           component={OptimizedScheduleScreen}
         />
-        <Stack.Screen name="Energy Savings" component={EnergySavingsScreen} />
+        <Stack.Screen 
+          name="Energy Savings" 
+          component={EnergySavingsScreen} 
+        />
         <Stack.Screen
           name="Schedule Display"
           component={ScheduleDisplayScreen}
@@ -102,23 +122,18 @@ export default function App() {
           name="Blinds Active On Schedule"
           component={BlindsOnScheduleScreen}
         />
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
         />
         <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={{ headerShown: false }}
+          name="User Info"
+          component={UserInfoScreen}
         />
         <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{ headerShown: false }}
+          name="Account Information"
+          component={AccountScreen}
         />
-        <Stack.Screen name="User Info" component={UserInfoScreen} />
-        <Stack.Screen name="Account Information" component={AccountScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
