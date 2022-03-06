@@ -26,7 +26,7 @@ function ListHouse({
           underlayColor={colors.silvergray}
         >
           <View style={styles.container}>
-            <FontAwesome5 name="home" size={40} color={colors.logo_blue} />
+            <FontAwesome5 name="home" size={40} color={colors.orange} />
             <View style={styles.textContainer}>
               <Text style={styles.houseNameText}>{houseName}</Text>
               <Text style={styles.blindsText}>
