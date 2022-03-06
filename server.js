@@ -47,7 +47,7 @@ app.get("/dinners", function (req, res) {
 
 
 app.get("/users", function (req, res) {
-  con.query("select * from dinners", function (error, rows, fields) {
+  con.query("select * from users", function (error, rows, fields) {
     if (error) console.log(error);
     else {
       console.log(rows);
