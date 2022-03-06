@@ -28,7 +28,7 @@ function ListSchedule({
             <MaterialCommunityIcons
               name="calendar-clock"
               size={40}
-              color={colors.logo_blue}
+              color={colors.orange}
             />
             <View style={styles.textContainer}>
               <Text style={styles.scheduleNameText}>{scheduleName}</Text>
