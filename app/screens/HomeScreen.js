@@ -16,7 +16,9 @@ import HousesScreen from "./HousesScreen";
 import * as Animatable from "react-native-animatable";
 
 function HomeScreen({ navigation }) {
-  const [houseCount, setHouseCount] = useState(values.houses.number);
+  const [houseCount, setHouseCount] = useState(!values.houses.number);
+
+  
 
   if (!houseCount) {
     return (
@@ -62,7 +64,7 @@ function HomeScreen({ navigation }) {
             <MaterialIcons
               name="library-add"
               size={100}
-              color={colors.logo_blue}
+              color={colors.orange}
             />
           </TouchableOpacity>
         </View>
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
     top: "5%",
     backgroundColor: colors.light,
     borderWidth: 1,
-    borderColor: colors.logo_blue,
+    borderColor: colors.secondary,
   },
 });
 
