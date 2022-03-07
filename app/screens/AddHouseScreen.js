@@ -84,9 +84,7 @@ function AddHouseScreen(props) {
             style={styles.map} 
             initialRegion={{
               latitude: 53.5232,
-              longitude: 113.5263,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.0005,
+              longitude: 113.5263
             }}
             region={pin}
           >
