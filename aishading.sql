@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2022 at 05:55 AM
+-- Generation Time: Mar 09, 2022 at 10:24 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -36,7 +36,9 @@ CREATE TABLE `blinds` (
   `groupName` varchar(30) DEFAULT NULL,
   `windowHeight` double DEFAULT NULL,
   `orientation` varchar(9) DEFAULT NULL,
-  `obstructionLevel` double DEFAULT NULL
+  `obstructionLevel` double DEFAULT NULL,
+  `battery` double DEFAULT NULL,
+  `openPercentage` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -48,7 +50,8 @@ CREATE TABLE `blinds` (
 CREATE TABLE `groups` (
   `groupID` double DEFAULT NULL,
   `scheduleID` double DEFAULT NULL,
-  `groupName` varchar(30) DEFAULT NULL
+  `groupName` varchar(30) DEFAULT NULL,
+  `userID` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -171,7 +174,8 @@ CREATE TABLE `schedules` (
   `time2300` decimal(3,2) DEFAULT NULL,
   `time2315` decimal(3,2) DEFAULT NULL,
   `time2330` decimal(3,2) DEFAULT NULL,
-  `time2345` decimal(3,2) DEFAULT NULL
+  `time2345` decimal(3,2) DEFAULT NULL,
+  `userID` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
