@@ -3,20 +3,89 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
 
 import colors from "../config/colors";
+import ip from "../config/ip";
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  SearchRecord = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_login.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindEmail: email,
+      FindPassword: password,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        global.userID = response[0].userID;
+      })
+      .catch((error) => {
+        Alert.alert("Login Failed", "Error" + error, [{ text: "Ok" }]);
+      });
+    if (global.userID !== null) {
+      SearchHouses();
+    } else {
+      Alert.alert(
+        "Login Failed",
+        "Email or password was incorrect. Please try again.",
+        [{ text: "Ok" }]
+      );
+    }
+  };
+
+  SearchHouses = () => {
+    var SearchAPIURL = "http://192.168.1.67:80/api/search_existing_houses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numHouses = Number(response[0].numHouses.toString());
+        response.shift();
+        navigation.navigate("Home", {
+          screen: "Home",
+          params: { houses: response, numHouses: numHouses },
+        });
+      })
+      .catch((error) => {
+        Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -49,12 +118,7 @@ function LoginScreen({ navigation }) {
 
       <TouchableOpacity
         style={styles.loginButton}
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Home" }], // temporary direct navigation to home screen, to be replaced with authorization
-          })
-        }
+        onPress={() => SearchRecord(email, password)}
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>

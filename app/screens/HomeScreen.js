@@ -15,10 +15,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import HousesScreen from "./HousesScreen";
 import * as Animatable from "react-native-animatable";
 
-function HomeScreen({ navigation }) {
-  const [houseCount, setHouseCount] = useState(values.houses.number);
-
-  if (!houseCount) {
+function HomeScreen({ route, navigation }) {
+  if (!route.params.numHouses) {
     return (
       <SafeAreaView
         style={[
@@ -69,7 +67,12 @@ function HomeScreen({ navigation }) {
       </SafeAreaView>
     );
   } else {
-    return <HousesScreen />;
+    return (
+      <HousesScreen
+        houses={route.params.houses}
+        numHouses={route.params.numHouses}
+      />
+    );
   }
 }
 

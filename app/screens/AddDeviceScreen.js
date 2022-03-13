@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   Platform,
@@ -11,9 +11,54 @@ import {
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
 import colors from "../config/colors";
+import ip from "../config/ip";
 import values from "../config/values";
+import housesTest from "../config/houses";
 
 function AddDeviceScreen({ navigation }) {
+  SearchRecord = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (Number(response[0].numHouses.toString()) === 0) {
+          Alert.alert(
+            "Blinds Could Not Be Added",
+            "Please add a house first.",
+            [
+              { text: "Cancel" },
+              {
+                text: "Add House",
+                onPress: () => navigation.navigate("Add House"),
+              },
+            ]
+          );
+        } else {
+          response.shift();
+          navigation.navigate("Choose House", { houses: response });
+        }
+      })
+      .catch((error) => {
+        Alert.alert("Blinds Could Not Be Added", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
   return (
     <ScrollView style={{ backgroundColor: colors.white, flex: 1 }}>
       <View style={styles.container}>
@@ -36,24 +81,7 @@ function AddDeviceScreen({ navigation }) {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>Add Blinds</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              values.houses.number === 0
-                ? Alert.alert(
-                    "Blinds Could Not Be Added",
-                    "Please add a house first.",
-                    [
-                      { text: "Cancel" },
-                      {
-                        text: "Add House",
-                        onPress: () => navigation.navigate("Add House"),
-                      },
-                    ]
-                  )
-                : navigation.navigate("Choose House");
-            }}
-          >
+          <TouchableOpacity style={styles.button} onPress={SearchRecord}>
             <MaterialCommunityIcons
               name="blinds"
               size={100}

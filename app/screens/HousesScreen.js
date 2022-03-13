@@ -6,16 +6,16 @@ import ListItemSeperator from "../components/ListItemSeperator";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import ListItemEditAction from "../components/ListItemEditAction";
 import colors from "../config/colors";
-import houses from "../config/houses";
+import housesOld from "../config/houses";
 import values from "../config/values";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 
-function HousesScreen({}) {
+function HousesScreen({ numHouses, houses, route }) {
   const [newHouses, setNewHouses] = useState(houses);
   const navigation = useNavigation();
   const handleDelete = (message) => {
-    setNewHouses(newHouses.filter((m) => m.id !== message.id));
+    setNewHouses(newHouses.filter((m) => m.houseID !== message.houseID));
   };
 
   return (
@@ -44,15 +44,15 @@ function HousesScreen({}) {
       <View style={styles.container}>
         <FlatList
           data={newHouses}
-          keyExtractor={(message) => message.id.toString()}
+          keyExtractor={(message) => message.houseID.toString()}
           renderItem={({ item, index }) => (
             <ListHouse
-              houseName={item.name}
-              numberBlinds={item.numberBlinds}
+              houseName={item.houseName}
+              numberBlinds={item.numBlinds}
               onPress={() =>
                 navigation.navigate("Blinds", {
                   houseId: index,
-                  houseName: item.name,
+                  houseName: item.houseName,
                 })
               }
               onLongPress={() =>
@@ -64,7 +64,9 @@ function HousesScreen({}) {
                     {
                       text: "Edit",
                       onPress: () =>
-                        navigation.navigate("Add House", { house: item.title }),
+                        navigation.navigate("Add House", {
+                          house: item.houseID,
+                        }),
                     },
                     {
                       text: "Delete",

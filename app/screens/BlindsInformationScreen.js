@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,17 +11,121 @@ import {
 import Slider from "@react-native-community/slider";
 
 import colors from "../config/colors";
+import ip from "../config/ip";
 import AppTextInput from "../components/AppTextInput";
 import AppTextInput2 from "../components/AppTextInput2";
 
-function BlindsInformationScreen({ route }) {
-  const [blindsID, setBlindsID] = useState();
+function BlindsInformationScreen({ route, navigation }) {
+  const [tuyaID, setTuyaID] = useState(route.params.blindStringID);
   const [blindsName, setBlindsName] = useState();
   const [group, setGroup] = useState();
   const [storey, setStorey] = useState();
   const [height, setHeight] = useState();
   const [orientation, setOrientation] = useState();
-  const [obstruction, setObstruction] = useState();
+  const [obstruction, setObstruction] = useState(0.5);
+
+  SearchRecord = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_blinds.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindTuyaID: tuyaID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var blindsExist = Number(response[0].blindsExist.toString());
+        if (blindsExist > 0) {
+          Alert.alert(
+            "Blinds Could Not Be Added",
+            "Another user has already added these blinds to their account.",
+            [{ text: "Ok" }]
+          );
+        } else {
+          InsertRecord(
+            tuyaID,
+            blindsName,
+            group,
+            storey,
+            height,
+            orientation,
+            obstruction
+          );
+        }
+      })
+      .catch((error) => {
+        Alert.alert(
+          "Blinds Could Not Be Added",
+          "Error: " + error + ". Please try again later.",
+          [{ text: "Ok" }]
+        );
+      });
+  };
+
+  InsertRecord = () => {
+    if (blindsName.length == 0 || tuyaID.length == 0) {
+      Alert.alert(
+        "BLinds Could Not Be Added",
+        "Please name the blinds and enter their ID.",
+        [{ text: "Ok" }]
+      );
+    } else {
+      {
+        var InsertAPIURL =
+          "http://" + ip.ip + ":" + ip.port + "/api/blind_addition.php";
+
+        var headers = {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        };
+
+        var data = {
+          userID: global.userID,
+          tuyaID: tuyaID,
+          blindsName: blindsName,
+          groupName: group,
+          storey: storey,
+          windowHeight: height,
+          orientation: orientation,
+          obstructionLevel: obstruction,
+          houseID: route.params.houseID,
+        };
+
+        fetch(InsertAPIURL, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            Alert.alert("Blinds Added", response[0].Message, [
+              {
+                text: "Ok",
+                onPress: () =>
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Home" }],
+                  }),
+              },
+            ]);
+          })
+          .catch((error) => {
+            Alert.alert("Blinds Could Not Be Added", "Error Insert: " + error, [
+              { text: "Ok" },
+            ]);
+          });
+      }
+    }
+  };
 
   return (
     <ScrollView style={styles.container} bounces={false}>
@@ -33,7 +138,7 @@ function BlindsInformationScreen({ route }) {
           autoCorrect={false}
           icon="blinds"
           keyboardType="default"
-          onChangeText={(text) => setBlindsID(text)}
+          onChangeText={(text) => setTuyaID(text)}
           placeholder="Blinds ID"
           defaultValue={route.params.blindsStringID}
         />
@@ -102,8 +207,7 @@ function BlindsInformationScreen({ route }) {
       </View>
       <View style={styles.sliderContainer}>
         <Text style={styles.sliderText}>
-          Obstructed:{" "}
-          {isNaN(obstruction) ? "50" : Number(obstruction * 100).toFixed(0)}%
+          Obstructed: {Number(obstruction * 100).toFixed(0)}%
         </Text>
         <Slider
           style={styles.slider}
@@ -119,10 +223,17 @@ function BlindsInformationScreen({ route }) {
       </View>
       <TouchableOpacity
         style={styles.button}
-        //onPress={() =>
-        //navigation.navigate("Blinds")
-        //}
-        // Need to change logic
+        onPress={() => {
+          SearchRecord(
+            tuyaID,
+            blindsName,
+            group,
+            storey,
+            height,
+            orientation,
+            obstruction
+          );
+        }}
       >
         <Text style={styles.buttonText}>Finish Adding Blinds</Text>
       </TouchableOpacity>
@@ -209,7 +320,6 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     paddingHorizontal: "10%",
-    //paddingBottom: "5%",
   },
   sliderText: {
     color: colors.medium,

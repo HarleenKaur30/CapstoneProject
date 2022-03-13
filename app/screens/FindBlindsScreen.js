@@ -5,7 +5,7 @@ import ListOptions from "../components/ListOptions";
 import ListItemSeperator from "../components/ListItemSeperator";
 import colors from "../config/colors";
 
-function FindBlindsScreen({ navigation }) {
+function FindBlindsScreen({ navigation, route }) {
   const options = [
     { id: 1, name: "Scan QR Code", icon: "qrcode-scan" },
     { id: 2, name: "Tuya Find Device General Search", icon: "radar" },
@@ -22,7 +22,9 @@ function FindBlindsScreen({ navigation }) {
             iconName={item.icon}
             onPress={() =>
               item.id === 1
-                ? navigation.navigate("QR Scanner")
+                ? navigation.navigate("QR Scanner", {
+                    houseID: route.params.houseID,
+                  })
                 : item.id === 2
                 ? Alert.alert(
                     "Cannot Complete Action",
@@ -31,6 +33,7 @@ function FindBlindsScreen({ navigation }) {
                   )
                 : navigation.navigate("Blinds Information", {
                     blindsID: "Blinds ID",
+                    houseID: route.params.houseID,
                   })
             }
           />

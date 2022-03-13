@@ -1,8 +1,7 @@
-/* This screen opens if the customer is not logged in and wishes to login in (has already registered)*/
-
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
   View,
@@ -12,11 +11,129 @@ import {
 } from "react-native";
 
 import colors from "../config/colors";
+import ip from "../config/ip";
 
 function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reenteredPassword, setReenteredPassword] = useState("");
+  const [emailExists, setEmailExists] = useState("");
+
+  SearchRecord = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_email.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindEmail: email,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        Alert.alert(
+          "Finish Registering",
+          "Click to confirm that information is correct.",
+          [
+            {
+              text: "Ok",
+              onPress: () => {
+                setEmailExists(response[0].emailExists.toString());
+                InsertRecord(email, password, reenteredPassword);
+              },
+            },
+            { text: "Cancel" },
+          ]
+        );
+      })
+      .catch((error) => {
+        Alert.alert(
+          "Registration Failed",
+          "Error: " + error + ". Please try again later.",
+          [{ text: "Ok" }]
+        );
+      });
+  };
+
+  InsertRecord = () => {
+    if (emailExists > 0) {
+      Alert.alert(
+        "Registration Failed",
+        "This email has already been registered.",
+        [{ text: "Ok" }]
+      );
+    } else {
+      var finalPassword = "";
+      if (
+        password === reenteredPassword &&
+        password.length > 0 &&
+        password.length < 31
+      ) {
+        finalPassword = password;
+        if (email.length == 0 || finalPassword.length == 0) {
+          Alert.alert(
+            "Registration Failed",
+            "One or more required fields are missing.",
+            [{ text: "Ok" }]
+          );
+        } else {
+          {
+            var InsertAPIURL =
+              "http://" + ip.ip + ":" + ip.port + "/api/register.php";
+
+            var headers = {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            };
+
+            var data = {
+              email: email,
+              password: finalPassword,
+            };
+
+            fetch(InsertAPIURL, {
+              method: "POST",
+              headers: headers,
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((response) => {
+                Alert.alert("Registered", response[0].Message, [
+                  {
+                    text: "Ok",
+                    onPress: () =>
+                      navigation.reset({
+                        index: 0,
+                        routes: [{ name: "Welcome" }], // direct navigation back to welcome screen
+                      }),
+                  },
+                ]);
+              })
+              .catch((error) => {
+                alert("Error" + error);
+              });
+          }
+        }
+      } else {
+        Alert.alert(
+          "Registration Failed",
+          "Please ensure that password match and are between 1 and 30 characters.",
+          [
+            {
+              text: "Ok",
+            },
+          ]
+        );
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -49,20 +166,28 @@ function RegisterScreen({ navigation }) {
           placeholder="Re-enter Password"
           placeholderTextColor={colors.silvergray}
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(reenteredPassword) =>
+            setReenteredPassword(reenteredPassword)
+          }
         />
       </View>
 
       <TouchableOpacity
         style={styles.registerButton}
+        onPress={() => SearchRecord(email, password, reenteredPassword)}
+      >
+        <Text style={styles.registerText}>REGISTER</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.loginButton}
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: "Welcome" }], // temporary direct navigation to home screen, to be replaced with authorization
+            routes: [{ name: "Login" }],
           })
         }
       >
-        <Text style={styles.registerText}>FINISH REGISTERATION</Text>
+        <Text style={styles.registerText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );
@@ -94,6 +219,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
 
     //alignItems: "center",
+  },
+
+  loginButton: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.logo_blue,
   },
 
   //Style for the text for Email and Password

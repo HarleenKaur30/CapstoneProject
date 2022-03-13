@@ -4,27 +4,26 @@ import { Alert, FlatList, StyleSheet, View } from "react-native";
 import ListHouse from "../components/ListHouse";
 import ListItemSeperator from "../components/ListItemSeperator";
 import colors from "../config/colors";
-import houses from "../config/houses";
 import values from "../config/values";
 
-function ChooseHouseScreen({ navigation }) {
+function ChooseHouseScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={houses}
-        keyExtractor={(message) => message.id.toString()}
+        data={route.params.houses}
+        keyExtractor={(message) => message.houseID.toString()}
         renderItem={({ item }) => (
           <ListHouse
-            houseName={item.name}
-            numberBlinds={item.numberBlinds}
+            houseName={item.houseName}
+            numberBlinds={item.numBlinds}
             onPress={() =>
-              values.maxNumberOfBlinds === item.numberBlinds
+              values.maxNumberOfBlinds == item.numBlinds
                 ? Alert.alert(
                     "Blinds Could Not Be Added",
                     "The maximum number of blinds have already been added to this house.",
                     [{ text: "Ok" }]
                   )
-                : navigation.navigate("Find Blinds", { house: item.title })
+                : navigation.navigate("Find Blinds", { houseID: item.houseID })
             }
           />
         )}
