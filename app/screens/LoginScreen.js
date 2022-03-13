@@ -56,7 +56,8 @@ function LoginScreen({ navigation }) {
   };
 
   SearchHouses = () => {
-    var SearchAPIURL = "http://192.168.1.67:80/api/search_existing_houses.php";
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
     var headers = {
       Accept: "application/json",
       "Content-Type": "application/json",
