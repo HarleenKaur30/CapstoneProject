@@ -71,7 +71,11 @@ export default function App() {
           options={{ title: "Add Blinds" }}
         />
         <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
-        <Stack.Screen name="Houses" component={HousesScreen} />
+        <Stack.Screen
+          name="Houses"
+          component={HousesScreen}
+          options={{ title: "Home" }}
+        />
         <Stack.Screen name="Blinds" component={BlindsScreen} />
         <Stack.Screen name="QR Scanner" component={QRCodeScreen} />
         <Stack.Screen name="View Blinds" component={ShowBlindsScreen} />
