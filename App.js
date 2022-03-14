@@ -21,7 +21,6 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import colors from "./app/config/colors";
 
 import { TouchableOpacity, StyleSheet, Text, Alert } from "react-native";
-import AddHouseScreentest from "./app/screens/AddHouseScreentest";
 import { ScheduleDisplayScreen } from "./app/screens/ScheduleDisplayScreen";
 import AddScheduleScreen from "./app/screens/AddScheduleScreen";
 import BlindsOnScheduleScreen from "./app/screens/BlindsOnScheduleScreen";

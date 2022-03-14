@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
-  Dimensions
+  Dimensions,
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
@@ -15,8 +17,9 @@ import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
+import ip from "../config/ip";
 
-function AddHouseScreen(props) {
+function AddHouseScreen({ route, navigation }) {
   const [location, setLocation] = useState(null);
   const [city, setCity] = useState(null);
   const [pin, setPin] = useState({
@@ -24,9 +27,9 @@ function AddHouseScreen(props) {
     longitude: 123.3753,
   })
   const [errorMsg, setErrorMsg] = useState(null);
-  const [nickname, setNickname] = useState();
-  const [usualtemp, setUsualtemp] = useState();
-  const [desiredtemp, setDesiredtemp] = useState();
+  const [houseName, sethouseName] = useState();
+  const [UsualTemp, setUsualTemp] = useState();
+  const [desiredInternaltemp, setdesiredInternalTemp] = useState();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -73,13 +76,115 @@ function AddHouseScreen(props) {
     text = JSON.stringify(city);
   }
 
+  /*SearchRecord = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_blinds.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var blindsExist = Number(response[0].blindsExist.toString());
+        if (blindsExist > 0) {
+          Alert.alert(
+            "Blinds Could Not Be Added",
+            "Another user has already added these blinds to their account.",
+            [{ text: "Ok" }]
+          );
+        } else {
+          InsertRecord(
+            houseName,
+            city,
+            latitude,
+            longitude,
+            desiredInternaltemp,
+            UsualTemp
+          );
+        }
+      })
+      .catch((error) => {
+        Alert.alert(
+          "House Could Not Be Added",
+          "Error: " + error + ". Please try again later.",
+          [{ text: "Ok" }]
+        );
+      });
+  };*/
+
+  InsertRecord = () => {
+    houseName,
+    city,
+    desiredInternaltemp,
+    UsualTemp
+
+    if (houseName.length == 0 || desiredInternaltemp.length == 0) {
+      Alert.alert(
+        "House Could Not Be Added",
+        "Please name the house, select location, and set desired temperature."
+        [{ text: "Ok" }]
+      );
+    } else {
+      {
+        var InsertAPIURL =
+          "http://" + ip.ip + ":" + ip.port + "/api/house_addition.php";
+
+        var headers = {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        };
+
+        var data = {
+          houseName: houseName,
+          location: city,
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          userID: global.userID,
+          desiredInternalTemp: desiredInternaltemp,
+          numBlinds: 0,
+          UsualTemp: UsualTemp,
+        };
+
+        fetch(InsertAPIURL, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            Alert.alert("House Added", response[0].Message, [
+              {
+                text: "Ok",
+                onPress: () =>
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Home" }],
+                  }),
+              },
+            ]);
+          })
+          .catch((error) => {
+            Alert.alert("House Could Not Be Added", "Error Insert: " + error, [
+              { text: "Ok" },
+            ]);
+          });
+      }
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.locationWrapper}>
           <Text style={styles.sectionTitle}>Location</Text>
           <Text style={styles.secondaryTitle}>Auto-location</Text>
-          <Text> City: {text}</Text>
+          <Text> City: {text} </Text>
           <MapView 
             style={styles.map} 
             initialRegion={{
@@ -107,6 +212,7 @@ function AddHouseScreen(props) {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
+          onChangeValue={(text) => setCity(text)}
         />
 
         <View style={styles.nicknameWrapper}>
@@ -118,7 +224,7 @@ function AddHouseScreen(props) {
           autoCorrect={false}
           icon="home"
           keyboardType="default"
-          onChangeText={(text) => setNickname(text)}
+          onChangeText={(text) => sethouseName(text)}
           placeholder="Input House Nickname"
         />
 
@@ -131,7 +237,7 @@ function AddHouseScreen(props) {
           autoCorrect={false}
           icon="thermometer"
           keyboardType="numeric"
-          onChangeText={(text) => setUsualtemp(text)}
+          onChangeText={(text) => setUsualTemp(text)}
           placeholder="Input Temperature (degrees Celsius)"
         />
 
@@ -144,12 +250,24 @@ function AddHouseScreen(props) {
           autoCorrect={false}
           icon="thermometer"
           keyboardType="numeric"
-          onChangeText={(text) => setDesiredtemp(text)}
+          onChangeText={(text) => setdesiredInternalTemp(text)}
           placeholder="Input Temperature (degrees Celsius)"
         />
 
         <View style={styles.button}>
-          <AppButton title="Submit" onPress={() => console.log()} />
+        <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          InsertRecord(
+            houseName,
+            city,
+            desiredInternaltemp,
+            UsualTemp
+          );
+        }}
+      >
+        <Text style={styles.buttonText}>Finish Adding Blinds</Text>
+      </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
