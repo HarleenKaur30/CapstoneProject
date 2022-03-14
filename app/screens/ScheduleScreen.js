@@ -8,15 +8,78 @@ import ListItemEditAction from "../components/ListItemEditAction";
 import colors from "../config/colors";
 import schedules from "../config/schedules";
 import values from "../config/values";
+import ip from "../config/ip";
 import { useNavigation } from "@react-navigation/native";
 
 function ScheduleScreen({}) {
   const [newSchedules, setNewSchedules] = useState(schedules);
 
   const navigation = useNavigation();
+  var scheduleID;
 
   const handleDelete = (message) => {
     setNewSchedules(newSchedules.filter((m) => m.id !== message.id));
+  };
+
+  SearchBlindsOnSchedule = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_blindsOnSchedule.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindScheduleID: scheduleID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numBlinds = Number(response[0].numBlinds.toString());
+        response.shift();
+        var activeBlinds = response;
+
+        //Following Code Finds All Blinds and then moves to next page;
+        var SearchAPIURL =
+          "http://" + ip.ip + ":" + ip.port + "/api/search_all_blinds.php";
+        var headers = {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        };
+
+        var data = {
+          FindUserID: global.userID,
+        };
+        fetch(SearchAPIURL, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            navigation.navigate("Blinds Active On Schedule", {
+              scheduleID: scheduleID,
+              numBlindsOnSchedule: numBlinds,
+              activeBlinds: activeBlinds,
+              allBlinds: response,
+            });
+          })
+          .catch((error) => {
+            Alert.alert("Next Screen Could Not Be Loaded", "Error" + error, [
+              { text: "Ok" },
+            ]);
+          });
+      })
+      .catch((error) => {
+        Alert.alert("Next Screen Could Not Be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
   };
 
   return (
@@ -27,11 +90,11 @@ function ScheduleScreen({}) {
           renderItem={({ item, index }) => (
             <ListSchedule
               scheduleName={item.title}
-              onPress={() =>
-                navigation.navigate("Blinds Active On Schedule", {
-                  scheduleId: index,
-                })
-              }
+              onPress={() => {
+                scheduleID = item.id; //please ensure schedule ID is sent here instead
+                //scheduleID=item.scheduleID;
+                SearchBlindsOnSchedule(scheduleID);
+              }}
               onLongPress={() =>
                 Alert.alert(
                   "Schedule Menu",
