@@ -1,5 +1,6 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
+  Alert,
   Text,
   View,
   NativeModules,
@@ -8,24 +9,23 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  Alert
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
+import ip from "../config/ip";
 import DropDownPicker from "react-native-dropdown-picker";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
-import * as Location from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
-import ip from "../config/ip";
+import * as Location from "expo-location";
+import MapView, { Marker } from "react-native-maps";
 
-function AddHouseScreen({ route, navigation }) {
+function AddHouseScreen(props, { route, navigation }) {
   const [location, setLocation] = useState(null);
   const [city, setCity] = useState(null);
   const [pin, setPin] = useState({
     latitude: 13.406,
     longitude: 123.3753,
-  })
+  });
   const [errorMsg, setErrorMsg] = useState(null);
   const [houseName, sethouseName] = useState();
   const [UsualTemp, setUsualTemp] = useState();
@@ -39,11 +39,44 @@ function AddHouseScreen({ route, navigation }) {
     { label: "Vancouver", value: "Vancouver" },
   ]);
 
+  SearchHouses = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numHouses = Number(response[0].numHouses.toString());
+        response.shift();
+        navigation.navigate("Home", {
+          screen: "Home",
+          params: { houses: response, numHouses: numHouses },
+        });
+      })
+      .catch((error) => {
+        Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
 
@@ -51,25 +84,24 @@ function AddHouseScreen({ route, navigation }) {
       setLocation(location);
 
       let place = await Location.reverseGeocodeAsync({
-        latitude : location.coords.latitude,
-        longitude : location.coords.longitude
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
       });
-      
+
       let city;
-      place.find( p => {
-        city = p.city
-        setCity(p.city)
-      })
+      place.find((p) => {
+        city = p.city;
+        setCity(p.city);
+      });
 
       setPin({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-      })
-
-   }) ();  
+      });
+    })();
   }, []);
 
-  let text = 'Waiting..';
+  let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
@@ -119,16 +151,14 @@ function AddHouseScreen({ route, navigation }) {
   };*/
 
   InsertRecord = () => {
-    houseName,
-    city,
-    desiredInternaltemp,
-    UsualTemp
+    houseName, city, desiredInternaltemp, UsualTemp;
 
     if (houseName.length == 0 || desiredInternaltemp.length == 0) {
       Alert.alert(
         "House Could Not Be Added",
-        "Please name the house, select location, and set desired temperature."
-        [{ text: "Ok" }]
+        "Please name the house, select location, and set desired temperature."[
+          { text: "Ok" }
+        ]
       );
     } else {
       {
@@ -158,7 +188,7 @@ function AddHouseScreen({ route, navigation }) {
         })
           .then((response) => response.json())
           .then((response) => {
-            Alert.alert("House Added", response[0].Message, [
+            /*Alert.alert("House Added", response[0].Message, [
               {
                 text: "Ok",
                 onPress: () =>
@@ -167,7 +197,8 @@ function AddHouseScreen({ route, navigation }) {
                     routes: [{ name: "Home" }],
                   }),
               },
-            ]);
+            ]);*/
+            SearchHouses();
           })
           .catch((error) => {
             Alert.alert("House Could Not Be Added", "Error Insert: " + error, [
@@ -185,11 +216,11 @@ function AddHouseScreen({ route, navigation }) {
           <Text style={styles.sectionTitle}>Location</Text>
           <Text style={styles.secondaryTitle}>Auto-location</Text>
           <Text> City: {text} </Text>
-          <MapView 
-            style={styles.map} 
+          <MapView
+            style={styles.map}
             initialRegion={{
               latitude: 53.5232,
-              longitude: 113.5263
+              longitude: 113.5263,
             }}
             region={pin}
           >
@@ -255,26 +286,20 @@ function AddHouseScreen({ route, navigation }) {
         />
 
         <View style={styles.button}>
-        <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          InsertRecord(
-            houseName,
-            city,
-            desiredInternaltemp,
-            UsualTemp
-          );
-        }}
-      >
-        <Text style={styles.buttonText}>Finish Adding Blinds</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              InsertRecord(houseName, city, desiredInternaltemp, UsualTemp);
+            }}
+          >
+            <Text style={styles.buttonText}>Finish Adding House</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
   );
 }
 
-const { StatusBarManager } = NativeModules;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -286,7 +311,7 @@ const styles = StyleSheet.create({
   locationWrapper: {
     paddingTop: 25,
     paddingBottom: 15,
-    alignItems: "center"
+    alignItems: "center",
   },
   sectionTitle: {
     fontSize: 24,
@@ -301,7 +326,7 @@ const styles = StyleSheet.create({
     marginTop: -75,
   },
   map: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get("window").width,
     height: 300,
   },
   mapmarkerContainer: {
