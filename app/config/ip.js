@@ -1,4 +1,4 @@
 export default {
-  ip: "192.168.1.67",
+  ip: "",
   port: "80",
 };
