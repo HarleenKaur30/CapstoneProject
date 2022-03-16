@@ -14,13 +14,13 @@
 	$numBlinds=$DecodedData['numBlinds'];
 	$UsualTemp=$DecodedData['UsualTemp'];
 
-	$IQ1="update housecount set houseCount=houseCount + 1";
-	$IQ="insert into houses(houseName, location, latitude, longitude, userID, desiredInternalTemp, numBlinds, UsualTemp) values('$houseName', '$location', $latitude, @longitude, $userID, $desiredInternalTemp, $numBlinds, $UsualTemp)";
+	//$IQ1="update housecount set houseCount=houseCount + 1";
+	$IQ="insert into houses(houseName, location, latitude, longitude, userID, desiredInternalTemp, numBlinds, UsualTemp) values('$houseName', '$location', '$latitude', '$longitude', '$userID', '$desiredInternalTemp', '$numBlinds', '$UsualTemp')";
 	
-	$R1=mysqli_query($CN,$IQ1);
+	//$R1=mysqli_query($CN,$IQ1);
 	$R=mysqli_query($CN,$IQ);
 	
-	if ($R1)
+	//if ($R1)
 	{
 		if ($R)
 		{
@@ -31,10 +31,10 @@
 			$Message="Server Error: Please try again later.";
 		}
 	}
-	else
-	{
-		$Message="Server Error: Please try again later.";
-	}
+	//else
+//	{
+	//	$Message="Server Error: Please try again later.";
+//	}
 	$Response[]=array("Message"=>$Message);
 	echo json_encode($Response);
 ?>

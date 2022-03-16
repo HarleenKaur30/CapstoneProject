@@ -93,7 +93,11 @@ function AutomationScreen({ navigation }) {
               navigation.navigate("Schedule Display");
             }}
           >
-            <Ionicons name="create-outline" size={90} color={colors.logo_blue} />
+            <Ionicons
+              name="create-outline"
+              size={90}
+              color={colors.logo_blue}
+            />
           </TouchableOpacity>
         </View>
       </View>

@@ -18,18 +18,20 @@ import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
+import { useNavigation } from "@react-navigation/native";
 
-function AddHouseScreen(props, { route, navigation }) {
-  const [location, setLocation] = useState(null);
-  const [city, setCity] = useState(null);
+function AddHouseScreen({ route /*navigation*/ }) {
+  const navigation = useNavigation();
+  const [location, setLocation] = useState();
+  const [city, setCity] = useState();
   const [pin, setPin] = useState({
     latitude: 13.406,
     longitude: 123.3753,
   });
   const [errorMsg, setErrorMsg] = useState(null);
   const [houseName, sethouseName] = useState();
-  const [UsualTemp, setUsualTemp] = useState();
-  const [desiredInternaltemp, setdesiredInternalTemp] = useState();
+  const [UsualTemp, setUsualTemp] = useState(0);
+  const [desiredInternaltemp, setdesiredInternalTemp] = useState(0);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -38,39 +40,6 @@ function AddHouseScreen(props, { route, navigation }) {
     { label: "Toronto", value: "Toronto" },
     { label: "Vancouver", value: "Vancouver" },
   ]);
-
-  SearchHouses = () => {
-    var SearchAPIURL =
-      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
-    var headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    var data = {
-      FindUserID: global.userID,
-    };
-
-    fetch(SearchAPIURL, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        var numHouses = Number(response[0].numHouses.toString());
-        response.shift();
-        navigation.navigate("Home", {
-          screen: "Home",
-          params: { houses: response, numHouses: numHouses },
-        });
-      })
-      .catch((error) => {
-        Alert.alert("App Could Not be Loaded", "Error" + error, [
-          { text: "Ok" },
-        ]);
-      });
-  };
 
   useEffect(() => {
     (async () => {
@@ -188,17 +157,12 @@ function AddHouseScreen(props, { route, navigation }) {
         })
           .then((response) => response.json())
           .then((response) => {
-            /*Alert.alert("House Added", response[0].Message, [
+            Alert.alert("House Added", response[0].Message, [
               {
                 text: "Ok",
-                onPress: () =>
-                  navigation.reset({
-                    index: 0,
-                    routes: [{ name: "Home" }],
-                  }),
+                onPress: () => SearchHouses(),
               },
-            ]);*/
-            SearchHouses();
+            ]);
           })
           .catch((error) => {
             Alert.alert("House Could Not Be Added", "Error Insert: " + error, [
@@ -207,6 +171,39 @@ function AddHouseScreen(props, { route, navigation }) {
           });
       }
     }
+  };
+
+  SearchHouses = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numHouses = Number(response[0].numHouses.toString());
+        response.shift();
+        navigation.navigate("Home", {
+          screen: "Home",
+          params: { houses: response, numHouses: numHouses },
+        });
+      })
+      .catch((error) => {
+        Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
   };
 
   return (

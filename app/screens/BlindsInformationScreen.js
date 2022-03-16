@@ -18,10 +18,10 @@ import AppTextInput2 from "../components/AppTextInput2";
 function BlindsInformationScreen({ route, navigation }) {
   const [tuyaID, setTuyaID] = useState(route.params.blindStringID);
   const [blindsName, setBlindsName] = useState();
-  const [group, setGroup] = useState();
-  const [storey, setStorey] = useState();
-  const [height, setHeight] = useState();
-  const [orientation, setOrientation] = useState();
+  const [group, setGroup] = useState(null);
+  const [storey, setStorey] = useState(null);
+  const [height, setHeight] = useState(null);
+  const [orientation, setOrientation] = useState(null);
   const [obstruction, setObstruction] = useState(0.5);
 
   SearchRecord = () => {

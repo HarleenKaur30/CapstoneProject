@@ -112,10 +112,10 @@ function HousesScreen({ numHouses, houses, route }) {
               <Button
                 title="Add House"
                 onPress={() => {
-                  values.maxNumberOfHouses === values.houses.number
+                  values.maxNumberOfHouses === numHouses
                     ? Alert.alert(
                         "House Could Not Be Added",
-                        "The maximum number of houses have already been added using this device.",
+                        "The maximum number of houses have already been added using this account.",
                         [{ text: "Ok" }]
                       )
                     : navigation.navigate("Add House");

@@ -59,23 +59,52 @@ function AddDeviceScreen({ navigation }) {
       });
   };
 
+  FindNumHouses = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_numHouses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        if (
+          Number(response[0].numHouses.toString()) == values.maxNumberOfHouses
+        ) {
+          Alert.alert(
+            "House Could Not Be Added",
+            "The maximum number of houses have already been added using this account.",
+            [{ text: "Cancel" }]
+          );
+        } else {
+          response.shift();
+          navigation.navigate("Add House");
+        }
+      })
+      .catch((error) => {
+        Alert.alert("House Could Not Be Added", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
   return (
     <ScrollView style={{ backgroundColor: colors.white, flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>Add House</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              values.maxNumberOfHouses === values.houses.number
-                ? Alert.alert(
-                    "House Could Not Be Added",
-                    "The maximum number of houses have already been added using this device.",
-                    [{ text: "Ok" }]
-                  )
-                : navigation.navigate("Add House");
-            }}
-          >
+          <TouchableOpacity style={styles.button} onPress={FindNumHouses}>
             <FontAwesome5 name="home" size={100} color={colors.logo_blue} />
           </TouchableOpacity>
         </View>
