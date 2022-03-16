@@ -200,7 +200,7 @@ function BlindsOnScheduleScreen({ route }) {
 const styles = StyleSheet.create({
   pickerContainer: {
     flex: 0.25,
-    backgroundColor: colors.white,
+    //backgroundColor: colors.white,
     padding: "2%",
     justifyContent: "center",
     alignItems: "center",
