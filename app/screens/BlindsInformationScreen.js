@@ -110,11 +110,11 @@ function BlindsInformationScreen({ route, navigation }) {
             Alert.alert("Blinds Added", response[0].Message, [
               {
                 text: "Ok",
-                onPress: () =>
-                  navigation.reset({
-                    index: 0,
-                    routes: [{ name: "Home" }],
-                  }),
+                onPress: () => SearchHouses(),
+                //navigation.reset({
+                //  index: 0,
+                //  routes: [{ name: "Home" }],
+                //}),
               },
             ]);
           })
@@ -125,6 +125,39 @@ function BlindsInformationScreen({ route, navigation }) {
           });
       }
     }
+  };
+
+  SearchHouses = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numHouses = Number(response[0].numHouses.toString());
+        response.shift();
+        navigation.navigate("Home", {
+          screen: "Home",
+          params: { houses: response, numHouses: numHouses },
+        });
+      })
+      .catch((error) => {
+        Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
   };
 
   return (
