@@ -40,19 +40,19 @@ function LoginScreen({ navigation }) {
       .then((response) => response.json())
       .then((response) => {
         global.userID = response[0].userID;
+        if (global.userID !== null) {
+          SearchHouses();
+        } else {
+          Alert.alert(
+            "Login Failed",
+            "Email or password was incorrect. Please try again.",
+            [{ text: "Ok" }]
+          );
+        }
       })
       .catch((error) => {
         Alert.alert("Login Failed", "Error" + error, [{ text: "Ok" }]);
       });
-    if (global.userID !== null) {
-      SearchHouses();
-    } else {
-      Alert.alert(
-        "Login Failed",
-        "Email or password was incorrect. Please try again.",
-        [{ text: "Ok" }]
-      );
-    }
   };
 
   SearchHouses = () => {

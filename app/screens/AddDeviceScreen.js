@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     top: "5%",
     backgroundColor: colors.light,
     borderWidth: 1,
-    borderColor: colors.secondary,
+    borderColor: colors.orange,
   },
   buttonText: {
     color: colors.black,
