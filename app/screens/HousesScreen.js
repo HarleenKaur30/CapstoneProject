@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Image, FlatList, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import ListHouse from "../components/ListHouse";
@@ -6,16 +6,88 @@ import ListItemSeperator from "../components/ListItemSeperator";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import ListItemEditAction from "../components/ListItemEditAction";
 import colors from "../config/colors";
-import housesOld from "../config/houses";
 import values from "../config/values";
+import ip from "../config/ip";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 
 function HousesScreen({ numHouses, houses, route }) {
   const [newHouses, setNewHouses] = useState(houses);
+  useEffect(() => {
+    setNewHouses(houses);
+  }, [houses]);
   const navigation = useNavigation();
   const handleDelete = (message) => {
     setNewHouses(newHouses.filter((m) => m.houseID !== message.houseID));
+    houseID = message.houseID;
+    DeleteRecord(houseID);
+  };
+  var houseID;
+
+  var SearchBlindsInHouse = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_blindsInHouse.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindHouseID: houseID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numBlinds = Number(response[0].numBlinds.toString());
+        var houseName = response[1].houseName.toString();
+        response.shift();
+        response.shift();
+        navigation.navigate("Blinds", {
+          houseID: houseID,
+          houseName: houseName,
+          numBlindsOnSchedule: numBlinds,
+          activeBlinds: response,
+        });
+      })
+      .catch((error) => {
+        Alert.alert("Next Screen Could Not Be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
+  var DeleteRecord = () => {
+    var InsertAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/delete_house.php";
+
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      houseID: houseID,
+    };
+
+    fetch(InsertAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response[0].Message);
+      })
+      .catch((error) => {
+        Alert.alert("House Could Not Be Deleted", "Error Insert: " + error, [
+          { text: "Ok" },
+        ]);
+      });
   };
 
   return (
@@ -49,25 +121,23 @@ function HousesScreen({ numHouses, houses, route }) {
             <ListHouse
               houseName={item.houseName}
               numberBlinds={item.numBlinds}
-              onPress={() =>
-                navigation.navigate("Blinds", {
-                  houseId: index,
-                  houseName: item.houseName,
-                })
-              }
+              onPress={() => {
+                houseID = item.houseID;
+                SearchBlindsInHouse(houseID);
+              }}
               onLongPress={() =>
                 Alert.alert(
                   "House Menu",
                   "What would you like to do with this house?",
                   [
                     { text: "Cancel" },
-                    {
+                    /*{
                       text: "Edit",
                       onPress: () =>
                         navigation.navigate("Add House", {
                           house: item.houseID,
                         }),
-                    },
+                    },*/
                     {
                       text: "Delete",
                       onPress: () =>
@@ -97,13 +167,13 @@ function HousesScreen({ numHouses, houses, route }) {
                   }
                 />
               )}
-              renderLeftActions={() => (
+              /*renderLeftActions={() => (
                 <ListItemEditAction
                   onPress={() =>
                     navigation.navigate("Add House", { house: item.title })
                   }
                 />
-              )}
+              )}*/
             />
           )}
           ItemSeparatorComponent={ListItemSeperator}

@@ -23,6 +23,8 @@
 		$userID=null;
 	}
 	
+	mysqli_free_result($Table);
+	
 	$Response[]=array("userID"=>$userID);
 	echo json_encode($Response);
 ?>

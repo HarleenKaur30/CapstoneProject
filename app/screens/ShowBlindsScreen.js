@@ -14,7 +14,7 @@ import colors from "../config/colors";
 
 function ShowBlindsScreen({ navigation, route }) {
   const [newOpenPercentage, setNewOpenPercentage] = useState();
-  const battery = route.params.blinds.batteryPercentage;
+  const battery = route.params.blinds.battery;
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
@@ -26,7 +26,7 @@ function ShowBlindsScreen({ navigation, route }) {
           }}
         >
           <Text style={styles.text}>
-            {route.params.houseName}: {route.params.blinds.name}
+            {route.params.houseName}: {route.params.blinds.blindsName}
           </Text>
           <MaterialCommunityIcons
             name={
@@ -105,7 +105,7 @@ function ShowBlindsScreen({ navigation, route }) {
         >
           <Text style={styles.buttonText}>
             Current Schedule:{"\n"}
-            {route.params.blinds.schedule}
+            {route.params.blinds.scheduleName}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

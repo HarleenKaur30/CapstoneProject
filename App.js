@@ -50,6 +50,7 @@ export default function App() {
           component={Tabs}
           options={({ navigation, route }) => ({
             //headerShown: false,
+            headerBackVisible: false,
             headerTitle: getHeaderTitle(route),
             headerRight: () => (
               <TouchableOpacity
@@ -73,7 +74,7 @@ export default function App() {
         <Stack.Screen
           name="Houses"
           component={HousesScreen}
-          options={{ title: "Home" }}
+          options={{ title: "Home", headerBackVisible: false }}
         />
         <Stack.Screen name="Blinds" component={BlindsScreen} />
         <Stack.Screen name="QR Scanner" component={QRCodeScreen} />
