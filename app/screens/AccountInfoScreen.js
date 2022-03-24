@@ -16,9 +16,9 @@ import AppTextInput from "../components/AppTextInput";
 import { useDerivedValue } from "react-native-reanimated";
 import AppButton from "../components/AppButton";
 
-function AccountScreen({ navigation }) {
-    const [userEmail, setuserEmail]=React.useState('johndoe@mailservice.com'); // import these values either via API call to OAUTH or through a data base query
-    const [userPassword, setuserPassword]=React.useState('123456');
+function AccountScreen() {
+    const [email, setEmail]=React.useState(global.email); // import these values either via API call to OAUTH or through a data base query
+    const [password, setPassword]=React.useState(global.password);
     const [buffer, setbuffer]=React.useState(null);
     const [newEmail, setnewEmail] = useState();
     const [newPassword, setnewPassword] = useState();
@@ -80,7 +80,7 @@ function AccountScreen({ navigation }) {
     return (
         <View style={styles.parentContainer}>
             <View style={styles.list}>
-                <Text style={styles.textStyle}> Password: <Text style={styles.infoStyle}>{userPassword}</Text></Text>
+                <Text style={styles.textStyle}> Password: <Text style={styles.infoStyle}>{password}</Text></Text>
                 <Pressable
                 style={[styles.resetButton]}
                 onPress={() => setpasswordModalVisible(true)}
@@ -89,10 +89,51 @@ function AccountScreen({ navigation }) {
                 </Pressable>
             </View>
             <View style={styles.list}>
-                <Text style={styles.textStyle}> Email: <Text style={styles.infoStyle}>{userEmail}</Text></Text>
-
+                <Text style={styles.textStyle}> Email: <Text style={styles.infoStyle}>{email}</Text></Text>
+                <Pressable
+                style={[styles.resetButton]}
+                onPress={() => setemailModalVisible(true)}
+                >
+                    <Text style={styles.infoStyle}>Update</Text>
+                </Pressable>
             </View>
 
+            <Modal
+            animationType="slide"
+            transparent={true}
+            visible={emailModalVisible}
+            onRequestClose={() => {
+                setemailModalVisible(!emailModalVisible);
+            }}
+            >
+                <View style={styles.popupParentContainer}>
+                    <View style={styles.popupContainer}>
+                        <View style={styles.instructionContainer}>
+                            <Text style={styles.textStyle}>
+                                Enter new email address
+                            </Text>
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={setbuffer}
+                            placeholder="  new email"
+                            keyboardType="email-address"
+                        />
+                        <Pressable
+                            style={styles.OKButton}
+                            onPress={() => {setemailModalVisible(!emailModalVisible), setEmail(buffer)}}
+                        >
+                            <Text style={styles.controlButtonText}>OK</Text>
+                        </Pressable>
+                        <Pressable
+                            style={styles.cancelButton}
+                            onPress={() => setemailModalVisible(!emailModalVisible) }
+                        >
+                            <Text style={styles.controlButtonText}>CANCEL</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
 
             <Modal
             animationType="slide"

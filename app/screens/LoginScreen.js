@@ -43,6 +43,7 @@ function LoginScreen({ navigation }) {
         if (global.userID !== null) {
           SearchHouses();
           global.email = email;
+          global.password = password;
         } else {
           Alert.alert(
             "Login Failed",
