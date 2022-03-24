@@ -42,6 +42,7 @@ function LoginScreen({ navigation }) {
         global.userID = response[0].userID;
         if (global.userID !== null) {
           SearchHouses();
+          global.email = email;
         } else {
           Alert.alert(
             "Login Failed",

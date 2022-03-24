@@ -101,10 +101,10 @@ function ScheduleScreen({}) {
                   "What would you like to do with this schedule?",
                   [
                     { text: "Cancel" },
-                    {
+                    /*{
                       text: "Edit",
                       onPress: () => navigation.navigate("Schedule Display"),
-                    },
+                    },*/
                     {
                       text: "Delete",
                       onPress: () =>
@@ -134,11 +134,11 @@ function ScheduleScreen({}) {
                   }
                 />
               )}
-              renderLeftActions={() => (
+              /*renderLeftActions={() => (
                 <ListItemEditAction
                   onPress={() => navigation.navigate("Schedule Display")}
                 />
-              )}
+              )}*/
             />
           )}
           ItemSeparatorComponent={ListItemSeperator}
