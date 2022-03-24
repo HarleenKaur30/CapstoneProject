@@ -93,7 +93,6 @@ export default class OptScheduleScreen extends Component {
               titleStyle={{marginBottom: "10%"}}
               innerCircle={'icon'}
               separator={true}
-              timeContainerStyle={{minWidth:72}}
             />
           </View>
 

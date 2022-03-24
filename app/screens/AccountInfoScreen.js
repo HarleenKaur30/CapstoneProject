@@ -7,17 +7,75 @@ import {
   Modal,
   Pressable,
   TextInput,
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import colors from "../config/colors";
-
+import ip from "../config/ip";
+import AppTextInput from "../components/AppTextInput";
+import { useDerivedValue } from "react-native-reanimated";
+import AppButton from "../components/AppButton";
 
 function AccountScreen({ navigation }) {
     const [userEmail, setuserEmail]=React.useState('johndoe@mailservice.com'); // import these values either via API call to OAUTH or through a data base query
     const [userPassword, setuserPassword]=React.useState('123456');
     const [buffer, setbuffer]=React.useState(null);
+    const [newEmail, setnewEmail] = useState();
+    const [newPassword, setnewPassword] = useState();
 
     const [emailModalVisible, setemailModalVisible] = useState(false);
     const [passwordModalVisible, setpasswordModalVisible] = useState(false);
+
+    const userID = global.userID;
+
+    ChangeRecord = () => {
+        newPassword;
+    
+        if (newPassword.length == 0) {
+          Alert.alert(
+            "Password could not be updated.",
+            "New password cannot be blank."[
+              { text: "Ok" }
+            ]
+          );
+        } else {
+          {
+            var SearchAPIURL =
+              "http://" + ip.ip + ":" + ip.port + "/api/password_reset.php";
+    
+            var headers = {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            };
+    
+            var data = {
+                userID: userID,
+                newPassword: newPassword,
+            };
+    
+            fetch(SearchAPIURL, {
+              method: "POST",
+              headers: headers,
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((response) => {
+                Alert.alert("Password Updated.", response[0].Message, [
+                  {
+                    text: "Ok",
+                    onPress: () => navigation.navigate("Account Information")
+                  },
+                ]);
+              })
+              .catch((error) => {
+                Alert.alert("Password could not be updated.", "Error Insert: " + error, [
+                  { text: "Ok" },
+                ]);
+              });
+          }
+        }
+      };
+    
 
     return (
         <View style={styles.parentContainer}>
@@ -32,50 +90,9 @@ function AccountScreen({ navigation }) {
             </View>
             <View style={styles.list}>
                 <Text style={styles.textStyle}> Email: <Text style={styles.infoStyle}>{userEmail}</Text></Text>
-                <Pressable
-                style={[styles.resetButton]}
-                onPress={() => setemailModalVisible(true)}
-                >
-                    <Text style={styles.infoStyle}>Update</Text>
-                </Pressable>
+
             </View>
 
-            <Modal
-            animationType="slide"
-            transparent={true}
-            visible={emailModalVisible}
-            onRequestClose={() => {
-                setemailModalVisible(!emailModalVisible);
-            }}
-            >
-                <View style={styles.popupParentContainer}>
-                    <View style={styles.popupContainer}>
-                        <View style={styles.instructionContainer}>
-                            <Text style={styles.textStyle}>
-                                Enter new email address
-                            </Text>
-                        </View>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={setbuffer}
-                            placeholder="  new email"
-                            keyboardType="email-address"
-                        />
-                        <Pressable
-                            style={styles.OKButton}
-                            onPress={() => {setemailModalVisible(!emailModalVisible), setuserEmail(buffer)}}
-                        >
-                            <Text style={styles.controlButtonText}>OK</Text>
-                        </Pressable>
-                        <Pressable
-                            style={styles.cancelButton}
-                            onPress={() => setemailModalVisible(!emailModalVisible) }
-                        >
-                            <Text style={styles.controlButtonText}>CANCEL</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
 
             <Modal
             animationType="slide"
@@ -85,7 +102,7 @@ function AccountScreen({ navigation }) {
                 setpasswordModalVisible(!passwordModalVisible);
             }}
             >
-                <View style={styles.popupParentContainer}>
+                    <View style={styles.popupParentContainer}>
                     <View style={styles.popupContainer}>
                         <View style={styles.instructionContainer}>
                             <Text style={styles.textStyle}>
@@ -95,12 +112,14 @@ function AccountScreen({ navigation }) {
                         <TextInput
                             style={styles.input}
                             placeholder="  new password"
-                            onChangeText={setbuffer}
+                            onChangeText={(text) => setnewPassword(text)}
                         />
 
                         <Pressable
                             style={styles.OKButton}
-                            onPress={() => {setpasswordModalVisible(!passwordModalVisible), setuserPassword(buffer)}}
+                            onPress={() => {setpasswordModalVisible(!passwordModalVisible), setuserPassword(newPassword),
+                                ChangeRecord(newEmail, userID)
+                              }}
                         >
                             <Text style={styles.controlButtonText}>OK</Text>
                         </Pressable>

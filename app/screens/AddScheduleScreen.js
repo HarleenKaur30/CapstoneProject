@@ -11,8 +11,10 @@ import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import VerticalSlider from "rn-vertical-slider";
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
+import AppTextInput from "../components/AppTextInput";
 
 function AddScheduleScreen({ navigation }) {
+    const [scheduleName, setscheduleName] = useState();
     const [date, setDate] = useState(new Date(1598051730000));
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState('time');
@@ -40,6 +42,18 @@ function AddScheduleScreen({ navigation }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
+
+      <View style={styles.nameWrapper}>
+        <Text style={styles.sectionTitle}>Give Your Schedule A Name</Text>
+        <AppTextInput
+          autoCapitalize="words"
+          autoCorrect={false}
+          icon="home"
+          keyboardType="default"
+          onChangeText={(text) => setscheduleName(text)}
+          placeholder="Input Schedule Name"
+        />
+      </View>
 
       <View style={styles.timeWrapper}>
         <Text style={styles.sectionTitle}>Select Time</Text>
@@ -162,6 +176,10 @@ const styles = StyleSheet.create({
       timeWrapper: {
         alignItems: "center",
         paddingTop: '5%'
+      },
+      nameWrapper: {
+        alignItems: "center",
+        padding: '5%',
       },
       sectionTitle: {
         fontSize: 24,
