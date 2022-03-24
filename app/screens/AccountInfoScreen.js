@@ -20,7 +20,6 @@ function AccountScreen() {
     const [email, setEmail]=React.useState(global.email); // import these values either via API call to OAUTH or through a data base query
     const [password, setPassword]=React.useState(global.password);
     const [buffer, setbuffer]=React.useState(null);
-    const [newEmail, setnewEmail] = useState();
     const [newPassword, setnewPassword] = useState();
 
     const [emailModalVisible, setemailModalVisible] = useState(false);
@@ -90,15 +89,15 @@ function AccountScreen() {
             </View>
             <View style={styles.list}>
                 <Text style={styles.textStyle}> Email: <Text style={styles.infoStyle}>{email}</Text></Text>
-                <Pressable
+                {/* <Pressable
                 style={[styles.resetButton]}
                 onPress={() => setemailModalVisible(true)}
                 >
                     <Text style={styles.infoStyle}>Update</Text>
-                </Pressable>
+                </Pressable> */}
             </View>
 
-            <Modal
+            {/* <Modal
             animationType="slide"
             transparent={true}
             visible={emailModalVisible}
@@ -133,7 +132,7 @@ function AccountScreen() {
                         </Pressable>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
 
             <Modal
             animationType="slide"
@@ -158,8 +157,8 @@ function AccountScreen() {
 
                         <Pressable
                             style={styles.OKButton}
-                            onPress={() => {setpasswordModalVisible(!passwordModalVisible), setuserPassword(newPassword),
-                                ChangeRecord(newEmail, userID)
+                            onPress={() => {setpasswordModalVisible(!passwordModalVisible), setPassword(newPassword),
+                                ChangeRecord(newPassword, userID)
                               }}
                         >
                             <Text style={styles.controlButtonText}>OK</Text>
