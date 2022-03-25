@@ -19,7 +19,7 @@ function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  SearchRecord = () => {
+  var SearchRecord = () => {
     var SearchAPIURL =
       "http://" + ip.ip + ":" + ip.port + "/api/search_login.php";
     var headers = {
@@ -43,6 +43,7 @@ function LoginScreen({ navigation }) {
         if (global.userID !== null) {
           SearchHouses();
           global.email = email;
+          global.password = password;
         } else {
           Alert.alert(
             "Login Failed",
