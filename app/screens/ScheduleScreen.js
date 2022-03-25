@@ -145,7 +145,7 @@ function ScheduleScreen({}) {
           ListFooterComponent={
             <View style={styles.buttonContainer}>
               <Button
-                title="Add Schedule"
+                title="Add or Edit Schedule"
                 onPress={() => {
                   /*values.maxNumberOfSchedules === values.houses.schedules
                     ? Alert.alert(
@@ -154,6 +154,7 @@ function ScheduleScreen({}) {
                         [{ text: "Ok" }]
                       )
                     :*/ navigation.navigate("Schedule Display", { data: "" });
+                  global.addScheduleName = null;
                 }}
               />
             </View>

@@ -26,12 +26,13 @@ import Timeline from "react-native-timeline-flatlist";
 import AppButton from "../components/AppButton";
 import { render } from "react-dom";
 import AppTextInput from "../components/AppTextInput";
+import { Button } from "react-native-elements/dist/buttons/Button";
 
 export default class ScheduleDisScreen extends Component {
   constructor(props) {
     super(props);
     this.data = props.route.params.data;
-    this.scheduleName = "Schedule Name";
+    //this.scheduleName = "";
     this.state = {
       refreshing: false,
       data: "",
@@ -48,13 +49,13 @@ export default class ScheduleDisScreen extends Component {
     }, 2000);
   };
 
-  handleDelete = (message, scheduleName) => {
+  handleDelete = (message) => {
     this.setState({
       data: this.data.filter((m) => m.timeName !== message.timeName),
       refreshing: false,
     });
     this.timeName = message.timeName;
-    this.DeleteRecord(this.scheduleName, this.timeName);
+    this.DeleteRecord(this.timeName);
   };
 
   DeleteRecord = () => {
@@ -68,7 +69,7 @@ export default class ScheduleDisScreen extends Component {
 
     var data = {
       userID: global.userID,
-      scheduleName: this.scheduleName, //change to variable
+      scheduleName: global.addScheduleName, //change to variable
       timeName: this.timeName,
     };
 
@@ -117,16 +118,24 @@ export default class ScheduleDisScreen extends Component {
     */
 
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.nameWrapper} /* ANGELA START */>
+      <View
+        style={{
+          flex: 1,
+          alignContent: "center",
+          backgroundColor: colors.white,
+        }}
+      >
+        <View style={styles.nameWrapper}>
           <AppTextInput
             autoCapitalize="words"
             autoCorrect={false}
             icon="home"
             keyboardType="default"
-            onChangeText={(scheduleName) => this.setState({ scheduleName })}
+            onChangeText={(scheduleName) => {
+              global.addScheduleName = scheduleName;
+            }}
             placeholder={
-              this.scheduleName ? this.scheduleName : "Input Schedule Name"
+              global.addScheduleName ? global.addScheduleName : "Schedule Name"
             }
           />
           <Text style={styles.smallText}>
@@ -198,8 +207,7 @@ export default class ScheduleDisScreen extends Component {
                           { text: "Cancel" },
                           {
                             text: "Yes",
-                            onPress: () =>
-                              this.handleDelete(item, this.scheduleName),
+                            onPress: () => this.handleDelete(item),
                           },
                         ]
                       ),
@@ -208,26 +216,43 @@ export default class ScheduleDisScreen extends Component {
               )
             }
             separator={true}
-            //timeContainerStyle={{minWidth:72}}
           />
         </View>
 
-        <View styles={styles.bottomContainer}>
-          <AppButton
-            title="Add To Schedule"
-            onPress={() =>
-              this.props.navigation.navigate("Add Schedule Component", {
-                screen: "Add Schedule Component",
-                params: {
-                  scheduleName:
-                    this
-                      .scheduleName /* change to whatever variable the scheduleName is stored in */,
-                },
-              })
-            }
-          />
+        <View
+          styles={{
+            backgroundColor: colors.white,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Add to Schedule"
+              onPress={() =>
+                global.addScheduleName
+                  ? global.addScheduleName.length > 0
+                    ? this.props.navigation.navigate("Add Schedule Component", {
+                        screen: "Add Schedule Component",
+                        params: {
+                          scheduleName: global.addScheduleName,
+                        },
+                      })
+                    : Alert.alert(
+                        "Schedule Name",
+                        "Please enter a name for the schedule to continue.",
+                        [{ text: "Ok" }]
+                      )
+                  : Alert.alert(
+                      "Schedule Name",
+                      "Please enter a name for the schedule to continue.",
+                      [{ text: "Ok" }]
+                    )
+              }
+            />
+          </View>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -259,17 +284,6 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
     paddingLeft: "2%",
-  },
-  button: {
-    height: "10%",
-    width: "100%",
-    borderRadius: 100,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    padding: "5%",
-    backgroundColor: colors.light,
-    borderWidth: 1,
-    borderColor: colors.secondary,
   },
   roundButton: {
     height: 63,
@@ -303,6 +317,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     alignItems: "center",
     padding: "5%",
+    paddingTop: "0%",
   },
   timelineIcon: {
     width: 30,
@@ -320,15 +335,23 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     backgroundColor: colors.white,
-    flex: 1,
+    //flex: 1,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: "-20%",
-    width: "50%",
+    width: "100%",
   },
   nameWrapper: {
     alignItems: "center",
+    backgroundColor: colors.white,
     padding: "2%",
+  },
+  buttonContainer: {
+    backgroundColor: colors.logo_blue,
+    borderRadius: 25,
+    width: "40%",
+    marginHorizontal: "30%",
+    marginVertical: "5%",
   },
 });
 
