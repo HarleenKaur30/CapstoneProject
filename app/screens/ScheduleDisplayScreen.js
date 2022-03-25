@@ -129,7 +129,7 @@ export default class ScheduleDisScreen extends Component {
           <AppTextInput
             autoCapitalize="words"
             autoCorrect={false}
-            icon="home"
+            icon="calendar-clock"
             keyboardType="default"
             onChangeText={(scheduleName) => {
               global.addScheduleName = scheduleName;
