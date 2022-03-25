@@ -202,7 +202,7 @@ function AddScheduleScreen({ navigation, route }) {
           </View>
           <View style={{ width: "100%", height: "100%", position: "absolute" }}>
             <VerticalSlider
-              value={isNaN(newOpenPercentage) ? 100 : newOpenPercentage}
+              value={isNaN(newOpenPercentage) ? 85 : newOpenPercentage}
               disabled={false}
               min={0}
               max={100}
@@ -217,7 +217,7 @@ function AddScheduleScreen({ navigation, route }) {
         </ImageBackground>
       </View>
       <Text style={styles.sliderText}>
-        {isNaN(newOpenPercentage) ? 100 : newOpenPercentage}% Open
+        {isNaN(newOpenPercentage) ? 85 : newOpenPercentage}% Open
       </Text>
 
       <View style={styles.addButton}>
