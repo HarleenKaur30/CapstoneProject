@@ -8,18 +8,18 @@ import {
   Alert,
 } from "react-native";
 import colors from "../config/colors";
-import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import ip from "../config/ip";
 
-const appVersion = 0.3; //add global variable to indicate app version number and import it here, or remove
+const appVersion = 0.3; //variable to store app version number and import it here, or remove
 
 function UserInfoScreen({ navigation }) {
+
   return (
     <View style={styles.parentContainer}>
       <TouchableOpacity
         style={styles.list}
-        onPress={() => {
-          navigation.navigate("Account Information");
-        }}
+        onPress={() => navigation.navigate("Account Information")}
       >
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons
@@ -31,24 +31,6 @@ function UserInfoScreen({ navigation }) {
         <Text style={styles.textStyle}> Account Information</Text>
       </TouchableOpacity>
 
-      {/* <TouchableOpacity  
-          style={styles.list}
-          onPress={() => {
-            Alert.alert(
-                "Reset Password?",
-                "You will be logged out and an email with instructions will be sent to the address provided. Select OK to continue.",
-                [
-                { text: "Cancel" },
-                { text: "OK", onPress: () => navigation.reset({index: 0, routes: [{ name: 'Login' }],}),}, // Trigger API call to email password reset instructions
-                ]
-            );
-          }}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="key" size={40} color={colors.logo_blue}/>
-          </View>
-          <Text style={styles.textStyle}> Reset Password</Text>
-        </TouchableOpacity> */}
-
       <TouchableOpacity
         style={styles.list}
         onPress={() => {
@@ -56,9 +38,13 @@ function UserInfoScreen({ navigation }) {
             { text: "Cancel" },
             {
               text: "OK",
-              onPress: () =>
-                navigation.reset({ index: 0, routes: [{ name: "Welcome" }] }),
-            }, // flush user login info
+              onPress: () => {
+                navigation.reset({ index: 0, routes: [{ name: "Welcome" }] });
+                global.userID = null;
+                global.email = null;
+                global.password = null;
+              }
+            },
           ]);
           global.userID = null;
         }}
