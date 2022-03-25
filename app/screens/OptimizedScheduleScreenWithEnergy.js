@@ -42,12 +42,11 @@ export default class OptScheduleScreen extends Component {
     return (
         <SafeAreaView style={styles.container}>
 
-          <View style={styles.houseContainer}> 
-          {/* this text must be a dynamic variable set equal to the house selected from the Automation screen picker */}
-          <Text style={styles.timelineText}> 
-              House 1  
+          {/* <View style={styles.houseContainer}> 
+            <Text style={styles.timelineText}> 
+                House 1  
             </Text>        
-          </View>
+          </View> */}
 
           <TouchableOpacity style={styles.button}
             onPress={() => {
@@ -71,7 +70,7 @@ export default class OptScheduleScreen extends Component {
               circleSize={40}
               circleColor={colors.white}
               lineColor={colors.orange}
-              timeContainerStyle={{minWidth:52, marginTop: 0}}
+              timeContainerStyle={{minWidth:72, marginTop: 0}}
               timeStyle={{
                 textAlign: 'center', 
                 backgroundColor: colors.light, 
