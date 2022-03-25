@@ -6,8 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import colors from "../config/colors";
+import ip from "../config/ip";
 import {
   MaterialCommunityIcons,
   AntDesign,
@@ -24,32 +26,75 @@ function AutomationScreen({ navigation }) {
     { label: "House 3", value: "House 3" },
     { label: "House 4", value: "House 4" }, //need to dynamically change labels and values based on houses associated with a user
   ]);
+  var SearchRecord = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (Number(response[0].numHouses.toString()) === 0) {
+          Alert.alert(
+            "Blinds Could Not Be Added",
+            "Please add a house first.",
+            [
+              { text: "Cancel" },
+              {
+                text: "Add House",
+                onPress: () => navigation.navigate("Add House"),
+              },
+            ]
+          );
+        } else {
+          response.shift();
+          navigation.navigate("Optimized House", { houses: response });
+        }
+      })
+      .catch((error) => {
+        Alert.alert("App Screen Could Not Be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+  <View>
+    <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+      placeholder="Select a house"
+      showTickIcon={true}
+      closeAfterSelecting={true}
+      listMode="SCROLLVIEW"
+      scrollViewProps={{
+        nestedScrollEnabled: true,
+      }}
+      containerStyle={{
+        width: "70%",
+        marginBottom: "2%",
+        marginTop: "2%",
+        elevation: 1,
+        zIndex: 1,
+      }}
+    />
+  </View>;
 
   return (
     <View style={styles.container}>
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        placeholder="Select a house"
-        showTickIcon={true}
-        closeAfterSelecting={true}
-        listMode="SCROLLVIEW"
-        scrollViewProps={{
-          nestedScrollEnabled: true,
-        }}
-        containerStyle={{
-          width: "70%",
-          marginBottom: "2%",
-          marginTop: "2%",
-          elevation: 1,
-          zIndex: 1,
-        }}
-      />
-
       <View style={styles.scrollView} nestedScrollEnabled={true}>
         {/* View Optimized Schedule button */}
         <View style={styles.textContainer}>
@@ -57,11 +102,9 @@ function AutomationScreen({ navigation }) {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-              navigation.navigate("Optimized Schedule");
-            }}
+            onPress={() => SearchRecord()}
           >
-            <AntDesign name="areachart" size={90} color={colors.logo_blue} />
+            <AntDesign name="areachart" size={100} color={colors.logo_blue} />
           </TouchableOpacity>
         </View>
 
@@ -77,7 +120,7 @@ function AutomationScreen({ navigation }) {
           >
             <MaterialCommunityIcons
               name="timetable"
-              size={90}
+              size={100}
               color={colors.logo_blue}
             />
           </TouchableOpacity>
@@ -90,12 +133,13 @@ function AutomationScreen({ navigation }) {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              navigation.navigate("Schedule Display");
+              navigation.navigate("Schedule Display", { data: "" });
+              global.addScheduleName = null;
             }}
           >
             <Ionicons
               name="create-outline"
-              size={90}
+              size={100}
               color={colors.logo_blue}
             />
           </TouchableOpacity>
@@ -126,6 +170,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.light,
     borderBottomWidth: 1,
     position: "relative",
+    marginVertical: "1.5%",
   },
   buttonText: {
     color: colors.black,
@@ -134,8 +179,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    height: 125,
-    width: 125,
+    height: 140,
+    width: 140,
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
@@ -144,7 +189,7 @@ const styles = StyleSheet.create({
     top: "5%",
     backgroundColor: colors.light,
     borderWidth: 1,
-    borderColor: colors.orange,
+    borderColor: colors.logo_blue,
   },
 });
 

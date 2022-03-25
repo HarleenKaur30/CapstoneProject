@@ -6,6 +6,7 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddHouseScreen from "./app/screens/AddHouseScreen";
 import ChooseHouseScreen from "./app/screens/ChooseHouseScreen";
+import OptimizedHouseScreen from "./app/screens/OptimizedHouseScreen";
 import FindBlindsScreen from "./app/screens/FindBlindsScreen";
 import HousesScreen from "./app/screens/HousesScreen";
 import BlindsScreen from "./app/screens/BlindsScreen";
@@ -69,6 +70,11 @@ export default function App() {
           name="Choose House"
           component={ChooseHouseScreen}
           options={{ title: "Add Blinds" }}
+        />
+        <Stack.Screen
+          name="Optimized House"
+          component={OptimizedHouseScreen}
+          options={{ title: "Optimized: House Menu" }}
         />
         <Stack.Screen name="Find Blinds" component={FindBlindsScreen} />
         <Stack.Screen

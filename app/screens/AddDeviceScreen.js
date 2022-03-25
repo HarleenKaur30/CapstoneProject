@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     top: "5%",
     backgroundColor: colors.light,
     borderWidth: 1,
-    borderColor: colors.orange,
+    borderColor: colors.logo_blue,
   },
   buttonText: {
     color: colors.black,
