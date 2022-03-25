@@ -25,16 +25,17 @@ import {
 import Timeline from "react-native-timeline-flatlist";
 import AppButton from "../components/AppButton";
 import { render } from "react-dom";
+import AppTextInput from "../components/AppTextInput";
 
 export default class ScheduleDisScreen extends Component {
   constructor(props) {
     super(props);
     this.data = props.route.params.data;
+    this.scheduleName = "Schedule Name";
     this.state = {
       refreshing: false,
       data: "",
     };
-    this.scheduleName = "To Be Added";
   }
 
   _onRefresh = () => {
@@ -117,9 +118,21 @@ export default class ScheduleDisScreen extends Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.smallText}>
-          {"Pull to show changes to schedule."}
-        </Text>
+        <View style={styles.nameWrapper} /* ANGELA START */>
+          <AppTextInput
+            autoCapitalize="words"
+            autoCorrect={false}
+            icon="home"
+            keyboardType="default"
+            onChangeText={(scheduleName) => this.setState({ scheduleName })}
+            placeholder={
+              this.scheduleName ? this.scheduleName : "Input Schedule Name"
+            }
+          />
+          <Text style={styles.smallText}>
+            {"Pull to show changes to schedule."}
+          </Text>
+        </View>
         <View style={styles.scrollView} nestedScrollEnabled={true}>
           <Timeline
             style={styles.timeline}
@@ -312,6 +325,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: "-20%",
     width: "50%",
+  },
+  nameWrapper: {
+    alignItems: "center",
+    padding: "2%",
   },
 });
 
