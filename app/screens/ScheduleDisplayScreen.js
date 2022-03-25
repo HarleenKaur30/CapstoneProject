@@ -1,135 +1,223 @@
-import React, {Component} from 'react';
-import { Text, View, SafeAreaView, Platform, StyleSheet, TouchableOpacity, ScrollView, Image, RefreshControl, Alert, DynamicColorIOS} from 'react-native';
+import React, { Component, useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  RefreshControl,
+  Alert,
+  DynamicColorIOS,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
-import { MaterialCommunityIcons, AntDesign, FontAwesome, Feather, FontAwesome5 } from "@expo/vector-icons";
-import Timeline from 'react-native-timeline-flatlist'
+import ip from "../config/ip";
+import {
+  MaterialCommunityIcons,
+  AntDesign,
+  FontAwesome,
+  Feather,
+  FontAwesome5,
+} from "@expo/vector-icons";
+import Timeline from "react-native-timeline-flatlist";
 import AppButton from "../components/AppButton";
-import { render } from 'react-dom';
-
+import { render } from "react-dom";
 
 export default class ScheduleDisScreen extends Component {
-    
-  constructor(props){
-    super(props)
-    this.data = [ // import this from local buffer, filled from API at midnight each day
-      
-      {time: '09:00am', title: 'Move Blinds to 10%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      {time: '12:00pm', title: 'Move Blinds to 70%', icon: <MaterialCommunityIcons name="blinds" size={30} color={colors.black}/>},
-      {time: '3:00pm', title: 'Move Blinds to 86%', icon: <MaterialCommunityIcons name="blinds" size={30} color={colors.black}/>},
-      {time: '5:00pm', title: 'Move Blinds to 44%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      {time: '7:00pm', title: 'Move Blinds to 24%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      {time: '10:00pm', title: 'Move Blinds to 10%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      {time: '10:30pm', title: 'Move Blinds to 8%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      {time: '11:00pm', title: 'Move Blinds to 5%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      {time: '11:30pm', title: 'Move Blinds to 2%', icon: <MaterialCommunityIcons name="blinds-open" size={30} color={colors.black}/>},
-      
-    ]
+  constructor(props) {
+    super(props);
+    this.data = props.route.params.data;
     this.state = {
       refreshing: false,
+      data: "",
     };
-   
+    this.scheduleName = "To Be Added";
   }
 
   _onRefresh = () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     setTimeout(() => {
       this.setState({
-        data: this.data, // add API call to update this.data
-        refreshing: false
+        data: this.props.route.params.data, // add API call to update this.data
+        refreshing: false,
       });
     }, 2000);
-  } 
+  };
+
+  handleDelete = (message, scheduleName) => {
+    this.setState({
+      data: this.data.filter((m) => m.timeName !== message.timeName),
+      refreshing: false,
+    });
+    this.timeName = message.timeName;
+    this.DeleteRecord(this.scheduleName, this.timeName);
+  };
+
+  DeleteRecord = () => {
+    var InsertAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/delete_schedulePart.php";
+
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      userID: global.userID,
+      scheduleName: this.scheduleName, //change to variable
+      timeName: this.timeName,
+    };
+
+    fetch(InsertAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response[0].Message);
+      })
+      .catch((error) => {
+        Alert.alert("Schedule Could Not Be Updated", "Error Insert: " + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
 
   render() {
-    
-    if (Object.keys(this.data).length == 0) {
-        return (
-          <View style={styles.noScheduleContainer}>
-            <Text style={styles.noScheduleText}>
-              Schedule Empty. 
-            </Text>
-          
+    /*if (
+      (Object.keys(this.state.data).length == 0) &
+      (Object.keys(this.data).length == 0)
+    ) {
+      console.log(this.state.data);
+      console.log("And", this.data);
+      return (
+        <View style={styles.noScheduleContainer}>
+          <Text style={styles.noScheduleText}>Schedule Empty.</Text>
+
           <AppButton
             title="Add To Schedule"
-            onPress={() => navigation.navigate("Add Schedule Component")}
-            />
-          </View>
-        );
+            onPress={() =>
+              this.props.navigation.navigate("Add Schedule Component", {
+                screen: "Add Schedule Component",
+                params: {
+                  scheduleName:
+                    "To Be Added" // change to whatever variable the scheduleName is stored in //,
+                },
+              })
+            }
+          />
+        </View>
+      );
     }
-
+    */
 
     return (
-        <SafeAreaView style={styles.container}>
-
-          <View style={styles.scrollView} nestedScrollEnabled={true}>
-            <Timeline 
-              style={styles.timeline}
-              data={this.data}
-              circleSize={40}
-              circleColor={colors.white}
-              lineColor={colors.orange}
-              timeContainerStyle={{minWidth:52, marginTop: 0}}
-              timeStyle={{textAlign: 'center', backgroundColor: colors.light, color: colors.black, padding:5, borderRadius:4, borderWidth:2, borderColor: colors.logo_blue, marginTop: "10%"}}
-              descriptionStyle={{color:'gray'}}
-              options={{
-                style:{paddingTop:5},
-                refreshControl: (
-                  <RefreshControl
-                    refreshing={this.state.refreshing}
-                    onRefresh={this._onRefresh}
-                  />
-                ),
-              }}
-              titleStyle={{marginBottom: "10%"}}
-              innerCircle={'icon'}
-              onEventPress={(item) => 
-                /*alert(`${item.title} at ${item.time}`)*/
-                Alert.alert(
-                    "Schedule Item Menu",
-                    "What would you like to do with this schedule item?",
-                    [
-                      { text: "Cancel" },
-                      {
-                        text: "Edit",
-                        onPress: () =>
-                            this.props.navigation.navigate("Add Schedule Component"),
-                      },
-                      {
-                        text: "Delete",
-                        onPress: () =>
-                          Alert.alert(
-                            "Delete",
-                            "Are you sure you would like to delete this schedule item?",
-                            [
-                              { text: "Cancel" },
-                              { text: "Yes", onPress: () => handleDelete(item) },
-                            ]
-                          ),
-                      },
-                    ]
-                  )
-                }
-              separator={true}
-              timeContainerStyle={{minWidth:72}}
-            />
-            </View>
-
-            <View styles={styles.bottomContainer}>
-                <AppButton
-                    title="Add To Schedule"
-                    onPress={() => {
-                        this.props.navigation.navigate("Add Schedule Component");
-                    }}
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.smallText}>
+          {"Pull to show changes to schedule."}
+        </Text>
+        <View style={styles.scrollView} nestedScrollEnabled={true}>
+          <Timeline
+            style={styles.timeline}
+            data={this.state.data}
+            circleSize={40}
+            circleColor={colors.white}
+            lineColor={colors.orange}
+            timeContainerStyle={{ minWidth: 72, marginTop: 0 }}
+            timeStyle={{
+              textAlign: "center",
+              backgroundColor: colors.light,
+              color: colors.black,
+              padding: 5,
+              borderRadius: 4,
+              borderWidth: 2,
+              borderColor: colors.logo_blue,
+              marginTop: "10%",
+            }}
+            descriptionStyle={{ color: "gray" }}
+            options={{
+              style: { paddingTop: 5 },
+              refreshControl: (
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
                 />
-            </View>
+              ),
+            }}
+            titleStyle={{ marginBottom: "10%" }}
+            innerCircle={"icon"}
+            iconDefault={
+              <MaterialCommunityIcons
+                name="blinds"
+                size={30}
+                color={colors.black}
+              />
+            }
+            onEventPress={(item) =>
+              /*alert(`${item.title} at ${item.time}`)*/
+              Alert.alert(
+                "Schedule Item Menu",
+                "What would you like to do with this schedule item?",
+                [
+                  { text: "Cancel" },
+                  /*{
+                    text: "Edit",
+                    onPress: () =>
+                      navigation.navigate("Add Schedule Component", {
+                        screen: "Add Schedule Component",
+                        params: {
+                          scheduleName:
+                            "To Be Added" // change to whatever variable the scheduleName is stored in //,
+                        },
+                      }),
+                  },*/
+                  {
+                    text: "Delete",
+                    onPress: () =>
+                      Alert.alert(
+                        "Delete",
+                        "Are you sure you would like to delete this schedule item?",
+                        [
+                          { text: "Cancel" },
+                          {
+                            text: "Yes",
+                            onPress: () =>
+                              this.handleDelete(item, this.scheduleName),
+                          },
+                        ]
+                      ),
+                  },
+                ]
+              )
+            }
+            separator={true}
+            //timeContainerStyle={{minWidth:72}}
+          />
+        </View>
 
-        </SafeAreaView>
+        <View styles={styles.bottomContainer}>
+          <AppButton
+            title="Add To Schedule"
+            onPress={() =>
+              this.props.navigation.navigate("Add Schedule Component", {
+                screen: "Add Schedule Component",
+                params: {
+                  scheduleName:
+                    this
+                      .scheduleName /* change to whatever variable the scheduleName is stored in */,
+                },
+              })
+            }
+          />
+        </View>
+      </SafeAreaView>
     );
   }
-
 }
-
 
 const styles = StyleSheet.create({
   noScheduleContainer: {
@@ -223,8 +311,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: "-20%",
-    width: "50%"
-  }
-}); 
+    width: "50%",
+  },
+});
 
 export const ScheduleDisplayScreen = ScheduleDisScreen;

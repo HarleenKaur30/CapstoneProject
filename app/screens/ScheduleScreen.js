@@ -147,13 +147,13 @@ function ScheduleScreen({}) {
               <Button
                 title="Add Schedule"
                 onPress={() => {
-                  values.maxNumberOfSchedules === values.houses.schedules
+                  /*values.maxNumberOfSchedules === values.houses.schedules
                     ? Alert.alert(
                         "Schdeule Could Not Be Added",
                         "The maximum number of schedules have already been added using this device.",
                         [{ text: "Ok" }]
                       )
-                    : navigation.navigate("Schedule Display");
+                    :*/ navigation.navigate("Schedule Display", { data: "" });
                 }}
               />
             </View>

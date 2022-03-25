@@ -60,6 +60,7 @@ function UserInfoScreen({ navigation }) {
                 navigation.reset({ index: 0, routes: [{ name: "Welcome" }] }),
             }, // flush user login info
           ]);
+          global.userID = null;
         }}
       >
         <View style={styles.iconContainer}>
