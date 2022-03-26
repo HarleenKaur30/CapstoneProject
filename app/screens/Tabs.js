@@ -1,6 +1,6 @@
 /* This file creates differents tabs for the tab bar: Home, Add Device, Schedule, Automation */
 
-import * as React from "react";
+import React, { useState } from "react";
 import HomeScreen from "./HomeScreen";
 import AddDeviceScreen from "./AddDeviceScreen";
 import ScheduleScreen from "./ScheduleScreen";
@@ -9,12 +9,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
+import ip from "../config/ip";
+import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 /* This tab navigator is responsible for the navigation of tabs */
 const Tab = createBottomTabNavigator();
 
 //Defines the tabs in the tab bar
-function Tabs() {
+function Tabs({ route }) {
+  const navigation = useNavigation();
+  var schedules = route.params.params.schedules;
+  var numSchedules = route.params.params.numSchedules;
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -57,6 +64,7 @@ function Tabs() {
             />
           ),
         }}
+        initialParams={{ schedules: schedules, numSchedules: numSchedules }}
       />
       <Tab.Screen
         name="Automation"

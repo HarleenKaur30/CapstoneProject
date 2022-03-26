@@ -57,7 +57,7 @@ function LoginScreen({ navigation }) {
       });
   };
 
-  SearchHouses = () => {
+  var SearchHouses = () => {
     var SearchAPIURL =
       "http://" + ip.ip + ":" + ip.port + "/api/search_existing_houses.php";
     var headers = {
@@ -78,10 +78,43 @@ function LoginScreen({ navigation }) {
       .then((response) => {
         var numHouses = Number(response[0].numHouses.toString());
         response.shift();
-        navigation.navigate("Home", {
-          screen: "Home",
-          params: { houses: response, numHouses: numHouses },
-        });
+        var houses = response;
+
+        var SearchAPIURL =
+          "http://" + ip.ip + ":" + ip.port + "/api/scheduleFetch.php";
+        var headers = {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        };
+
+        var data = {
+          FindUserID: global.userID,
+        };
+
+        fetch(SearchAPIURL, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            var numSchedules = Number(response[0].numSchedules.toString());
+            response.shift();
+            navigation.navigate("Home", {
+              screen: "Home",
+              params: {
+                houses: houses,
+                numHouses: numHouses,
+                schedules: response,
+                numSchedules: numSchedules,
+              },
+            });
+          })
+          .catch((error) => {
+            Alert.alert("App Could Not be Loaded", "Error" + error, [
+              { text: "Ok" },
+            ]);
+          });
       })
       .catch((error) => {
         Alert.alert("App Could Not be Loaded", "Error" + error, [

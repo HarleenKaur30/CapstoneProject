@@ -32,7 +32,7 @@ export default class ScheduleDisScreen extends Component {
   constructor(props) {
     super(props);
     this.data = props.route.params.data;
-    //this.scheduleName = "";
+    this.scheduleName = props.route.params.scheduleName;
     this.state = {
       refreshing: false,
       data: "",
@@ -55,7 +55,7 @@ export default class ScheduleDisScreen extends Component {
       refreshing: false,
     });
     this.timeName = message.timeName;
-    this.DeleteRecord(this.timeName);
+    this.DeleteRecord(this.timeName, this.scheduleName);
   };
 
   DeleteRecord = () => {
@@ -69,7 +69,7 @@ export default class ScheduleDisScreen extends Component {
 
     var data = {
       userID: global.userID,
-      scheduleName: global.addScheduleName, //change to variable
+      scheduleName: this.scheduleName, //change to variable
       timeName: this.timeName,
     };
 
@@ -126,18 +126,6 @@ export default class ScheduleDisScreen extends Component {
         }}
       >
         <View style={styles.nameWrapper}>
-          <AppTextInput
-            autoCapitalize="words"
-            autoCorrect={false}
-            icon="calendar-clock"
-            keyboardType="default"
-            onChangeText={(scheduleName) => {
-              global.addScheduleName = scheduleName;
-            }}
-            placeholder={
-              global.addScheduleName ? global.addScheduleName : "Schedule Name"
-            }
-          />
           <Text style={styles.smallText}>
             {"Pull to show changes to schedule."}
           </Text>
@@ -207,7 +195,8 @@ export default class ScheduleDisScreen extends Component {
                           { text: "Cancel" },
                           {
                             text: "Yes",
-                            onPress: () => this.handleDelete(item),
+                            onPress: () =>
+                              this.handleDelete(item, this.scheduleName),
                           },
                         ]
                       ),
@@ -230,24 +219,12 @@ export default class ScheduleDisScreen extends Component {
             <Button
               title="Add to Schedule"
               onPress={() =>
-                global.addScheduleName
-                  ? global.addScheduleName.length > 0
-                    ? this.props.navigation.navigate("Add Schedule Component", {
-                        screen: "Add Schedule Component",
-                        params: {
-                          scheduleName: global.addScheduleName,
-                        },
-                      })
-                    : Alert.alert(
-                        "Schedule Name",
-                        "Please enter a name for the schedule to continue.",
-                        [{ text: "Ok" }]
-                      )
-                  : Alert.alert(
-                      "Schedule Name",
-                      "Please enter a name for the schedule to continue.",
-                      [{ text: "Ok" }]
-                    )
+                this.props.navigation.navigate("Add Schedule Component", {
+                  screen: "Add Schedule Component",
+                  params: {
+                    scheduleName: this.scheduleName,
+                  },
+                })
               }
             />
           </View>

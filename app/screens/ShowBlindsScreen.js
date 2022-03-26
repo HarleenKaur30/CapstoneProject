@@ -11,10 +11,47 @@ import VerticalSlider from "rn-vertical-slider";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
+import ip from "../config/ip";
 
 function ShowBlindsScreen({ navigation, route }) {
   const [newOpenPercentage, setNewOpenPercentage] = useState();
   const battery = route.params.blinds.battery;
+
+  var SearchSchedules = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/scheduleFetch.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numSchedules = Number(response[0].numSchedules.toString());
+        response.shift();
+        navigation.navigate("Schedule", {
+          screen: "Schedule",
+          params: {
+            schedules: response,
+            numSchedules: numSchedules,
+          },
+        });
+      })
+      .catch((error) => {
+        Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
@@ -100,7 +137,7 @@ function ShowBlindsScreen({ navigation, route }) {
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Schedules")}
+          onPress={() => SearchSchedules()}
           // button to change schedules, this path will likely need to be changed
         >
           <Text style={styles.buttonText}>
@@ -110,7 +147,11 @@ function ShowBlindsScreen({ navigation, route }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Optimized Schedule")}
+          onPress={() =>
+            navigation.navigate("Optimized Schedule", {
+              houseID: route.params.blinds.houseID,
+            })
+          }
         >
           <Text style={styles.buttonText}>See Optimized Schedule</Text>
         </TouchableOpacity>

@@ -78,7 +78,6 @@ function AddDeviceScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if (
           Number(response[0].numHouses.toString()) == values.maxNumberOfHouses
         ) {

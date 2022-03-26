@@ -1,27 +1,45 @@
 import React, { useState } from "react";
-import { StyleSheet, FlatList, View, Alert } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Alert,
+  Modal,
+  Text,
+  TextInput,
+  Pressable,
+} from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import ListSchedule from "../components/ListSchedule";
 import ListItemSeperator from "../components/ListItemSeperator";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import ListItemEditAction from "../components/ListItemEditAction";
 import colors from "../config/colors";
-import schedules from "../config/schedules";
+import schedules2 from "../config/schedules";
 import values from "../config/values";
 import ip from "../config/ip";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function ScheduleScreen({}) {
-  const [newSchedules, setNewSchedules] = useState(schedules);
+function ScheduleScreen({ route }) {
+  const [newSchedules, setNewSchedules] = useState(route.params.schedules);
+  const [scheduleNameModalVisible, setScheduleNameModalVisible] =
+    useState(false);
+  const [newScheduleName, setNewScheduleName] = useState("");
 
   const navigation = useNavigation();
   var scheduleID;
+  var deleteScheduleID;
 
   const handleDelete = (message) => {
-    setNewSchedules(newSchedules.filter((m) => m.id !== message.id));
+    setNewSchedules(
+      newSchedules.filter((m) => m.scheduleID !== message.scheduleID)
+    );
+    deleteScheduleID = message.scheduleID;
+    DeleteRecord(deleteScheduleID);
   };
 
-  SearchBlindsOnSchedule = () => {
+  var SearchBlindsOnSchedule = () => {
     var SearchAPIURL =
       "http://" + ip.ip + ":" + ip.port + "/api/search_blindsOnSchedule.php";
     var headers = {
@@ -82,16 +100,87 @@ function ScheduleScreen({}) {
       });
   };
 
+  const SearchScheduleParts = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_scheduleAddDisplay.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindScheduleName: newScheduleName,
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        for (let i = 0; i < response.length; i++) {
+          response[i].icon = (
+            <MaterialCommunityIcons
+              name={response[i].icon}
+              size={30}
+              color={colors.black}
+            />
+          );
+        }
+        navigation.navigate("Schedule Display", {
+          data: response,
+          scheduleName: newScheduleName,
+        });
+      })
+      .catch((error) => {
+        Alert.alert("Next Screen Could Not Be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
+  var DeleteRecord = () => {
+    var InsertAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/delete_schedule.php";
+
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      scheduleID: deleteScheduleID,
+    };
+
+    fetch(InsertAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response[0].Message);
+      })
+      .catch((error) => {
+        Alert.alert("Schedule Could Not Be Deleted", "Error Insert: " + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
   return (
     <View style={styles.largeContainer}>
       <View style={styles.container}>
         <FlatList
           data={newSchedules}
+          keyExtractor={(message) => message.scheduleID.toString()}
           renderItem={({ item, index }) => (
             <ListSchedule
-              scheduleName={item.title}
+              scheduleName={item.scheduleName}
               onPress={() => {
-                scheduleID = item.id; //please ensure schedule ID is sent here instead
+                scheduleID = item.scheduleID; //please ensure schedule ID is sent here instead
                 //scheduleID=item.scheduleID;
                 SearchBlindsOnSchedule(scheduleID);
               }}
@@ -146,21 +235,60 @@ function ScheduleScreen({}) {
             <View style={styles.buttonContainer}>
               <Button
                 title="Add or Edit Schedule"
-                onPress={() => {
-                  /*values.maxNumberOfSchedules === values.houses.schedules
-                    ? Alert.alert(
-                        "Schdeule Could Not Be Added",
-                        "The maximum number of schedules have already been added using this device.",
-                        [{ text: "Ok" }]
-                      )
-                    :*/ navigation.navigate("Schedule Display", { data: "" });
-                  global.addScheduleName = null;
-                }}
+                onPress={() => setScheduleNameModalVisible(true)}
               />
             </View>
           }
         />
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={scheduleNameModalVisible}
+        onRequestClose={() => {
+          setScheduleNameModalVisible(!scheduleNameModalVisible);
+        }}
+      >
+        <View style={styles.popupParentContainer}>
+          <View style={styles.popupContainer}>
+            <View style={styles.instructionContainer}>
+              <Text style={styles.textStyle}>Schedule Name</Text>
+            </View>
+            <TextInput
+              style={styles.input}
+              placeholder="Schedule Name"
+              onChangeText={(text) => setNewScheduleName(text)}
+            />
+
+            <Pressable
+              style={styles.OKButton}
+              onPress={() => {
+                setNewScheduleName(newScheduleName);
+                newScheduleName.length > 0
+                  ? setScheduleNameModalVisible(!scheduleNameModalVisible)
+                  : (temp = 0);
+                newScheduleName.length > 0
+                  ? SearchScheduleParts(newScheduleName)
+                  : Alert.alert(
+                      "Schedule Name",
+                      "Please enter a name for the schedule to continue.",
+                      [{ text: "Ok" }]
+                    );
+              }}
+            >
+              <Text style={styles.controlButtonText}>OK</Text>
+            </Pressable>
+            <Pressable
+              style={styles.cancelButton}
+              onPress={() =>
+                setScheduleNameModalVisible(!scheduleNameModalVisible)
+              }
+            >
+              <Text style={styles.controlButtonText}>CANCEL</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -179,6 +307,67 @@ const styles = StyleSheet.create({
   largeContainer: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  popupParentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  popupContainer: {
+    width: "90%",
+    height: 150,
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  OKButton: {
+    backgroundColor: colors.white,
+    position: "absolute",
+    bottom: "10%",
+    right: "15%",
+  },
+  cancelButton: {
+    backgroundColor: colors.white,
+    position: "absolute",
+    bottom: "10%",
+    right: "35%",
+  },
+  controlButtonText: {
+    color: "blue",
+    fontSize: 15,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "normal",
+  },
+  input: {
+    height: "30%",
+    width: "90%",
+    borderWidth: 1,
+    borderColor: colors.black,
+    position: "absolute",
+    top: "30%",
+    right: "5%",
+  },
+  instructionContainer: {
+    height: "15%",
+    width: "90%",
+    position: "absolute",
+    top: "10%",
+    right: "5%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textStyle: {
+    color: colors.black,
+    fontSize: 16,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
   },
 });
 
