@@ -344,9 +344,21 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   button: {
-    paddingTop: 35,
+    backgroundColor: colors.logo_blue,
+    borderRadius: 25,
+    justifyContent: "center",
     alignItems: "center",
-    width: 600,
+    paddingVertical: "1%",
+    width: "69%",
+    marginTop: "5%",
+    marginBottom: "5%",
+    marginHorizontal: "5%",
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: "bold",
   },
 });
 
