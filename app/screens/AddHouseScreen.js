@@ -350,8 +350,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: "1%",
     width: "69%",
-    marginTop: "5%",
-    marginBottom: "5%",
+    marginVertical: "2.5%",
     marginHorizontal: "5%",
   },
   buttonText: {
@@ -359,6 +358,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontWeight: "bold",
+    textAlign: "center",
   },
 });
 
