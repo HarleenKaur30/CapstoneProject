@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   FlatList,
@@ -20,7 +20,7 @@ import values from "../config/values";
 import { useNavigation } from "@react-navigation/native";
 
 function BlindsScreen({ route }) {
-  const [newBlinds, setNewBlinds] = useState(route.params.activeBlinds);
+  var [newBlinds, setNewBlinds] = useState(route.params.activeBlinds);
   const navigation = useNavigation();
   const houseID = route.params.houseID;
   var unitID;
@@ -102,6 +102,10 @@ function BlindsScreen({ route }) {
   };
 
   if (route.params.numBlindsOnSchedule > 0) {
+    useEffect(() => {
+      setNewBlinds(route.params.activeBlinds);
+    });
+
     return (
       <View style={styles.largeContainer}>
         <View style={styles.container}>

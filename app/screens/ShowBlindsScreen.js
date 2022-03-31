@@ -6,9 +6,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from "react-native";
 import VerticalSlider from "rn-vertical-slider";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { HeaderBackButton } from "react-navigation-stack";
 
 import colors from "../config/colors";
 import ip from "../config/ip";
@@ -16,6 +18,17 @@ import ip from "../config/ip";
 function ShowBlindsScreen({ navigation, route }) {
   const [newOpenPercentage, setNewOpenPercentage] = useState();
   const battery = route.params.blinds.battery;
+  const unitID = route.params.blinds.unitID;
+  const houseID = route.params.houseID;
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <HeaderBackButton onPress={() => SearchBlindsInHouse(houseID)} />
+      ),
+    }),
+      [navigation];
+  });
 
   var SearchSchedules = () => {
     var SearchAPIURL =
@@ -48,6 +61,70 @@ function ShowBlindsScreen({ navigation, route }) {
       })
       .catch((error) => {
         Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
+  var UpdateOpenPercentage = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/update_openPercentage.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      unitID: unitID,
+      openPercentage: newOpenPercentage,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response[0].Message);
+      })
+      .catch((error) => {
+        console.log("App Could Not be Loaded", "Error" + error);
+      });
+  };
+
+  var SearchBlindsInHouse = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/search_blindsInHouse.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindHouseID: houseID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numBlinds = Number(response[0].numBlinds.toString());
+        var houseName = response[1].houseName.toString();
+        response.shift();
+        response.shift();
+        navigation.navigate("Blinds", {
+          houseID: houseID,
+          houseName: houseName,
+          numBlindsOnSchedule: numBlinds,
+          activeBlinds: response,
+        });
+      })
+      .catch((error) => {
+        Alert.alert("Next Screen Could Not Be Loaded", "Error" + error, [
           { text: "Ok" },
         ]);
       });
@@ -92,9 +169,13 @@ function ShowBlindsScreen({ navigation, route }) {
             <View
               style={{
                 width: "100%",
-                height: isNaN(newOpenPercentage)
-                  ? "" + 100 - route.params.blinds.openPercentage + "%"
-                  : "" + 100 - newOpenPercentage + "%",
+                height:
+                  newOpenPercentage == undefined
+                    ? "" +
+                      100 -
+                      Number(route.params.blinds.openPercentage) +
+                      "%"
+                    : "" + 100 - newOpenPercentage + "%",
                 backgroundColor: "#E2DCCD",
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
@@ -112,14 +193,17 @@ function ShowBlindsScreen({ navigation, route }) {
             >
               <VerticalSlider
                 value={
-                  isNaN(newOpenPercentage)
-                    ? route.params.blinds.openPercentage
+                  newOpenPercentage == undefined
+                    ? Number(route.params.blinds.openPercentage)
                     : newOpenPercentage
                 }
                 disabled={false}
                 min={0}
                 max={100}
-                onChange={(numberValue) => setNewOpenPercentage(numberValue)}
+                onChange={(numberValue) => {
+                  setNewOpenPercentage(numberValue);
+                  UpdateOpenPercentage(unitID, newOpenPercentage);
+                }}
                 width="100%"
                 height={325}
                 step={1}
@@ -130,8 +214,8 @@ function ShowBlindsScreen({ navigation, route }) {
           </ImageBackground>
         </View>
         <Text style={styles.sliderText}>
-          {isNaN(newOpenPercentage)
-            ? route.params.blinds.openPercentage
+          {newOpenPercentage == undefined
+            ? Number(route.params.blinds.openPercentage)
             : newOpenPercentage}
           % Open
         </Text>
@@ -146,10 +230,10 @@ function ShowBlindsScreen({ navigation, route }) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.button2}
           onPress={() =>
             navigation.navigate("Optimized Schedule", {
-              houseID: route.params.blinds.houseID,
+              houseID: houseID,
             })
           }
         >
@@ -190,6 +274,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.logo_blue,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: "3.5%",
+    width: "90%",
+    marginVertical: "2.5%",
+    marginHorizontal: "5%",
+  },
+  button2: {
+    backgroundColor: colors.orange,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
