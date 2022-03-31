@@ -222,18 +222,9 @@ function AddScheduleScreen({ navigation, route }) {
 
       <View style={styles.addButton}>
         <AppButton
-          title="Add"
+          title="Finish Adding"
           onPress={() => {
             InsertRecord();
-          }}
-        />
-      </View>
-
-      <View style={styles.cancelButton}>
-        <Button
-          title="Cancel"
-          onPress={() => {
-            SearchScheduleAddition(scheduleName);
           }}
         />
       </View>
@@ -263,9 +254,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    alignItems: "center",
-  },
-  cancelButton: {
     alignItems: "center",
     paddingBottom: "20%",
   },

@@ -103,6 +103,7 @@ export default function App() {
         <Stack.Screen
           name="Schedule Display"
           component={ScheduleDisplayScreen}
+          options={{ headerBackVisible: false }}
         />
         <Stack.Screen
           name="Add Schedule Component"

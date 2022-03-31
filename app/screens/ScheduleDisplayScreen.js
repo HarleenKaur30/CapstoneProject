@@ -1,32 +1,18 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import {
   Text,
   View,
-  SafeAreaView,
   Platform,
   StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Image,
   RefreshControl,
   Alert,
-  DynamicColorIOS,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import ip from "../config/ip";
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  FontAwesome,
-  Feather,
-  FontAwesome5,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Timeline from "react-native-timeline-flatlist";
-import AppButton from "../components/AppButton";
-import { render } from "react-dom";
-import AppTextInput from "../components/AppTextInput";
 import { Button } from "react-native-elements/dist/buttons/Button";
+import { HeaderBackButton } from "react-navigation-stack";
 
 export default class ScheduleDisScreen extends Component {
   constructor(props) {
@@ -89,6 +75,42 @@ export default class ScheduleDisScreen extends Component {
       });
   };
 
+  SearchSchedules = () => {
+    var SearchAPIURL =
+      "http://" + ip.ip + ":" + ip.port + "/api/scheduleFetch.php";
+    var headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    var data = {
+      FindUserID: global.userID,
+    };
+
+    fetch(SearchAPIURL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var numSchedules = Number(response[0].numSchedules.toString());
+        response.shift();
+        this.props.navigation.navigate("Schedule", {
+          screen: "Schedule",
+          params: {
+            schedules: response,
+            numSchedules: numSchedules,
+          },
+        });
+      })
+      .catch((error) => {
+        Alert.alert("App Could Not be Loaded", "Error" + error, [
+          { text: "Ok" },
+        ]);
+      });
+  };
+
   render() {
     /*if (
       (Object.keys(this.state.data).length == 0) &
@@ -116,7 +138,6 @@ export default class ScheduleDisScreen extends Component {
       );
     }
     */
-
     return (
       <View
         style={{
@@ -127,7 +148,7 @@ export default class ScheduleDisScreen extends Component {
       >
         <View style={styles.nameWrapper}>
           <Text style={styles.smallText}>
-            {"Pull to show changes to schedule."}
+            {"Pull to show the updated schedule."}
           </Text>
         </View>
         <View style={styles.scrollView} nestedScrollEnabled={true}>
@@ -227,6 +248,9 @@ export default class ScheduleDisScreen extends Component {
                 })
               }
             />
+          </View>
+          <View style={styles.buttonContainerFinish}>
+            <Button title="Finish" onPress={() => this.SearchSchedules()} />
           </View>
         </View>
       </View>
@@ -328,7 +352,14 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: "40%",
     marginHorizontal: "30%",
-    marginVertical: "5%",
+    marginBottom: "5%",
+  },
+  buttonContainerFinish: {
+    backgroundColor: colors.orange,
+    borderRadius: 25,
+    width: "40%",
+    marginHorizontal: "30%",
+    marginBottom: "5%",
   },
 });
 

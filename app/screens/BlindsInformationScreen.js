@@ -74,7 +74,7 @@ function BlindsInformationScreen({ route, navigation }) {
   InsertRecord = () => {
     if (blindsName.length == 0 || tuyaID.length == 0) {
       Alert.alert(
-        "BLinds Could Not Be Added",
+        "Blinds Could Not Be Added",
         "Please name the blinds and enter their ID.",
         [{ text: "Ok" }]
       );
@@ -107,16 +107,8 @@ function BlindsInformationScreen({ route, navigation }) {
         })
           .then((response) => response.json())
           .then((response) => {
-            Alert.alert("Blinds Added", response[0].Message, [
-              {
-                text: "Ok",
-                onPress: () => SearchHouses(),
-                //navigation.reset({
-                //  index: 0,
-                //  routes: [{ name: "Home" }],
-                //}),
-              },
-            ]);
+            console.log(response[0].Message);
+            SearchHouses();
           })
           .catch((error) => {
             Alert.alert("Blinds Could Not Be Added", "Error Insert: " + error, [
@@ -172,7 +164,7 @@ function BlindsInformationScreen({ route, navigation }) {
           icon="blinds"
           keyboardType="default"
           onChangeText={(text) => setTuyaID(text)}
-          placeholder="Blinds ID"
+          placeholder="Blinds ID*"
           defaultValue={route.params.blindsStringID}
         />
         <AppTextInput
@@ -181,7 +173,7 @@ function BlindsInformationScreen({ route, navigation }) {
           icon="rename-box"
           keyboardType="default"
           onChangeText={(text) => setBlindsName(text)}
-          placeholder="Blinds Name"
+          placeholder="Blinds Name*"
         />
         <AppTextInput
           autoCapitalize="sentences"
