@@ -13,7 +13,6 @@ import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import colors from "../config/colors";
 import ip from "../config/ip";
 import values from "../config/values";
-import housesTest from "../config/houses";
 
 function AddDeviceScreen({ navigation }) {
   SearchRecord = () => {

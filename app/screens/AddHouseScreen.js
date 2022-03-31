@@ -3,7 +3,6 @@ import {
   Alert,
   Text,
   View,
-  NativeModules,
   StyleSheet,
   Platform,
   ScrollView,
@@ -15,7 +14,6 @@ import colors from "../config/colors";
 import ip from "../config/ip";
 import DropDownPicker from "react-native-dropdown-picker";
 import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
@@ -76,48 +74,6 @@ function AddHouseScreen({ route /*navigation*/ }) {
   } else if (location) {
     text = JSON.stringify(city);
   }
-
-  /*SearchRecord = () => {
-    var SearchAPIURL =
-      "http://" + ip.ip + ":" + ip.port + "/api/search_blinds.php";
-    var headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    fetch(SearchAPIURL, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        var blindsExist = Number(response[0].blindsExist.toString());
-        if (blindsExist > 0) {
-          Alert.alert(
-            "Blinds Could Not Be Added",
-            "Another user has already added these blinds to their account.",
-            [{ text: "Ok" }]
-          );
-        } else {
-          InsertRecord(
-            houseName,
-            city,
-            latitude,
-            longitude,
-            desiredInternaltemp,
-            UsualTemp
-          );
-        }
-      })
-      .catch((error) => {
-        Alert.alert(
-          "House Could Not Be Added",
-          "Error: " + error + ". Please try again later.",
-          [{ text: "Ok" }]
-        );
-      });
-  };*/
 
   InsertRecord = () => {
     houseName, city, desiredInternaltemp, UsualTemp;
