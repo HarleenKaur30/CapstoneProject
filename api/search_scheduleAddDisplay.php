@@ -49,13 +49,13 @@
 				{
 					$openPercentageNew=$Row[$timeName];
 					$move='Move Blinds to '.strval($openPercentageNew*100).'%';
-					if ($openPercentage>=$openPercentageNew)
+					if ($openPercentage<$openPercentageNew)
 					{
-						$icon="blinds";
+						$icon="blinds-open";
 					}
 					else
 					{
-						$icon="blinds-open";
+						$icon="blinds";
 					}
 					$openPercentage=$openPercentageNew;
 					
@@ -72,6 +72,14 @@
 		
 	}
 	else
+	{
+		$time="";
+		$move="";
+		$icon="";
+		$timeName="";
+		$Response[$i]=array("timeName"=>$timeName,"time"=>$time,"title"=>$move, "icon"=>$icon);
+	}
+	if (isset($Response)==false)
 	{
 		$time="";
 		$move="";
