@@ -96,12 +96,10 @@ export default class ScheduleDisScreen extends Component {
       .then((response) => {
         var numSchedules = Number(response[0].numSchedules.toString());
         response.shift();
+        console.log(response);
         this.props.navigation.navigate("Schedule", {
-          screen: "Schedule",
-          params: {
-            schedules: response,
-            numSchedules: numSchedules,
-          },
+          schedules: response,
+          numSchedules: numSchedules,
         });
       })
       .catch((error) => {
