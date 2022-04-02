@@ -102,9 +102,9 @@ function BlindsScreen({ route }) {
   };
 
   if (route.params.numBlindsOnSchedule > 0) {
-    useEffect(() => {
-      setNewBlinds(route.params.activeBlinds);
-    });
+    //useEffect(() => {
+    //  setNewBlinds(route.params.activeBlinds);
+    //});
 
     return (
       <View style={styles.largeContainer}>
