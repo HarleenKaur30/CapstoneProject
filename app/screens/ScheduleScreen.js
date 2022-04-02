@@ -23,7 +23,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function ScheduleScreen({ route }) {
   const [newSchedules, setNewSchedules] = useState(route.params.schedules);
-  var schedules = route.params.schedschedules;
+  var schedules = route.params.schedules;
   useEffect(() => {
     setNewSchedules(schedules);
   }, [schedules]);
@@ -173,6 +173,8 @@ function ScheduleScreen({ route }) {
         ]);
       });
   };
+
+  console.log(newSchedules);
 
   return (
     <View style={styles.largeContainer}>
