@@ -40,10 +40,10 @@ function HomeScreen({ route, navigation }) {
           </Animatable.View>
 
           <View style={styles.weatherTextContainer}>
-            <Text style={styles.weatherTextDate}>February 30th, 2050</Text>
-            <Text style={styles.weatherTextTemperature}>Sunny 25° C</Text>
+            <Text style={styles.weatherTextDate}>March 2nd, 2022</Text>
+            <Text style={styles.weatherTextTemperature}>Sunny 8° C</Text>
             <Text style={styles.weatherTextSunriseSunset}>
-              Sunrise: 8:34 A.M. {"\n"}Sunset: 10:23 P.M.
+              Sunrise: 6:34 A.M. {"\n"}Sunset: 10:23 P.M.
             </Text>
           </View>
         </View>
