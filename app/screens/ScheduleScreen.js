@@ -174,8 +174,6 @@ function ScheduleScreen({ route }) {
       });
   };
 
-  console.log(newSchedules);
-
   return (
     <View style={styles.largeContainer}>
       <View style={styles.container}>
